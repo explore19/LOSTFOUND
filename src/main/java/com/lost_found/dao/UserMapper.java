@@ -16,7 +16,7 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(User record);
+    int updateByPrimaryKeySelective(User record);  //有什么属性 就更新哪些属性
 
     int updateByPrimaryKey(User record);
 

@@ -6,4 +6,6 @@ import com.lost_found.pojo.User;
 public interface IUserService {
 
     ServerResponse login(String code);
+
+    ServerResponse getUserInfo(Integer id);
 }

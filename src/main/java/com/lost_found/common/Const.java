@@ -1,11 +1,11 @@
 package com.lost_found.common;
 
 public class Const {
-    public static String CURRENT_USER = "current_user";
 
-    public static String Teacher = "teacher";
+//    public static int NO_LOGIN = ;
 
     public static String Manager = "manage";
+
 
     public enum  BATCH_STUDENT_STATUS{
 

@@ -17,6 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -31,8 +32,9 @@ public class UserService implements IUserService {
 
     @Override
     public ServerResponse login(String code) {
-//        ServerResponse  result = getOpenId(code);
+       //ServerResponse  result = getOpenId(code);
         ServerResponse  result = ServerResponse.createBySuccess("123");
+        //System.out.println("dawdad");
         if(result.isSuccess()){
             String openId=result.getData().toString();
             if (userMapper.login(openId)>0){
@@ -65,6 +67,15 @@ public class UserService implements IUserService {
             return ServerResponse.createBySuccess(user);
         }
         return ServerResponse.createByErrorMessage("获取用户信息失败");
+    }
+
+    @Override
+    public ServerResponse  updateInfo(User user){     //测试用的方法
+            int  result = userMapper.updateByPrimaryKeySelective(user);
+            if (result > 0){
+                return ServerResponse.createBySuccessMessage("修改成功！");
+            }
+            return ServerResponse.createBySuccessMessage("修改失败！");
     }
 
     private boolean register(String openId){

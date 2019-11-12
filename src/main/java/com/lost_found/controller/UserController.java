@@ -26,8 +26,9 @@ public class UserController {
 
     @PostMapping("/update_info")
     public  ServerResponse updateInfo(@RequestBody User user){
-        return null;
+        return userService.updateInfo(user);
     }
+
 //    @GetMapping("/register")
 //    public ServerResponse register(String code){
 //        return  userService.login(code);

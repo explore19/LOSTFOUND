@@ -16,9 +16,9 @@ public class PostController {
     @Autowired
     IPostService postService;
 
-    @PostMapping("/announce_info")
-    public ServerResponse announceInfo(Post info){
-        return postService.announceInfo(info);
+    @PostMapping("/post")
+    public ServerResponse add(Post post){
+        return postService.add(post);
     }
 
 

@@ -29,6 +29,19 @@ public class UserController {
         return userService.updateInfo(user);
     }
 
+
+    @PostMapping("/delete_info")   //删除用户信息的方法
+    public ServerResponse deleteInfo(@RequestBody User user){
+        return userService.deleteInfo(user);
+    }
+
+
+    @PostMapping("/search_info")
+    public ServerResponse searchInfo(Integer id) {
+        return userService.searchInfo(id);
+    }
+
+
 //    @GetMapping("/register")
 //    public ServerResponse register(String code){
 //        return  userService.login(code);

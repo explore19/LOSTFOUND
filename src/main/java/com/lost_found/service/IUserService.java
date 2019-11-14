@@ -11,4 +11,8 @@ public interface IUserService {
     ServerResponse getUserInfo(Integer id);
 
     ServerResponse updateInfo(User user);
+
+    ServerResponse deleteInfo(User user);
+
+    ServerResponse searchInfo(Integer id);
 }

@@ -78,6 +78,22 @@ public class UserService implements IUserService {
             return ServerResponse.createBySuccessMessage("修改失败！");
     }
 
+    @Override
+    public ServerResponse deleteInfo(User user) {  //删除功能的方法
+        int result = userMapper.deleteByPrimaryKey(user.getId());
+        if (result > 0) {
+            return ServerResponse.createBySuccessMessage("删除成功！");
+        }
+        return ServerResponse.createBySuccessMessage("删除失败！");
+    }
+
+    @Override
+    public ServerResponse searchInfo(Integer id){  //查找
+        int result = 0;
+
+        return ServerResponse.createBySuccessMessage("查找成功");
+    }
+
     private boolean register(String openId){
         User user = new User();
         user.setOpenId(openId);
@@ -87,7 +103,6 @@ public class UserService implements IUserService {
         int count = userMapper.insert(user);
         return count > 0;
     }
-
 
 
     private ServerResponse getOpenId(String code){

@@ -2,29 +2,24 @@ package com.lost_found.common;
 
 public class Const {
 
-//    public static int NO_LOGIN = ;
 
     public static String Manager = "manage";
 
 
-    public enum  BATCH_STUDENT_STATUS{
+    public enum  STATUS{
 
         /**
-         * 学生考试状态
+         * 帖子状态
          */
-//        NOT_SIGN(0,"未签到"),
-//        HAD_SIGN(1,"已签到"),
-//        IN_PROGRESS(2,"正在考试"),
-//        FINISHED(3,"考试完成"),
-//        MISSING_TEST(4,"缺考"),
-//        GET_SCORE(5,"已出成绩")
+        NEED_EXAMINE_POST(1,"需要审核帖子"),
+        NORAML_POST(0,"正常帖子");
 
-        ;
+
 
         private int status;
         private String desc;
 
-        BATCH_STUDENT_STATUS(int status, String desc) {
+        STATUS(int status, String desc) {
             this.status = status;
             this.desc = desc;
         }
@@ -44,5 +39,7 @@ public class Const {
         public String getDesc() {
             return desc;
         }
+
+
     }
 }

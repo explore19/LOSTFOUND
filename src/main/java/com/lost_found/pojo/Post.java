@@ -1,36 +1,55 @@
 package com.lost_found.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel
 public class Post {
+    @ApiModelProperty(value = "帖子Id")
     private Integer id;
 
+    @ApiModelProperty(value = "用户Id")
     private Integer userId;
 
+    @ApiModelProperty(value = "帖子标题")
     private String name;
 
+    @ApiModelProperty(value = "失物拾物时间")
     private Date loseTime;
 
+    @ApiModelProperty(value = "失物拾物地点")
     private String lostPlace;
 
+    @ApiModelProperty(value = "发布者联系方式")
     private String contact;
 
+    @ApiModelProperty(value = "帖子所携带图片")
     private String image;
 
+    @ApiModelProperty(value = "失物拾物物品类型")
     private Integer type;
 
+    @ApiModelProperty(value = "帖子详情")
     private String details;
 
+    @ApiModelProperty(value = "帖子类型 0-失物 1-拾物")
     private Integer postType;
 
+    @ApiModelProperty(value = "帖子预览数")
     private Integer browsePoints;
 
+    @ApiModelProperty(value = "帖子点赞数")
     private Integer praisePoints;
 
+    @ApiModelProperty(value = "帖子状态 0-正常 1-待审核")
     private Integer status;
 
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
+    @ApiModelProperty(value = "更新时间")
     private Date updateTime;
 
     public Integer getId() {

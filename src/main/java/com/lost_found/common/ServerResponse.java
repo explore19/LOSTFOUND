@@ -2,14 +2,20 @@ package com.lost_found.common;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.lost_found.pojo.Post;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
+@ApiModel(description= "返回响应数据")
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ServerResponse<T> {
 
+    @ApiModelProperty(value = "返回的状态码")
     private int status;
+    @ApiModelProperty(value = "返回的信息")
     private String msg;
+    @ApiModelProperty(value = "返回的数据")
     private T data;
 
     private ServerResponse(int status){

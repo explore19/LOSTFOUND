@@ -3,73 +3,89 @@ package com.lost_found.controller;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.pojo.Post;
 import com.lost_found.service.IPostService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags="帖子")
 @RestController
-@RequestMapping("/announce")
+@RequestMapping("/post")
 public class PostController
 {
     @Autowired
     IPostService postService;
 
-    @PostMapping("/post")
-    public ServerResponse add(Post post)
-    {
-        return postService.add(post);
-    }
 
     /**
      * 根据post对象添加发布信息
      *
-     * @param info
+     * @param post
      * @return
      */
-    @PostMapping("/announce_info")
-    public ServerResponse announceInfo(@RequestBody Post info)
+    @ApiOperation(value = "添加帖子")
+    @PostMapping
+    public ServerResponse savePost(Post post)
     {
-        return postService.announceInfo(info);
-    }
-
-
-    /**
-     * 根据Postid删除发布信息
-     *
-     * @param info
-     * @return
-     */
-    @PostMapping("/delete_post")
-    public ServerResponse delAnnounceInfo(@RequestBody Post info)
-    {
-        return postService.delAnnounceInfo(info);
+        return postService.save(post);
     }
 
     /**
-     * 根据Post对象来修改信息
+     * 根据id删除帖子
      *
-     * @param info
+     * @param id
      * @return
      */
-    @PostMapping("/update_post")
-    public ServerResponse updateAnnounceInfo(@RequestBody Post info)
+    @ApiOperation(value = "删除帖子")
+    @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="query",dataType = "Integer")
+    @DeleteMapping
+    public ServerResponse removePost(Integer id)
     {
-        return postService.updateAnnounceInfo(info);
+        return postService.remove(id);
     }
 
     /**
-     * 根据UserId查找发布信息
+     * 更新帖子数据
+     *
+     * @param post
+     * @return
+     */
+    @ApiOperation(value = "修改帖子")
+    @PutMapping
+    public ServerResponse updatePost(@RequestBody Post post)
+    {
+        return postService.update(post);
+    }
+
+    /**
+     * 根据帖子的Id获得帖子
      *
      * @return
      */
-    @GetMapping("/query_posts")
-    public ServerResponse queryByUserId(Integer userId)
+    @ApiOperation(value = "获得单个帖子信息")
+    @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="query",dataType = "Integer")
+    @GetMapping
+    public ServerResponse<Post> getPost(Integer id)
     {
-        return postService.queryByUserId(userId);
+        return postService.queryById(id);
     }
 
-    @GetMapping("/query_post")
-    public ServerResponse queryById(@RequestBody Post info)
-    {
-        return postService.queryById(info);
-    }
+
+//    暂定是否需要把查询用户所有帖子放在帖子控制层
+//    /**
+//     * 根据UserId查找发布信息
+//     *
+//     * @return
+//     */
+//        @ApiOperation(value = "获得用户所有帖子")
+//    @GetMapping("/query_posts")
+//    public ServerResponse<List<Post>> queryByUserId(Integer userId)
+//    {
+//        return postService.queryByUserId(userId);
+//    }
+
+
+
+
 }

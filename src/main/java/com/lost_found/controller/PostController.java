@@ -38,7 +38,7 @@ public class PostController
      * @return
      */
     @ApiOperation(value = "删除帖子")
-    @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="query",dataType = "Integer")
+    @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="path",dataType = "Integer")
     @DeleteMapping("/{id:\\d+}")
     public ServerResponse removePost(@PathVariable Integer id)
     {

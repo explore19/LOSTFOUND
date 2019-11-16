@@ -1,6 +1,9 @@
 package com.lost_found.common;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.lost_found.pojo.Post;
+
+import java.util.List;
 
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ServerResponse<T> {
@@ -45,7 +48,7 @@ public class ServerResponse<T> {
         return this.msg;
     }
 
-    public static <T> ServerResponse<T> createBySuccess() {
+    public static <T> ServerResponse<T> createBySuccess(String 修改成功, List<Post> posts) {
         return new ServerResponse<T>(ResponseCode.SUCCESS.getCode());
     }
 

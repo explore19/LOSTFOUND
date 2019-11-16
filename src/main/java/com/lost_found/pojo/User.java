@@ -29,6 +29,7 @@ public class User {
 
     private Integer status;
 
+
     public Integer getId() {
         return id;
     }

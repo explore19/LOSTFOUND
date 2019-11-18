@@ -1,32 +1,51 @@
 package com.lost_found.pojo;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel
 public class User {
+
+    @ApiModelProperty(value = "用户Id")
     private Integer id;
 
+    @ApiModelProperty(value = "小程序账户Id")
     private String openId;
 
+    @ApiModelProperty(value = "学号")
     private String sno;
 
+    @ApiModelProperty(value = "真实姓名")
     private String realName;
 
+    @ApiModelProperty(value = "微信昵称")
     private String nickName;
 
+    @ApiModelProperty(value = "性别")
     private String sex;
 
+    @ApiModelProperty(value = "头像path")
     private String headPortrait;
 
+    @ApiModelProperty(value = "电话号码")
     private String phone;
 
+    @ApiModelProperty(value = "qq")
     private String qq;
 
+    @ApiModelProperty(value = "发布帖子时间")
     private Date createTime;
 
+    @ApiModelProperty(value = "用户资料变更时间")
     private Date updateTime;
 
+    @ApiModelProperty(value = "用户最后在线时间")
     private Date currentTime;
 
+    @ApiModelProperty(value = "用户状态  -1-删除 0-是正常 1-是封禁")
     private Integer status;
 
 

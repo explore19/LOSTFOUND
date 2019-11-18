@@ -8,6 +8,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @Api(tags="帖子")
 @RestController
@@ -86,6 +90,17 @@ public class PostController
 //    }
 
 
-
+    /**
+     * 上传帖子图片
+     * @param file
+     * @return
+     */
+    @ApiOperation(value = "上传图片")
+    @ApiImplicitParam()
+    @PostMapping("/upload_img")
+    public ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException
+    {
+        return postService.uploadImg(request, file);
+    }
 
 }

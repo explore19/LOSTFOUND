@@ -2,13 +2,10 @@ package com.lost_found.service;
 
 import com.lost_found.common.ServerResponse;
 import com.lost_found.pojo.Post;
-import org.apache.ibatis.annotations.Mapper;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 public interface IPostService {
@@ -48,4 +45,11 @@ public interface IPostService {
      * @return
      */
     ServerResponse<List<Post>> queryByUserId(Integer userId);
+
+    /**
+     * 上传帖子图片
+     * @param file
+     * @return
+     */
+    ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException;
 }

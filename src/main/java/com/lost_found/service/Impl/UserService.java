@@ -4,6 +4,7 @@ import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.UserMapper;
 import com.lost_found.pojo.User;
 import com.lost_found.service.IUserService;
+import com.lost_found.utils.UploadImgsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.http.HttpResponse;
@@ -16,9 +17,12 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.Date;
 
@@ -95,6 +99,7 @@ public class UserService implements IUserService {
         return ServerResponse.createBySuccessMessage("查找成功");
     }
 
+
     private boolean register(String openId){
         User user = new User();
         user.setOpenId(openId);
@@ -135,4 +140,16 @@ public class UserService implements IUserService {
         }
         return ServerResponse.createByErrorMessage("发生异常错误");
     }
+
+    /**
+     * 上传用户头像
+     */
+    @Override
+    public ServerResponse uploadUserImg(HttpServletRequest request, MultipartFile file) throws IOException
+    {
+        request.setCharacterEncoding("utf-8");
+
+        return UploadImgsUtil.uploadImg(request, file);
+    }
+
 }

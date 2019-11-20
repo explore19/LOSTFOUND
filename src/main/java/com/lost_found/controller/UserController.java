@@ -8,6 +8,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @Api(tags = "用户")
 @RestController
@@ -51,4 +55,14 @@ public class UserController
 //    public ServerResponse register(String code){
 //        return  userService.login(code);
 //    }
+
+    /**
+     * 上传用户头像
+     */
+    @ApiOperation(value = "上传图片")
+    @PostMapping("/upload_user_img")
+    public ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException
+    {
+        return userService.uploadUserImg(request, file);
+    }
 }

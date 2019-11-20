@@ -8,10 +8,9 @@ public interface IReplyService
     /**
      * 根据帖子Id发表回复
      * @param reply
-     * @param postId
      * @return
      */
-    ServerResponse insert(Reply reply, Integer postId);
+    ServerResponse insert(Reply reply);
 
     /**
      * 根据回复id删除回复

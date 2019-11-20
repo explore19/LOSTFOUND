@@ -24,7 +24,7 @@ public class UserController
         return userService.login(code);
     }
 
-    @ApiOperation(value = "查询用户信息")
+    @ApiOperation(value = "查询用户")
     @GetMapping("/get_user_info")
     public ServerResponse getUserInfo()
     {
@@ -32,14 +32,14 @@ public class UserController
         return userService.getUserInfo(id);
     }
 
-    @ApiOperation(value = "更新用户信息")
+    @ApiOperation(value = "更新用户")
     @PostMapping("/update_info")
     public ServerResponse updateInfo(@RequestBody User user)
     {
         return userService.updateInfo(user);
     }
 
-    @ApiOperation(value = "删除用户信息")
+    @ApiOperation(value = "删除用户")
     @PostMapping("/delete_info")   //删除用户信息的方法
     public ServerResponse deleteInfo(@RequestBody User user)
     {
@@ -51,12 +51,4 @@ public class UserController
 //    public ServerResponse register(String code){
 //        return  userService.login(code);
 //    }
-    @ApiOperation(value = "查询用户信息")
-    @ApiImplicitParam(name = "id", value = "用户id", required = true, paramType = "query", dataType = "Integer")
-    @PostMapping("/search_info")
-    public ServerResponse searchInfo(Integer id)
-    {
-        return userService.searchInfo(id);
-    }
-
 }

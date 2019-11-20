@@ -54,10 +54,6 @@ public class ServerResponse<T> {
         return this.msg;
     }
 
-    public static <T> ServerResponse<T> createBySuccess(String 修改成功, List<Post> posts) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode());
-    }
-
     public static <T> ServerResponse<T> createBySuccess(T data) {
         return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), data);
     }

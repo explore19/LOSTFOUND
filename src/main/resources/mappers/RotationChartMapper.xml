@@ -20,6 +20,19 @@
     from rotation_chart
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="queryByPriority" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from rotation_chart
+    order by priority asc
+    limit #{num,jdbcType=INTEGER}
+  </select>
+  <select id="queryTotalCount" resultType="Integer" >
+    select
+    COUNT(*)
+    <include refid="Base_Column_List" />
+    from rotation_chart
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from rotation_chart
     where id = #{id,jdbcType=INTEGER}

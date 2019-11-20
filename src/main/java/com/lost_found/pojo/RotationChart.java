@@ -1,22 +1,34 @@
 package com.lost_found.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel
 public class RotationChart {
+    @ApiModelProperty(value = "轮播图Id")
     private Integer id;
 
+    @ApiModelProperty(value = "轮播图类型 0-帖子轮播图, 1-广告轮播图")
     private Integer type;
 
+    @ApiModelProperty(value = "轮播的帖子Id")
     private Integer postId;
 
+    @ApiModelProperty(value = "轮播图Id")
     private String image;
 
+    @ApiModelProperty(value = "轮播图路径")
     private String url;
 
+    @ApiModelProperty(value = "轮播图Id")
     private Integer priority;
 
+    @ApiModelProperty(value = "轮播图上传的时间")
     private Date creatTime;
 
+    @ApiModelProperty(value = "轮播图更新的时间")
     private Date updateTime;
 
     public Integer getId() {
@@ -81,5 +93,20 @@ public class RotationChart {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "RotationChart{" +
+                "id=" + id +
+                ", type=" + type +
+                ", postId=" + postId +
+                ", image='" + image + '\'' +
+                ", url='" + url + '\'' +
+                ", priority=" + priority +
+                ", creatTime=" + creatTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

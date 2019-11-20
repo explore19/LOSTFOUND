@@ -64,7 +64,6 @@ public class PostController
 
     /**
      * 根据帖子的Id获得帖子
-     *
      * @return
      */
     @ApiOperation(value = "获得单个帖子信息")
@@ -101,5 +100,4 @@ public class PostController
     {
         return postService.uploadImg(request, file);
     }
-
 }

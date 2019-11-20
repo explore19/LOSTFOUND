@@ -1,22 +1,34 @@
 package com.lost_found.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel
 public class Reply {
+    @ApiModelProperty(value = "回复Id")
     private Integer id;
 
+    @ApiModelProperty(value = "添加回复的用户Id")
     private Integer userId;
 
+    @ApiModelProperty(value = "被回复的帖子的Id")
     private Integer postId;
 
+    @ApiModelProperty(value = "被回复的用户的Id")
     private Integer replyId;
 
+    @ApiModelProperty(value = "回复的类型, 0-回帖, 1-回复用户")
     private Integer type;
 
+    @ApiModelProperty(value = "回复的内容")
     private String info;
 
+    @ApiModelProperty(value = "第一次回复的时间")
     private Date createTime;
 
+    @ApiModelProperty(value = "修改回复的时间")
     private Date updateTime;
 
     public Integer getId() {

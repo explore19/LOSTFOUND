@@ -6,6 +6,8 @@ import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.PostMapper;
 import com.lost_found.pojo.Post;
 import com.lost_found.service.IPostService;
+import com.lost_found.utils.FileUtil;
+import com.lost_found.utils.UploadImgsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -97,50 +99,7 @@ public class PostService implements IPostService
     public ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException
     {
         request.setCharacterEncoding("utf-8");
-        if (!file.isEmpty())
-        {
-            String originalFilename = file.getOriginalFilename();//获取图片文件的名字
-            String path = null;
-            String type = null; //图片类型
-            type = originalFilename.indexOf(".") != -1 ?
-                    originalFilename.substring(originalFilename.lastIndexOf(".") + 1, originalFilename.length()) : null;
 
-            if (type != null)
-            {
-                if ("GIF".equals(type.toUpperCase()) || "PNG".equals(type.toUpperCase()) || "JPG".equals(type.toUpperCase()))
-                {
-                    // 项目在容器中实际发布运行的根路径
-                    String realPath = request.getSession().getServletContext().getRealPath("/");
-                    // 自定义的文件名称
-                    String trueFileName = String.valueOf(System.currentTimeMillis()) + originalFilename;
-                    // 设置存放图片文件的路径
-                    path = realPath + "/uploadImg/" + trueFileName;
-//                    postMapper.insert(path);
-                    file.transferTo(new File(path));
-                }
-                else
-                {
-                    return ServerResponse.createByErrorMessage("上传图片失败, 文件类型错误");
-                }
-            }
-            else
-            {
-                return ServerResponse.createByErrorMessage("上传图片失败, 请重新上传");
-            }
-        }
-        return ServerResponse.createBySuccess("文件上传成功");
-
-      /*  <!-- 文件上传配置 -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- 默认编码 -->
-        <property name="defaultEncoding" value="UTF-8"/>
-        <!-- 上传文件大小限制为31M，31*1024*1024 -->
-        <property name="maxUploadSize" value="32505856"/>
-        <!-- 内存中的最大值 -->
-        <property name="maxInMemorySize" value="4096"/>
-    </bean>*/
-
+        return UploadImgsUtil.uploadImg(request, file);
     }
-
-
 }

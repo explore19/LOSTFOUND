@@ -4,6 +4,8 @@ import com.lost_found.pojo.Reply;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Controller
 @Mapper
 public interface ReplyMapper {
@@ -18,4 +20,6 @@ public interface ReplyMapper {
     int updateByPrimaryKeySelective(Reply record);
 
     int updateByPrimaryKey(Reply record);
+
+    List<Reply> queryByUserId(Integer userId);
 }

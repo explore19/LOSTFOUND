@@ -5,7 +5,7 @@ spring:
   datasource:
     password: 123456
     username: root
-    url: jdbc:mysql://localhost:3306/lost_found?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/lostfound?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=UTF-8
 
 server:
   port: 8888

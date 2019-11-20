@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ReplyService implements IReplyService
@@ -17,6 +19,7 @@ public class ReplyService implements IReplyService
 
     /**
      * 根据帖子Id发表回复
+     *
      * @param reply
      * @param postId
      * @return
@@ -24,14 +27,57 @@ public class ReplyService implements IReplyService
     @Override
     public ServerResponse insert(Reply reply, Integer postId)
     {
-        //判断回复帖子的类型
-        int type = reply.getType();//回帖的类型
-        String info = reply.getInfo(); //回复的信息
-        if (type == 0)
-        {
-            //回复帖子内容
-
-        }
-        return null;
+        /*int type = reply.getType();//回帖的类型
+        String info = reply.getInfo(); //回复的信息*/
+        //将reply对象存储到数据库
+        return replyMapper.insert(reply) > 0 ?
+                ServerResponse.createBySuccessMessage("发表回复成功!") :
+                ServerResponse.createByErrorMessage("发表回复失败");
     }
+
+    /**
+     * 根据回复id删除回复
+     * @param id
+     * @return
+     */
+    @Override
+    public ServerResponse delete(Integer id)
+    {
+        return replyMapper.deleteByPrimaryKey(id) > 0 ?
+                ServerResponse.createBySuccessMessage("删除回复成功!") :
+                ServerResponse.createByErrorMessage("删除回复失败");
+    }
+
+    /**
+     * 修改回复
+     * @param reply
+     * @return
+     */
+    @Override
+    public ServerResponse update(Reply reply)
+    {
+        return replyMapper.updateByPrimaryKey(reply) > 0 ?
+                ServerResponse.createBySuccessMessage("修改回复成功") :
+                ServerResponse.createByErrorMessage("修改回复失败");
+    }
+
+    /**
+     * 根据用户Id查询用户的所有回复
+     * @param userId
+     * @return
+     */
+    @Override
+    public ServerResponse queryByUserId(Integer userId)
+    {
+        List<Reply> replies = replyMapper.queryByUserId(userId);
+
+        if (replies != null)
+        {
+            return  ServerResponse.createBySuccessMessage("查询所有回复成功", replies);
+        }
+
+        return ServerResponse.createByErrorMessage("查询所有回复失败");
+    }
+
+
 }

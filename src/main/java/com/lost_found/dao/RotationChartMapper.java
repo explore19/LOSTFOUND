@@ -2,9 +2,13 @@ package com.lost_found.dao;
 
 import com.lost_found.pojo.RotationChart;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-@Controller
+import java.util.List;
+
+@Component
 @Mapper
 public interface RotationChartMapper {
     int deleteByPrimaryKey(Integer id);
@@ -18,4 +22,8 @@ public interface RotationChartMapper {
     int updateByPrimaryKeySelective(RotationChart record);
 
     int updateByPrimaryKey(RotationChart record);
+
+    List<RotationChart> queryByPriority(Integer num);
+
+    int queryTotalCount();
 }

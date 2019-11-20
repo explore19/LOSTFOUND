@@ -1,6 +1,5 @@
 package com.lost_found.pojo;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

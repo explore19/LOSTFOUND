@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/manager")
-
-
 public class ManagerController {
     @Autowired
     IManagerService managerService;
@@ -26,9 +24,8 @@ public class ManagerController {
     public ManagerController() {
     }
 
-    @RequestMapping("/forbid_user")
+    @PutMapping("/forbid_user")
     @ApiOperation("冻结用户")
-    @PutMapping
     public  ServerResponse forbidUser(Integer id){
 
         return managerService.forbidUser(id);
@@ -89,7 +86,7 @@ public class ManagerController {
 
 
 
-    @RequestMapping("/set_rotation_chart_priority")
+    @PutMapping("/set_rotation_chart_priority")
     @ApiOperation("设置轮播图的优先级")
     @ApiImplicitParam(
             name = "priority",

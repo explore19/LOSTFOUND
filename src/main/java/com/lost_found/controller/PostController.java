@@ -30,7 +30,7 @@ public class PostController
      */
     @ApiOperation(value = "添加帖子")
     @PostMapping
-    public ServerResponse savePost(Post post)
+    public ServerResponse savePost(@RequestBody Post post)
     {
         return postService.save(post);
     }
@@ -42,7 +42,7 @@ public class PostController
      * @return
      */
     @ApiOperation(value = "删除帖子")
-    @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="path",dataType = "Integer")
+    @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="path",dataType = "int",example = "1")
     @DeleteMapping("/{id:\\d+}")
     public ServerResponse removePost(@PathVariable Integer id)
     {
@@ -68,7 +68,7 @@ public class PostController
      * @return
      */
     @ApiOperation(value = "获得单个帖子信息")
-    @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="query",dataType = "Integer")
+    @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="query",dataType = "int",example = "1")
     @GetMapping
     public ServerResponse<Post> getPost(Integer id)
     {
@@ -96,7 +96,6 @@ public class PostController
      * @return
      */
     @ApiOperation(value = "上传图片")
-    @ApiImplicitParam()
     @PostMapping("/upload_img")
     public ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException
     {

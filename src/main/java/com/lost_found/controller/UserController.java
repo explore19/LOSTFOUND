@@ -42,13 +42,6 @@ public class UserController {
         return userService.deleteInfo(user);
     }
 
-    @ApiOperation(value = "查询用户信息")
-    @ApiImplicitParam(name = "id", value = "用户id", required = true, paramType = "query", dataType = "Integer")
-    @PostMapping("/search_info")
-    public ServerResponse searchInfo(Integer id) {
-        return userService.searchInfo(id);
-    }
-
 
 //    @GetMapping("/register")
 //    public ServerResponse register(String code){

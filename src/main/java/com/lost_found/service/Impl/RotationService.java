@@ -5,7 +5,6 @@ import com.lost_found.dao.RotationChartMapper;
 import com.lost_found.pojo.RotationChart;
 import com.lost_found.service.IRotationService;
 import com.lost_found.utils.FileUtil;
-import com.lost_found.utils.UploadImgsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

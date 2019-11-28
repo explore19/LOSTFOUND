@@ -4,7 +4,6 @@ import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.UserMapper;
 import com.lost_found.pojo.User;
 import com.lost_found.service.IUserService;
-import com.lost_found.utils.UploadImgsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.http.HttpResponse;

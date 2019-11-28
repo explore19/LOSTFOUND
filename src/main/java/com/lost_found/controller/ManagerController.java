@@ -13,12 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags="管理员功能")
-@Controller
-
 @RestController
 @RequestMapping("/manager")
-
-
 public class ManagerController {
     @Autowired
     IManagerService managerService;
@@ -26,10 +22,10 @@ public class ManagerController {
     public ManagerController() {
     }
 
-    @RequestMapping("/forbid_user")
+    @PutMapping("/forbid_user")
     @ApiOperation("冻结用户")
     @ApiImplicitParam(name = "id", value = "用户id", required = true, paramType = "path", dataType = "int", example = "1")
-    @PutMapping
+
     public  ServerResponse forbidUser(Integer id){
 
         return managerService.forbidUser(id);
@@ -90,7 +86,7 @@ public class ManagerController {
 
 
 
-    @RequestMapping("/set_rotation_chart_priority")
+    @PutMapping("/set_rotation_chart_priority")
     @ApiOperation("设置轮播图的优先级")
     @ApiImplicitParam(
             name = "priority",

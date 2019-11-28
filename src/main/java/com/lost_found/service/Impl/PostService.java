@@ -7,7 +7,6 @@ import com.lost_found.dao.PostMapper;
 import com.lost_found.pojo.Post;
 import com.lost_found.service.IPostService;
 import com.lost_found.utils.FileUtil;
-import com.lost_found.utils.UploadImgsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

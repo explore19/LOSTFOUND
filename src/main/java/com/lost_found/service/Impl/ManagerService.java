@@ -73,7 +73,7 @@ public class ManagerService implements IManagerService {
     }
 
     @Override
-    public ServerResponse updateRotationChart(RotationChart rotationChart){
+    public ServerResponse uploadRotationChart(RotationChart rotationChart){
 
         rotationChart.setUpdateTime(new Date());
 

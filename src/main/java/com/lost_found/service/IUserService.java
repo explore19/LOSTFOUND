@@ -21,5 +21,5 @@ public interface IUserService {
 
     ServerResponse searchInfo(Integer id);
 
-    ServerResponse uploadUserImg(HttpServletRequest request, MultipartFile file) throws IOException;
+//    ServerResponse uploadUserImg(HttpServletRequest request, MultipartFile file) throws IOException;
 }

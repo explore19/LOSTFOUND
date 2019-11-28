@@ -26,9 +26,8 @@ public class PostService implements IPostService
     @Autowired
     PostMapper postMapper;
 
-
     @Override
-    public ServerResponse save(Post post)
+    public ServerResponse<String> save(Post post)
     {
         post.setStatus(Const.STATUS.NEED_EXAMINE_POST.getStatus());  //需要审核
         post.setCreateTime(new Date());
@@ -41,7 +40,7 @@ public class PostService implements IPostService
     }
 
     @Override
-    public ServerResponse remove(Integer id)
+    public ServerResponse<String> remove(Integer id)
     {
         return postMapper.deleteByPrimaryKey(id) > 0 ?
                 ServerResponse.createBySuccessMessage("删除成功") :
@@ -49,7 +48,7 @@ public class PostService implements IPostService
     }
 
     @Override
-    public ServerResponse update(Post post)
+    public ServerResponse<String> update(Post post)
     {
         post.setUpdateTime(new Date());
         return postMapper.updateByPrimaryKeySelective(post) > 0 ?
@@ -89,17 +88,29 @@ public class PostService implements IPostService
     }
 
 
-    /**
-     * 上传帖子的图片并将图片的地址存储到数据库
-     *
-     * @param file
-     * @return
-     */
-    @Override
-    public ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException
-    {
-        request.setCharacterEncoding("utf-8");
+//    /**
+//     * 上传帖子的图片并将图片的地址存储到数据库
+//     *
+//     * @param files
+//     * @return
+//     */
+//    @Override
+//    public ServerResponse<String[]> uploadImg(MultipartFile[] files) throws IOException
+//    {
+//        String[] data = uploadImgsUtil.uploadImg(files);
+//        if ("-1".equals(data[0]))
+//        {
+//            return ServerResponse.createByErrorMessage("上传图片失败, 图片大侠超过限制(2M)");
+//        }
+//        else if ("0".equals(data[0]))
+//        {
+//            return ServerResponse.createByErrorMessage("上传失败, 请重新上传");
+//        }
+//        else
+//        {
+//            return ServerResponse.createBySuccessMessage("上传成功", data);
+//        }
+//    }
 
-        return UploadImgsUtil.uploadImg(request, file);
-    }
+
 }

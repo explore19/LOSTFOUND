@@ -141,15 +141,15 @@ public class UserService implements IUserService {
         return ServerResponse.createByErrorMessage("发生异常错误");
     }
 
-    /**
-     * 上传用户头像
-     */
-    @Override
-    public ServerResponse uploadUserImg(HttpServletRequest request, MultipartFile file) throws IOException
-    {
-        request.setCharacterEncoding("utf-8");
-
-        return UploadImgsUtil.uploadImg(request, file);
-    }
+//    /**
+//     * 上传用户头像
+//     */
+//    @Override
+//    public ServerResponse uploadUserImg(HttpServletRequest request, MultipartFile file) throws IOException
+//    {
+//        request.setCharacterEncoding("utf-8");
+//
+//        return UploadImgsUtil.uploadImg(request, file);
+//    }
 
 }

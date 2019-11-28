@@ -18,11 +18,11 @@ public interface IRotationService
      */
     ServerResponse addRotaChart(RotationChart record);
 
-    /**
-     * 将轮播图存储到服务器上
-     * @return
-     */
-    ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException;
+//    /**
+//     * 将轮播图存储到服务器上
+//     * @return
+//     */
+//    ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException;
 
     /**
      * 根据id删除轮播图

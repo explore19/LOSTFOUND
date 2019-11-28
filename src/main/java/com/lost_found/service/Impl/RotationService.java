@@ -38,20 +38,20 @@ public class RotationService implements IRotationService
                 ServerResponse.createByErrorMessage("添加失败, 请重新尝试");
     }
 
-    /**
-     * 将轮播图存储到服务器上
-     * @return
-     */
-    @Override
-    public ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException
-    {
-        MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
-
-        //"file"是前端图片对应的name
-        MultipartFile multipartFile = req.getFile("file");
-
-        return UploadImgsUtil.uploadImg(request, multipartFile);
-    }
+//    /**
+//     * 将轮播图存储到服务器上
+//     * @return
+//     */
+//    @Override
+//    public ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException
+//    {
+//        MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
+//
+//        //"file"是前端图片对应的name
+//        MultipartFile multipartFile = req.getFile("file");
+//
+//        return UploadImgsUtil.uploadImg(request, multipartFile);
+//    }
 
     /**
      * 根据id删除轮播图

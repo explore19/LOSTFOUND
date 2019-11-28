@@ -30,7 +30,7 @@ public class PostController
      */
     @ApiOperation(value = "添加帖子")
     @PostMapping
-    public ServerResponse savePost(@RequestBody Post post)
+    public ServerResponse<String> savePost(@RequestBody Post post)
     {
         return postService.save(post);
     }
@@ -44,7 +44,7 @@ public class PostController
     @ApiOperation(value = "删除帖子")
     @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="path",dataType = "int",example = "1")
     @DeleteMapping("/{id:\\d+}")
-    public ServerResponse removePost(@PathVariable Integer id)
+    public ServerResponse<String> removePost(@PathVariable Integer id)
     {
         return postService.remove(id);
     }
@@ -57,7 +57,7 @@ public class PostController
      */
     @ApiOperation(value = "修改帖子")
     @PutMapping
-    public ServerResponse updatePost(@RequestBody Post post)
+    public ServerResponse<String> updatePost(@RequestBody Post post)
     {
         return postService.update(post);
     }
@@ -69,7 +69,7 @@ public class PostController
     @ApiOperation(value = "获得单个帖子信息")
     @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="query",dataType = "int",example = "1")
     @GetMapping
-    public ServerResponse<Post> getPost(Integer id)
+    public ServerResponse<Post> getPost(@PathVariable Integer id)
     {
         return postService.queryById(id);
     }
@@ -89,15 +89,17 @@ public class PostController
 //    }
 
 
-    /**
-     * 上传帖子图片
-     * @param file
-     * @return
-     */
-    @ApiOperation(value = "上传图片")
-    @PostMapping("/upload_img")
-    public ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException
-    {
-        return postService.uploadImg(request, file);
-    }
+//    /**
+//     * 上传帖子图片
+//     * @param files
+//     * @return
+//     */
+//    @ApiOperation(value = "上传图片")
+//    @PostMapping("/upload_img")
+//    public ServerResponse<String[]> uploadImg(MultipartFile[] files) throws IOException
+//    {
+//        return postService.uploadImg(files);
+//    }
+
+
 }

@@ -15,21 +15,21 @@ public interface IPostService {
      * @param post
      * @return
      */
-    ServerResponse save(Post post);
+    ServerResponse<String> save(Post post);
 
     /**
      * 根据id删除发布信息
      * @param id
      * @return
      */
-    ServerResponse remove(Integer id);
+    ServerResponse<String> remove(Integer id);
 
     /**
      * 根据Post对象来修改信息
      * @param post
      * @return
      */
-    ServerResponse update(Post post);
+    ServerResponse<String> update(Post post);
 
 
     /**
@@ -46,10 +46,10 @@ public interface IPostService {
      */
     ServerResponse<List<Post>> queryByUserId(Integer userId);
 
-    /**
-     * 上传帖子图片
-     * @param file
-     * @return
-     */
-    ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException;
+//    /**
+//     * 上传帖子图片
+//     * @param files
+//     * @return
+//     */
+//    ServerResponse<String[]> uploadImg(MultipartFile[] files) throws IOException;
 }

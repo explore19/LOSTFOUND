@@ -28,6 +28,7 @@ public class ManagerController {
 
     @RequestMapping("/forbid_user")
     @ApiOperation("冻结用户")
+    @ApiImplicitParam(name = "id", value = "用户id", required = true, paramType = "path", dataType = "int", example = "1")
     @PutMapping
     public  ServerResponse forbidUser(Integer id){
 

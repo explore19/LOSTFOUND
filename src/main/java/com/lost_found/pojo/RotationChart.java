@@ -1,5 +1,6 @@
 package com.lost_found.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -26,9 +27,11 @@ public class RotationChart {
     private Integer priority;
 
     @ApiModelProperty(value = "轮播图上传的时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date creatTime;
 
     @ApiModelProperty(value = "轮播图更新的时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
     public Integer getId() {

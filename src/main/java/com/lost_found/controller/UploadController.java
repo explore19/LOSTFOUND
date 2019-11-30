@@ -59,11 +59,9 @@ public class UploadController
                         return ServerResponse.createBySuccessMessage("上传成功!",url);
                     }
                     return ServerResponse.createByErrorMessage("上传图片失败, 文件类型错误");
-
                 }
             }
             return ServerResponse.createByErrorMessage("上传图片失败, 请重新上传");
-
     }
 }
 

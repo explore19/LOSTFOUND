@@ -1,5 +1,6 @@
 package com.lost_found.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -26,9 +27,11 @@ public class Reply {
     private String info;
 
     @ApiModelProperty(value = "第一次回复的时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     @ApiModelProperty(value = "修改回复的时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
     public Integer getId() {

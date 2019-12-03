@@ -25,7 +25,8 @@ public class UploadController
     {
         String url="";
         //检查图片的大小
-            boolean flag = FileUtil.checkFileSize(file.getSize(), 2, "M");
+            boolean flag = FileUtil.checkFileSize(file.getSize(), 5, "M");
+
             if (!flag)
             {
                 //图片大小超限

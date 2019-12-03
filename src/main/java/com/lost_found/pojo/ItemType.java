@@ -1,7 +1,10 @@
 package com.lost_found.pojo;
 
+import io.swagger.annotations.ApiModel;
+
 import java.util.Date;
 
+@ApiModel
 public class ItemType {
     private Integer id;
 

@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @Api(tags="帖子")
 @RestController
@@ -81,11 +78,11 @@ public class PostController
 //     *
 //     * @return
 //     */
-//        @ApiOperation(value = "获得用户所有帖子")
-//    @GetMapping("/query_posts")
-//    public ServerResponse<List<Post>> queryByUserId(Integer userId)
-//    {
-//        return postService.queryByUserId(userId);
+//      @ApiOperation(value = "获得用户所有帖子")
+////    @GetMapping("/query_posts")
+////    public ServerResponse<List<Post>> queryByUserId(Integer userId)
+////    {
+////        return postService.queryByUserId(userId);
 //    }
 
 

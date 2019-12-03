@@ -2,14 +2,13 @@ package com.lost_found.controller;
 
 import com.lost_found.common.ServerResponse;
 import com.lost_found.pojo.RotationChart;
-
 import com.lost_found.service.IManagerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags="管理员功能")
@@ -29,6 +28,7 @@ public class ManagerController {
     public  ServerResponse forbidUser(Integer id){
 
         return managerService.forbidUser(id);
+
     }
 
     @DeleteMapping("/delete_user_post/{id}")

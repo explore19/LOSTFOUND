@@ -21,7 +21,7 @@ public class ItemTypeController
 
     /**
      * 根据post对象添加发布信息
-     * @param itemType
+     * @param type
      * @return
      */
     @ApiOperation(value = "添加物品类型")
@@ -48,7 +48,7 @@ public class ItemTypeController
     /**
      * 更新物品类型的数据
      *
-     * @param itemType
+     * @param type
      * @return
      */
     @ApiOperation(value = "修改物品类型")
@@ -65,7 +65,7 @@ public class ItemTypeController
     @ApiOperation(value = "获得单个物品类型")
     @ApiImplicitParam(name="id",value="物品类型Id",required=true,paramType="query",dataType = "int",example = "1")
     @GetMapping
-    public ServerResponse<ItemType> getPost(@PathVariable Integer id)
+    public ServerResponse<ItemType> getPost(Integer id)
     {
         return itemTypeService.getType(id);
     }

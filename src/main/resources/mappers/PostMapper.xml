@@ -35,7 +35,13 @@
     from post
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
-
+  <select id="queryByForm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from post
+    order by update_time DESC
+    limit #{offSet},#{pageSize}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from post
     where id = #{id,jdbcType=INTEGER}

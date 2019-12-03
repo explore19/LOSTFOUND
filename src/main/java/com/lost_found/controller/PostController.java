@@ -1,6 +1,7 @@
 package com.lost_found.controller;
 
 import com.lost_found.common.ServerResponse;
+import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
 import com.lost_found.service.IPostService;
 import io.swagger.annotations.Api;
@@ -8,6 +9,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Api(tags="帖子")
@@ -66,11 +69,23 @@ public class PostController
     @ApiOperation(value = "获得单个帖子信息")
     @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="query",dataType = "int",example = "1")
     @GetMapping
-    public ServerResponse<Post> getPost(@PathVariable Integer id)
+    public ServerResponse<Post> getPost( Integer id)
     {
         return postService.queryById(id);
     }
 
+
+    /**
+     * 根据获得多个帖子
+     * @return
+     */
+    @ApiOperation(value = "根据QueryPostForm查询获得一定数目帖子")
+    @ApiImplicitParam(name="queryPostForm",value="查询表单",required=true,paramType="query")
+    @GetMapping("/query")
+    public ServerResponse  query(QueryPostForm queryPostForm)
+    {
+        return postService.query(queryPostForm);
+    }
 
 //    暂定是否需要把查询用户所有帖子放在帖子控制层
 //    /**

@@ -1,6 +1,7 @@
 package com.lost_found.service;
 
 import com.lost_found.common.ServerResponse;
+import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
@@ -45,10 +46,12 @@ public interface IPostService {
      */
     ServerResponse<List<Post>> queryByUserId(Integer userId);
 
-//    /**
-//     * 上传帖子图片
-//     * @param files
-//     * @return
-//     */
-//    ServerResponse<String[]> uploadImg(MultipartFile[] files) throws IOException;
+    /**
+     * 根据QueryPostForm查询获得一定数目帖子
+     * @param queryPostForm
+     * @return
+     */
+    ServerResponse query(QueryPostForm queryPostForm);
+
+
 }

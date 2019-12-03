@@ -4,7 +4,10 @@ package com.lost_found.service.Impl;
 import com.lost_found.common.Const;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.PostMapper;
+import com.lost_found.dao.UserMapper;
+import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
+import com.lost_found.pojo.User;
 import com.lost_found.service.IPostService;
 import com.lost_found.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -25,13 +27,17 @@ public class PostService implements IPostService
     @Autowired
     PostMapper postMapper;
 
+    @Autowired
+    UserMapper userMapper;
+
     @Override
     public ServerResponse<String> save(Post post)
     {
         post.setStatus(Const.STATUS.NEED_EXAMINE_POST.getStatus());  //需要审核
         post.setCreateTime(new Date());
         post.setUpdateTime(new Date());
-
+        post.setBrowsePoints(0);
+        post.setPraisePoints(0);
         //将新添加的post信息加入到数据库中
         return postMapper.insert(post) > 0 ?
                 ServerResponse.createBySuccessMessage("发布成功") :
@@ -84,6 +90,21 @@ public class PostService implements IPostService
     public ServerResponse<List<Post>> queryByUserId(Integer userId)
     {
         return ServerResponse.createBySuccess(postMapper.queryByUserId(userId));
+    }
+
+    @Override
+    public ServerResponse query(QueryPostForm queryPostForm) {
+        List<Post> postList =postMapper.queryByForm(queryPostForm);
+        List<Map<String,Object>> allData = new ArrayList<>();
+        for (Post post:postList) {
+            User user = userMapper.selectByPrimaryKey(post.getUserId());
+            Map<String,Object> data =new HashMap<>();
+            data.put("nickName",user.getNickName());
+            data.put("headPortrait",user.getHeadPortrait());
+            data.put("post",post);
+            allData.add(data);
+        }
+        return ServerResponse.createBySuccess(allData);
     }
 
 

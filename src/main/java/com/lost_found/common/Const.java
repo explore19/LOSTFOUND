@@ -3,16 +3,20 @@ package com.lost_found.common;
 public class Const {
 
 
-    public static String Manager = "manage";
+    public static final String Manager = "manage";
 
+    public static final Integer DEFAULT_PAGE = 1;
+
+    public static final Integer DEFAULT_PAGE_SIZE = 5;
 
     public enum  STATUS{
 
         /**
          * 帖子状态
          */
-        NEED_EXAMINE_POST(1,"需要审核帖子"),
-        NORAML_POST(0,"正常帖子");
+        NEED_EXAMINE_POST(0,"需要审核帖子"),
+        NORAML_POST(1,"正常帖子"),
+        FAIL_PASS_POST(2,"未通过审核的帖子");
 
 
 

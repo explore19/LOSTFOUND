@@ -50,9 +50,11 @@ public class Post {
     @ApiModelProperty(value = "帖子状态 0-正常 1-待审核")
     private Integer status;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @ApiModelProperty(value = "更新时间")
     private Date updateTime;
 

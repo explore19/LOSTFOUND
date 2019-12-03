@@ -1,5 +1,6 @@
 package com.lost_found.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -36,12 +37,15 @@ public class User {
     private String qq;
 
     @ApiModelProperty(value = "发布帖子时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     @ApiModelProperty(value = "用户资料变更时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
     @ApiModelProperty(value = "用户最后在线时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date currentTime;
 
     @ApiModelProperty(value = "用户状态  -1-删除 0-是正常 1-是封禁")

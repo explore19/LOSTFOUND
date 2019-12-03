@@ -1,6 +1,8 @@
 package com.lost_found.pojo;
 
 import io.swagger.annotations.ApiModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 import java.util.Date;
 
@@ -10,8 +12,10 @@ public class ItemType {
 
     private String name;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
     public Integer getId() {

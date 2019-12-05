@@ -35,18 +35,18 @@ public class RotationChartController
         return rotationService.addRotaChart(record);
     }
 
-    /**
-     * 将轮播图存储到服务器上
-     * 前端循环上传需要上传的图片
-     * @param request
-     * @return
-     */
-    @ApiOperation(value = "上传轮播图到服务器")
-    @PostMapping("/upload_img")
-    public ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException
-    {
-        return rotationService.uploadRotaImg(request);
-    }
+//    /**
+//     * 将轮播图存储到服务器上
+//     * 前端循环上传需要上传的图片
+//     * @param request
+//     * @return
+//     */
+//    @ApiOperation(value = "上传轮播图到服务器")
+//    @PostMapping("/upload_img")
+//    public ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException
+//    {
+//        return rotationService.uploadRotaImg(request);
+//    }
 
     /**
      * 根据id删除轮播图

@@ -9,6 +9,7 @@ import com.lost_found.dao.UserMapper;
 import com.lost_found.pojo.RotationChart;
 import com.lost_found.pojo.User;
 import com.lost_found.service.IManagerService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,7 +74,9 @@ public class ManagerService implements IManagerService {
     }
 
     @Override
-    public ServerResponse uploadRotationChart(RotationChart rotationChart) {
+
+    public ServerResponse uploadRotationChart(@NotNull RotationChart rotationChart){
+
         rotationChart.setUpdateTime(new Date());
 
         rotationChart.setCreatTime(new Date());

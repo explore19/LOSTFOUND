@@ -22,17 +22,18 @@ public class UserController
     IUserService userService;
 
     @ApiOperation(value = "用户登录")
+    @ApiImplicitParam(name = "code", value = "登录验证码", required = true, paramType = "query", dataType = "String", example = "1")
     @PostMapping("/login")
-    public ServerResponse login(String code)
+    public ServerResponse login(@RequestParam("code") String code)
     {
         return userService.login(code);
     }
 
     @ApiOperation(value = "查询用户")
+    @ApiImplicitParam(name="id",value="用户Id",required=true,paramType="query",dataType = "int",example = "1")
     @GetMapping("/get_user_info")
-    public ServerResponse getUserInfo()
+    public ServerResponse getUserInfo(@PathVariable Integer id)
     {
-        int id = 1;
         return userService.getUserInfo(id);
     }
 
@@ -56,13 +57,15 @@ public class UserController
 //        return  userService.login(code);
 //    }
 
-    /**
-     * 上传用户头像
-     */
-    @ApiOperation(value = "上传图片")
-    @PostMapping("/upload_user_img")
-    public ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException
-    {
-        return userService.uploadUserImg(request, file);
-    }
+//    /**
+//     * 上传用户头像
+//     */
+//    @ApiOperation(value = "上传图片")
+//    @PostMapping("/upload_user_img")
+//    public ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException
+//    {
+//        return userService.uploadUserImg(request, file);
+//    }
+
+
 }

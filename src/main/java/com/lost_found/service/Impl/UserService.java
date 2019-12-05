@@ -4,7 +4,6 @@ import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.UserMapper;
 import com.lost_found.pojo.User;
 import com.lost_found.service.IUserService;
-import com.lost_found.utils.UploadImgsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.http.HttpResponse;
@@ -141,15 +140,15 @@ public class UserService implements IUserService {
         return ServerResponse.createByErrorMessage("发生异常错误");
     }
 
-    /**
-     * 上传用户头像
-     */
-    @Override
-    public ServerResponse uploadUserImg(HttpServletRequest request, MultipartFile file) throws IOException
-    {
-        request.setCharacterEncoding("utf-8");
-
-        return UploadImgsUtil.uploadImg(request, file);
-    }
+//    /**
+//     * 上传用户头像
+//     */
+//    @Override
+//    public ServerResponse uploadUserImg(HttpServletRequest request, MultipartFile file) throws IOException
+//    {
+//        request.setCharacterEncoding("utf-8");
+//
+//        return UploadImgsUtil.uploadImg(request, file);
+//    }
 
 }

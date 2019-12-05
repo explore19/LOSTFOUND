@@ -1,5 +1,6 @@
 package com.lost_found.dao;
 
+import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
 
 
@@ -26,4 +27,6 @@ public interface PostMapper {
     int updateByPrimaryKey(Post record);
 
     List<Post> queryByUserId(Integer userId);
+
+    List<Post> queryByForm(QueryPostForm queryPostForm);
 }

@@ -2,10 +2,8 @@ package com.lost_found.service.Impl;
 
 
 import com.lost_found.common.ServerResponse;
-import com.lost_found.dao.PostMapper;
-import com.lost_found.dao.ReplyMapper;
-import com.lost_found.dao.RotationChartMapper;
-import com.lost_found.dao.UserMapper;
+import com.lost_found.dao.*;
+import com.lost_found.pojo.Manager;
 import com.lost_found.pojo.RotationChart;
 import com.lost_found.pojo.User;
 import com.lost_found.service.IManagerService;
@@ -31,6 +29,9 @@ public class ManagerService implements IManagerService {
 
     @Autowired
     RotationChartMapper rotationChartMapper;
+
+    @Autowired
+    ManagerMapper managerMapper;
 
 
     @Override
@@ -115,5 +116,33 @@ public class ManagerService implements IManagerService {
                 ServerResponse.createByErrorMessage("修改失败");
     }
 
+    /**
+     * 根据管理员用户名去查询
+     * @param username
+     * @return
+     */
+    @Override
+    public Manager queryByUsername(String username)
+    {
+        Manager manager = managerMapper.queryByUsername(username);
+        return manager;
+    }
 
+    /**
+     * 管理员登陆
+     * @param username
+     * @param password
+     * @return
+     */
+    @Override
+    public ServerResponse login(String username, String password)
+    {
+        Manager manager = queryByUsername(username);
+        String _password = manager.getPassword();
+        if (manager != null && password.equals(_password))
+        {
+            return ServerResponse.createBySuccessMessage("登陆成功");
+        }
+        return ServerResponse.createByErrorMessage("用户名或密码错误");
+    }
 }

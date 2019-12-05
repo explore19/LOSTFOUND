@@ -20,9 +20,9 @@
     id, open_id, sno, real_name, nick_name, sex, head_portrait, phone, qq, create_time, 
     update_time, `current_time`, status
   </sql>
-  <select id="login"  resultType="Integer">
+  <select id="login"  resultMap="BaseResultMap">
   select
-  count(*)
+  *
   from user
   where  open_id=#{openID}
 </select>

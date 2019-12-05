@@ -1,5 +1,6 @@
 package com.lost_found.service.Impl;
 
+import com.lost_found.common.Const;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.UserMapper;
 import com.lost_found.pojo.User;
@@ -16,12 +17,13 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.Date;
 
@@ -31,20 +33,35 @@ public class UserService implements IUserService {
     @Autowired
     UserMapper userMapper;
 
-
     @Override
     public ServerResponse login(String code) {
-        //ServerResponse  result = getOpenId(code);
+
+        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
         ServerResponse  result = ServerResponse.createBySuccess("123");
-        //System.out.println("dawdad");
         if(result.isSuccess()){
             String openId=result.getData().toString();
-            if (userMapper.login(openId)>0){
+
+            User user = userMapper.login(openId);
+
+            if (user != null){
+                //获取要返回的sessionId
+                HttpSession session = request.getSession();
+                session.setAttribute("role", Const.USER);
+                session.setAttribute("userId", user.getId());
                 return ServerResponse.createBySuccessMessage("登陆成功");
             }
             if(register(openId)){
-                return ServerResponse.createBySuccessMessage("登陆成功");
+                //获取要返回的sessionId
+                user = userMapper.login(openId);
+                if (user != null){
+                    //获取要返回的sessionId
+                    HttpSession session = request.getSession();
+                    session.setAttribute("role", Const.USER);
+                    session.setAttribute("userId", user.getId());
+                    return ServerResponse.createBySuccessMessage("登陆成功");
+                }
             }
+
         }
         //1.发送请求
         //2.判断微信服务器请求返回是否成功

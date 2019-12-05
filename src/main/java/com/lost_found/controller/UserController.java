@@ -32,8 +32,9 @@ public class UserController
     @ApiOperation(value = "查询用户")
     @ApiImplicitParam(name="id",value="用户Id",required=true,paramType="query",dataType = "int",example = "1")
     @GetMapping("/get_user_info")
-    public ServerResponse getUserInfo(@PathVariable Integer id)
+    public ServerResponse getUserInfo()
     {
+        int id = 1;
         return userService.getUserInfo(id);
     }
 

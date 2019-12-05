@@ -9,6 +9,7 @@ public class Const {
 
     public static final Integer DEFAULT_PAGE_SIZE = 5;
 
+    public static final String USER = "user";
     public enum  STATUS{
 
         /**

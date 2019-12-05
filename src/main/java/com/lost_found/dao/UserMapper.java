@@ -22,5 +22,5 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    int login(String openId);
+    User login(String openId);
 }

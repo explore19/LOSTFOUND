@@ -105,8 +105,6 @@ public class PostService implements IPostService
                 data.put("post",post);
                 allData.add(data);
             }
-
-
         }
         return ServerResponse.createBySuccess(allData);
     }

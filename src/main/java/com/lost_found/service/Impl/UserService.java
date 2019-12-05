@@ -40,17 +40,25 @@ public class UserService implements IUserService {
         if(result.isSuccess()){
             String openId=result.getData().toString();
 
-            if (userMapper.login(openId)>0){
+            User user = userMapper.login(openId);
+
+            if (user != null){
                 //获取要返回的sessionId
                 HttpSession session = request.getSession();
                 session.setAttribute("role", Const.USER);
+                session.setAttribute("userId", user.getId());
                 return ServerResponse.createBySuccessMessage("登陆成功");
             }
             if(register(openId)){
                 //获取要返回的sessionId
-                HttpSession session = request.getSession();
-                session.setAttribute("role", Const.USER);
-                return ServerResponse.createBySuccessMessage("登陆成功");
+                user = userMapper.login(openId);
+                if (user != null){
+                    //获取要返回的sessionId
+                    HttpSession session = request.getSession();
+                    session.setAttribute("role", Const.USER);
+                    session.setAttribute("userId", user.getId());
+                    return ServerResponse.createBySuccessMessage("登陆成功");
+                }
             }
 
         }

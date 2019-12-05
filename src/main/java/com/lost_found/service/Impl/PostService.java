@@ -98,11 +98,15 @@ public class PostService implements IPostService
         List<Map<String,Object>> allData = new ArrayList<>();
         for (Post post:postList) {
             User user = userMapper.selectByPrimaryKey(post.getUserId());
-            Map<String,Object> data =new HashMap<>();
-            data.put("nickName",user.getNickName());
-            data.put("headPortrait",user.getHeadPortrait());
-            data.put("post",post);
-            allData.add(data);
+            if(user != null){
+                Map<String,Object> data =new HashMap<>();
+                data.put("nickName",user.getNickName());
+                data.put("headPortrait",user.getHeadPortrait());
+                data.put("post",post);
+                allData.add(data);
+            }
+
+
         }
         return ServerResponse.createBySuccess(allData);
     }

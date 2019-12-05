@@ -2,12 +2,13 @@ package com.lost_found.controller;
 
 import com.lost_found.common.ServerResponse;
 import com.lost_found.pojo.RotationChart;
-import com.lost_found.pojo.User;
+
 import com.lost_found.service.IManagerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.omg.PortableInterceptor.INACTIVE;
+
+import org.jetbrains.annotations.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,17 +22,19 @@ public class ManagerController {
     @Autowired
     IManagerService managerService;
 
+    @Contract(pure = true)
     public ManagerController() {
     }
 
-    @PutMapping("/forbid_user")
+    @RequestMapping("/forbid_user")
     @ApiOperation("冻结用户")
+    @PutMapping
     public  ServerResponse forbidUser(Integer id){
 
         return managerService.forbidUser(id);
     }
 
-    @DeleteMapping("/delete_user_post")
+    @DeleteMapping("/delete_user_post/{id}")
     @ApiOperation("删除用户贴子")
     @ApiImplicitParam(
             name = "id",
@@ -40,13 +43,13 @@ public class ManagerController {
             paramType = "path",
             dataType = "Integer"
     )
-    public ServerResponse deleteUserPost(Integer id){
+    public ServerResponse deleteUserPost(@PathVariable("id") Integer id){
 
         return this.managerService.deleteUserPost(id);
 
     }
 
-    @DeleteMapping("/delete_reply")
+    @DeleteMapping("/delete_reply/{id}")
     @ApiOperation("删除用户帖子里的回复")
     @ApiImplicitParam(
             name = "id",
@@ -55,7 +58,7 @@ public class ManagerController {
             paramType = "path",
             dataType = "Integer"
     )
-    public ServerResponse deleteReply(Integer id){
+    public ServerResponse deleteReply(@PathVariable("id") Integer id){
 
         return this.managerService.deleteReply(id);
     }
@@ -64,13 +67,13 @@ public class ManagerController {
 
     @PostMapping("/update_rotation_chart")
     @ApiOperation("更新轮播图")
-    public ServerResponse updateRotationChart(RotationChart rotationChart){
-        return this.managerService.updateRotationChart(rotationChart);
+    public ServerResponse uploadRotationChart(RotationChart rotationChart){
+        return this.managerService.uploadRotationChart(rotationChart);
     }
 
 
 
-    @DeleteMapping("/delete_rotation_chart")
+    @DeleteMapping("/delete_rotation_chart/{id}")
     @ApiOperation("删除轮播图")
     @ApiImplicitParam(
             name = "id",
@@ -79,14 +82,14 @@ public class ManagerController {
             paramType = "path",
             dataType = "Integer"
     )
-    public ServerResponse deleteRotationChar(Integer id){
+    public ServerResponse deleteRotationChar(@PathVariable("id") Integer id){
 
         return this.managerService.deleteRotationChar(id);
     }
 
 
 
-    @PutMapping("/set_rotation_chart_priority")
+    @RequestMapping("/set_rotation_chart_priority")
     @ApiOperation("设置轮播图的优先级")
     @ApiImplicitParam(
             name = "priority",

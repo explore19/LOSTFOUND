@@ -21,11 +21,10 @@ public class ReplyService implements IReplyService
      * 根据帖子Id发表回复
      *
      * @param reply
-     * @param postId
      * @return
      */
     @Override
-    public ServerResponse insert(Reply reply, Integer postId)
+    public ServerResponse insert(Reply reply)
     {
         /*int type = reply.getType();//回帖的类型
         String info = reply.getInfo(); //回复的信息*/

@@ -57,8 +57,8 @@
            selectByExampleQueryId="false"></table>
     <table tableName="post" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
            selectByExampleQueryId="false"></table>
-    <table tableName="reply" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-           selectByExampleQueryId="false"></table>
+    <tamble tableName="reply" enableCountByExaple="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+           selectByExampleQueryId="false"></tamble>
     <table tableName="rotation_chart" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
            selectByExampleQueryId="false"></table>
     <table tableName="place" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"

@@ -43,7 +43,7 @@ public class RotationService implements IRotationService
      * @return
      */
     @Override
-    public ServerResponse uploadRotaImg(HttpServletRequest request, HttpServletResponse response) throws IOException
+    public ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException
     {
         MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
 

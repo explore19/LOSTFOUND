@@ -39,14 +39,13 @@ public class RotationChartController
      * 将轮播图存储到服务器上
      * 前端循环上传需要上传的图片
      * @param request
-     * @param response
      * @return
      */
     @ApiOperation(value = "上传轮播图到服务器")
     @PostMapping("/upload_img")
-    public ServerResponse uploadRotaImg(HttpServletRequest request, HttpServletResponse response) throws IOException
+    public ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException
     {
-        return rotationService.uploadRotaImg(request, response);
+        return rotationService.uploadRotaImg(request);
     }
 
     /**
@@ -55,7 +54,7 @@ public class RotationChartController
      * @return
      */
     @ApiOperation(value = "删除轮播图")
-    @ApiImplicitParam(name = "id", value = "轮播图Id", required = true, paramType = "path", dataType = "Integer")
+    @ApiImplicitParam(name = "id", value = "轮播图Id", required = true, paramType = "path", dataType = "int", example = "1")
     @DeleteMapping("/delete_rotation_chart/{id:\\d+}")
     public ServerResponse deleteRotaChart(@PathVariable Integer id)
     {
@@ -68,7 +67,7 @@ public class RotationChartController
      * @return
      */
     @ApiOperation(value = "按照优先级查询轮播图")
-    @ApiImplicitParam(name = "num", value = "要查询的数量", required = false, paramType = "query", dataType = "Integer")
+    @ApiImplicitParam(name = "num", value = "要查询的数量", required = false, paramType = "query", dataType = "int", example = "1")
     @GetMapping("/find_rotation")
     public ServerResponse<List<RotationChart>> changeRotaChart(Integer num)
     {

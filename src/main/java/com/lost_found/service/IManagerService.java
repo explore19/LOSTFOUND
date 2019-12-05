@@ -18,7 +18,7 @@ public interface IManagerService {
 
     ServerResponse deleteReply(Integer id);//删除帖子回复
 
-    ServerResponse updateRotationChart(RotationChart rotationChart);//上传轮播图
+    ServerResponse uploadRotationChart(RotationChart rotationChart);//上传轮播图
 
     ServerResponse deleteRotationChar(Integer id);//删除轮播图
 

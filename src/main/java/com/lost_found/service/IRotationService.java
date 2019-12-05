@@ -22,7 +22,7 @@ public interface IRotationService
      * 将轮播图存储到服务器上
      * @return
      */
-    ServerResponse uploadRotaImg(HttpServletRequest request, HttpServletResponse response) throws IOException;
+    ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException;
 
     /**
      * 根据id删除轮播图

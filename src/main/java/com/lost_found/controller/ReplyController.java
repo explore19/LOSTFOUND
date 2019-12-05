@@ -20,7 +20,6 @@ public class ReplyController
     /**
      * 根据帖子id来添加回复
      * @param reply
-     * @param postId 帖子id
      * @return
      */
     @ApiOperation(value = "发表回复")
@@ -28,9 +27,9 @@ public class ReplyController
 //            @ApiImplicitParam(name = "postId", value = "帖子Id", required = true, paramType = "query", dataType = "Integer")
 //    })
     @PostMapping("/announce_reply")
-    public ServerResponse postReply(@RequestBody Reply reply, Integer postId)
+    public ServerResponse postReply(@RequestBody Reply reply)
     {
-        return replyService.insert(reply, postId);
+        return replyService.insert(reply);
     }
 
     /**
@@ -39,7 +38,7 @@ public class ReplyController
      * @return
      */
     @ApiOperation(value = "删除回复")
-    @ApiImplicitParam(name = "replyId", value = "回复Id", required = true, paramType = "path", dataType = "Integer")
+    @ApiImplicitParam(name = "replyId", value = "回复Id", required = true, paramType = "path", dataType = "int", example = "1")
     @DeleteMapping("/{id:\\d+}")
     public ServerResponse deleteReply(@PathVariable Integer id)
     {
@@ -65,7 +64,7 @@ public class ReplyController
      * @return
      */
     @ApiOperation(value = "查询用户的所有回复")
-    @ApiImplicitParam(name = "userId", value = "用户Id", required = true, paramType = "query", dataType = "Integer")
+    @ApiImplicitParam(name = "userId", value = "用户Id", required = true, paramType = "query", dataType = "int", example = "1")
     @GetMapping("/select_user_reply")
     public ServerResponse queryByUserId(Integer userId)
     {

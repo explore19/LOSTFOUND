@@ -1,7 +1,11 @@
 package com.lost_found.dao;
 
 import com.lost_found.pojo.Manager;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
+@Component
+@Mapper
 public interface ManagerMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,6 @@ public interface ManagerMapper {
     int updateByPrimaryKeySelective(Manager record);
 
     int updateByPrimaryKey(Manager record);
+
+    Manager queryByUsername(String username);
 }

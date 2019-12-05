@@ -1,10 +1,12 @@
 package com.lost_found.controller;
 
 import com.lost_found.common.ServerResponse;
+import com.lost_found.pojo.Manager;
 import com.lost_found.pojo.RotationChart;
 import com.lost_found.service.IManagerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,20 @@ public class ManagerController {
     public ManagerController() {
     }
 
+    @ApiOperation("管理员登陆")
+    @ApiImplicitParams(
+            {@ApiImplicitParam(name = "username", value = "管理员用户名", required = true, paramType = "query", dataType = "String", example = "1"),
+            @ApiImplicitParam(name = "password", value = "管理员密码", required = true, paramType = "query", dataType = "String", example = "1")}
+    )
+    @PostMapping("/login")
+    public ServerResponse managerLogin(String username, String password)
+    {
+        return managerService.login(username, password);
+    }
+
     @PutMapping("/forbid_user")
     @ApiOperation("冻结用户")
     @ApiImplicitParam(name = "id", value = "用户id", required = true, paramType = "path", dataType = "int", example = "1")
-
     public  ServerResponse forbidUser(Integer id){
 
         return managerService.forbidUser(id);

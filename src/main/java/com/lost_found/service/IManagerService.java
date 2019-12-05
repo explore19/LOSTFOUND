@@ -24,8 +24,20 @@ public interface IManagerService {
 
     ServerResponse setRotationCharPriority(Integer id,Integer priority);//设置轮播图的优先级
 
+    /**
+     * 根据管理员用户名去查询
+     * @param username
+     * @return
+     */
+    Manager queryByUsername(String username);
 
-
+    /**
+     * 管理员登陆
+     * @param username
+     * @param password
+     * @return
+     */
+    ServerResponse login(String username, String password);
 }
 
 

@@ -37,7 +37,7 @@ public interface IPostService {
      * @param id
      * @return
      */
-    ServerResponse<Post> queryById(Integer id);
+    ServerResponse queryById(Integer id);
 
 
 

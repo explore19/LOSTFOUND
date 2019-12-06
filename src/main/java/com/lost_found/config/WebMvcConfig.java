@@ -17,6 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 
+
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
@@ -24,11 +28,14 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     private  String uploadPicturePath;
 
     @Override
+
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
         //其他静态资源
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/img/**").addResourceLocations("file:"+uploadPicturePath);
     }
+
 
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {

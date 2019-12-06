@@ -67,7 +67,7 @@ public class PostController
     @ApiOperation(value = "获得单个帖子信息")
     @ApiImplicitParam(name="id",value="帖子Id",required=true,paramType="query",dataType = "int",example = "1")
     @GetMapping
-    public ServerResponse<Post> getPost( Integer id)
+    public ServerResponse getPost( Integer id)
     {
         return postService.queryById(id);
     }

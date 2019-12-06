@@ -38,16 +38,13 @@ public class UserService implements IUserService
     UserMapper userMapper;
 
     @Override
-    public ServerResponse login(String code)
-    {
-        HttpServletRequest request = ServletUtils.getRequest();
-        ServerResponse result = ServerResponse.createBySuccess("123");
-        if (result.isSuccess())
-        {
-            String openId = result.getData().toString();
+    public ServerResponse login(String code) {
 
+        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+        ServerResponse  result = ServerResponse.createBySuccess("123");
+        if(result.isSuccess()){
+            String openId=result.getData().toString();
             User user = userMapper.login(openId);
-
             if (user != null)
             {
                 //获取要返回的sessionId
@@ -101,11 +98,10 @@ public class UserService implements IUserService
     }
 
     @Override
-    public ServerResponse updateInfo(User user)
-    {     //测试用的方法
-        int result = userMapper.updateByPrimaryKeySelective(user);
-        if (result > 0)
-        {
+
+    public ServerResponse  updateInfo(User user){     //测试用的方法
+        int  result = userMapper.updateByPrimaryKeySelective(user);
+        if (result > 0){
             return ServerResponse.createBySuccessMessage("修改成功！");
         }
         return ServerResponse.createBySuccessMessage("修改失败！");

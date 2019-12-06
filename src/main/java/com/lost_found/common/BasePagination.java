@@ -2,6 +2,7 @@ package com.lost_found.common;
 
 public class BasePagination {
 
+
     private Integer page;
 
     private Integer pageSize;
@@ -31,4 +32,5 @@ public class BasePagination {
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
+
 }

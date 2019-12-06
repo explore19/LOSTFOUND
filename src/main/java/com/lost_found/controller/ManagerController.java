@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
+import org.jetbrains.annotations.Contract;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +22,10 @@ public class ManagerController {
     @Autowired
     IManagerService managerService;
 
+    @Contract(pure = true)
     public ManagerController() {
     }
+
 
     @ApiOperation("管理员登陆")
     @ApiImplicitParams(
@@ -98,7 +102,7 @@ public class ManagerController {
 
 
 
-    @PutMapping("/set_rotation_chart_priority")
+    @RequestMapping("/set_rotation_chart_priority")
     @ApiOperation("设置轮播图的优先级")
     @ApiImplicitParam(
             name = "priority",

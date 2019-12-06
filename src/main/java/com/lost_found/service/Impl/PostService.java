@@ -83,13 +83,16 @@ public class PostService implements IPostService
      * @return
      */
     @Override
-    public ServerResponse<Post> queryById(Integer id)
+    public ServerResponse queryById(Integer id)
     {
         Post post = postMapper.selectByPrimaryKey(id);
-        if (null != post)
-        {
-            //查询成功
-            return ServerResponse.createBySuccess(post);
+        User user = userMapper.selectByPrimaryKey(post.getUserId());
+        if(user != null){
+            Map<String,Object> data =new HashMap<>();
+            data.put("nickName",user.getNickName());
+            data.put("headPortrait",user.getHeadPortrait());
+            data.put("post",post);
+            return ServerResponse.createBySuccess(data);
         }
         return ServerResponse.createByErrorMessage("未找到帖子信息");
     }

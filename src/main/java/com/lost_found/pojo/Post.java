@@ -24,6 +24,7 @@ public class Post {
     private Date loseTime;
 
     @ApiModelProperty(value = "失物拾物地点")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private String lostPlace;
 
     @ApiModelProperty(value = "发布者联系方式")
@@ -50,12 +51,14 @@ public class Post {
     @ApiModelProperty(value = "帖子状态 0-正常 1-待审核")
     private Integer status;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+
     @ApiModelProperty(value = "更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
     public Integer getId() {

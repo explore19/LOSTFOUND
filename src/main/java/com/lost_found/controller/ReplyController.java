@@ -60,15 +60,13 @@ public class ReplyController
 
     /**
      * 根据用户Id查询用户的所有回复
-     * @param userId
      * @return
      */
     @ApiOperation(value = "查询用户的所有回复")
-    @ApiImplicitParam(name = "userId", value = "用户Id", required = true, paramType = "path", dataType = "int", example = "1")
     @GetMapping("/select_user_reply")
-    public ServerResponse queryByUserId(@PathVariable Integer userId)
+    public ServerResponse queryByUserId()
     {
-        return replyService.queryByUserId(userId);
+        return replyService.queryByUserId();
     }
 
 }

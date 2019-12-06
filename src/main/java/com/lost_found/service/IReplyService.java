@@ -28,8 +28,7 @@ public interface IReplyService
 
     /**
      * 根据用户Id查询用户的所有回复
-     * @param userId
      * @return
      */
-    ServerResponse queryByUserId(Integer userId);
+    ServerResponse queryByUserId();
 }

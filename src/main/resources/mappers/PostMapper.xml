@@ -29,19 +29,16 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="queryByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        from post
-        where user_id = #{userId,jdbcType=INTEGER}
-    </select>
     <select id="queryByForm" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from post
         <where>
             <if test="postType != null">
-                and post_type LIKE CONCAT('%','#{postType}','%')
+                and post_type=#{postType}
+            </if>
+            <if test="type != null">
+                and type=#{type}
             </if>
             <if test="key != null">
                 and key LIKE CONCAT('%','#{key}','%')

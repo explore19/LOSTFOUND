@@ -10,6 +10,7 @@ import com.lost_found.pojo.Post;
 import com.lost_found.pojo.User;
 import com.lost_found.service.IPostService;
 import com.lost_found.utils.FileUtil;
+import com.lost_found.utils.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,18 +48,32 @@ public class PostService implements IPostService
     @Override
     public ServerResponse<String> remove(Integer id)
     {
-        return postMapper.deleteByPrimaryKey(id) > 0 ?
-                ServerResponse.createBySuccessMessage("删除成功") :
-                ServerResponse.createByErrorMessage("删除失败");
+        Integer postUserId = postMapper.selectByPrimaryKey(id).getUserId();
+        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+
+//        if (postUserId == userId)
+//        {
+            return postMapper.deleteByPrimaryKey(id) > 0 ?
+                    ServerResponse.createBySuccessMessage("删除成功") :
+                    ServerResponse.createByErrorMessage("删除失败");
+//        }
+//        return ServerResponse.createByErrorCodeMessage(403, "没有权限");
     }
 
     @Override
     public ServerResponse<String> update(Post post)
     {
-        post.setUpdateTime(new Date());
-        return postMapper.updateByPrimaryKeySelective(post) > 0 ?
-                ServerResponse.createBySuccessMessage("更新帖子成功") :
-                ServerResponse.createByErrorMessage("删除失败");
+        Integer postUserId = post.getUserId();
+        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+
+//        if (postUserId == userId)
+//        {
+            post.setUpdateTime(new Date());
+            return postMapper.updateByPrimaryKeySelective(post) > 0 ?
+                    ServerResponse.createBySuccessMessage("更新帖子成功") :
+                    ServerResponse.createByErrorMessage("删除失败");
+//        }
+//        return ServerResponse.createByErrorCodeMessage(403, "没有权限");
     }
 
     /**
@@ -79,18 +94,6 @@ public class PostService implements IPostService
         return ServerResponse.createByErrorMessage("未找到帖子信息");
     }
 
-
-    /**
-     * 根据用户id来查询其全部发布
-     *
-     * @param userId
-     * @return
-     */
-    @Override
-    public ServerResponse<List<Post>> queryByUserId(Integer userId)
-    {
-        return ServerResponse.createBySuccess(postMapper.queryByUserId(userId));
-    }
 
     @Override
     public ServerResponse query(QueryPostForm queryPostForm) {

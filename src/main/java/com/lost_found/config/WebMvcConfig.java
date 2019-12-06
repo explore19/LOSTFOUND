@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -43,6 +45,16 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         // 设置格式化内容
         converter.setObjectMapper(objectMapper);
         converters.add(0, converter);
+    }
+
+    /**
+     * RequestContextListener监听器
+     * 防止RequestContextHolder.getRequestAttributes()空指针异常
+     * @return
+     */
+    @Bean
+    public RequestContextListener requestContextListenerBean() {
+        return new RequestContextListener();
     }
 
 }

@@ -26,7 +26,5 @@ public interface PostMapper {
 
     int updateByPrimaryKey(Post record);
 
-    List<Post> queryByUserId(Integer userId);
-
     List<Post> queryByForm(QueryPostForm queryPostForm);
 }

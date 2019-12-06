@@ -1,6 +1,7 @@
 package com.lost_found.controller;
 
 import com.lost_found.common.ServerResponse;
+import com.lost_found.pojo.Post;
 import com.lost_found.pojo.User;
 import com.lost_found.service.IUserService;
 import io.swagger.annotations.Api;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 
 @Api(tags = "用户")
 @RestController
@@ -30,12 +32,10 @@ public class UserController
     }
 
     @ApiOperation(value = "查询用户")
-    @ApiImplicitParam(name="id",value="用户Id",required=true,paramType="query",dataType = "int",example = "1")
     @GetMapping("/get_user_info")
     public ServerResponse getUserInfo()
     {
-        int id = 1;
-        return userService.getUserInfo(id);
+        return userService.getUserInfo();
     }
 
     @ApiOperation(value = "更新用户")
@@ -45,11 +45,24 @@ public class UserController
         return userService.updateInfo(user);
     }
 
+    /*应该写在管理员层?*/
     @ApiOperation(value = "删除用户")
     @PostMapping("/delete_info")   //删除用户信息的方法
     public ServerResponse deleteInfo(@RequestBody User user)
     {
         return userService.deleteInfo(user);
+    }
+
+    /**
+     * 根据UserId查找发布信息
+     *
+     * @return
+     */
+    @ApiOperation(value = "获得用户所有帖子")
+    @GetMapping("/query_posts")
+    public ServerResponse<List<Post>> queryByUserId()
+    {
+        return userService.queryByUserId();
     }
 
 

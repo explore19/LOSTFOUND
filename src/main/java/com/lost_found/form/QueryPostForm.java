@@ -6,6 +6,15 @@ public class QueryPostForm extends BasePagination {
     private Integer postType;
     private String key;
     private String lostPlace;
+    private String type;
+    public String getType()
+    {
+        return type;
+    }
+    public void setType(String type)
+    {
+        this.type = type;
+    }
     public String getKey()
     {
         return key;

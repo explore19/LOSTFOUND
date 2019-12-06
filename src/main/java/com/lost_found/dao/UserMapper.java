@@ -1,11 +1,14 @@
 package com.lost_found.dao;
 
 import com.lost_found.form.LoginForm;
+import com.lost_found.pojo.Post;
 import com.lost_found.pojo.User;
 
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 @Controller
 @Mapper
@@ -23,4 +26,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User login(String openId);
+
+    List<Post> queryByUserId(Integer userId);
 }

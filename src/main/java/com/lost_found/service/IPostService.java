@@ -39,12 +39,7 @@ public interface IPostService {
      */
     ServerResponse<Post> queryById(Integer id);
 
-    /**
-     * 根据userId查询用户所有帖子
-     * @param userId
-     * @return
-     */
-    ServerResponse<List<Post>> queryByUserId(Integer userId);
+
 
     /**
      * 根据QueryPostForm查询获得一定数目帖子

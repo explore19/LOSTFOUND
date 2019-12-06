@@ -3,8 +3,10 @@ package com.lost_found.service.Impl;
 import com.lost_found.common.Const;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.UserMapper;
+import com.lost_found.pojo.Post;
 import com.lost_found.pojo.User;
 import com.lost_found.service.IUserService;
+import com.lost_found.utils.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.http.HttpResponse;
@@ -26,33 +28,40 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
-public class UserService implements IUserService {
+public class UserService implements IUserService
+{
     @Autowired
     UserMapper userMapper;
 
     @Override
-    public ServerResponse login(String code) {
-        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-        ServerResponse  result = ServerResponse.createBySuccess("123");
-        if(result.isSuccess()){
-            String openId=result.getData().toString();
+    public ServerResponse login(String code)
+    {
+        HttpServletRequest request = ServletUtils.getRequest();
+        ServerResponse result = ServerResponse.createBySuccess("123");
+        if (result.isSuccess())
+        {
+            String openId = result.getData().toString();
 
             User user = userMapper.login(openId);
 
-            if (user != null){
+            if (user != null)
+            {
                 //获取要返回的sessionId
                 HttpSession session = request.getSession();
                 session.setAttribute("role", Const.USER);
                 session.setAttribute("userId", user.getId());
                 return ServerResponse.createBySuccessMessage("登陆成功");
             }
-            if(register(openId)){
+            if (register(openId))
+            {
                 //获取要返回的sessionId
                 user = userMapper.login(openId);
-                if (user != null){
+                if (user != null)
+                {
                     //获取要返回的sessionId
                     HttpSession session = request.getSession();
                     session.setAttribute("role", Const.USER);
@@ -74,15 +83,17 @@ public class UserService implements IUserService {
         // 构造User对象
         // userMapper.insert(user)
 //        return ServerResponse.createByErrorMessage("账号或密码错误");
-        return  ServerResponse.createByErrorMessage("服务繁忙,请稍后再试");
+        return ServerResponse.createByErrorMessage("服务繁忙,请稍后再试");
     }
 
 
-
     @Override
-    public ServerResponse getUserInfo(Integer id) {
-        User user = userMapper.selectByPrimaryKey(id);
-        if(null !=user){
+    public ServerResponse getUserInfo()
+    {
+        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+        User user = userMapper.selectByPrimaryKey(userId);
+        if (null != user)
+        {
             user.setOpenId("");
             return ServerResponse.createBySuccess(user);
         }
@@ -90,32 +101,37 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ServerResponse  updateInfo(User user){     //测试用的方法
-            int  result = userMapper.updateByPrimaryKeySelective(user);
-            if (result > 0){
-                return ServerResponse.createBySuccessMessage("修改成功！");
-            }
-            return ServerResponse.createBySuccessMessage("修改失败！");
+    public ServerResponse updateInfo(User user)
+    {     //测试用的方法
+        int result = userMapper.updateByPrimaryKeySelective(user);
+        if (result > 0)
+        {
+            return ServerResponse.createBySuccessMessage("修改成功！");
+        }
+        return ServerResponse.createBySuccessMessage("修改失败！");
     }
 
     @Override
-    public ServerResponse deleteInfo(User user) {  //删除功能的方法
+    public ServerResponse deleteInfo(User user)
+    {  //删除功能的方法
         int result = userMapper.deleteByPrimaryKey(user.getId());
-        if (result > 0) {
+        if (result > 0)
+        {
             return ServerResponse.createBySuccessMessage("删除成功！");
         }
         return ServerResponse.createBySuccessMessage("删除失败！");
     }
 
     @Override
-    public ServerResponse searchInfo(Integer id){  //查找
-        int result = 0;
+    public ServerResponse searchInfo(Integer id)
+    {  //查找
 
         return ServerResponse.createBySuccessMessage("查找成功");
     }
 
 
-    private boolean register(String openId){
+    private boolean register(String openId)
+    {
         User user = new User();
         user.setOpenId(openId);
         user.setStatus(2);
@@ -126,34 +142,59 @@ public class UserService implements IUserService {
     }
 
 
-    private ServerResponse getOpenId(String code){
-        String open_id="";
+    private ServerResponse getOpenId(String code)
+    {
+        String open_id = "";
         HttpClient httpClient = HttpClients.createDefault();
-        String url="https://api.weixin.qq.com/sns/jscode2session?appid=wx7ea1bf8afa838fc9&secret=10048938ca183fdad2f72e0d0f586eb2&js_code="+code+"&grant_type=authorization_code";
-        try {
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx7ea1bf8afa838fc9&secret" +
+                "=10048938ca183fdad2f72e0d0f586eb2&js_code=" + code + "&grant_type=authorization_code";
+        try
+        {
             URIBuilder uriBuilder = new URIBuilder(url);
             HttpGet httpGet = new HttpGet(uriBuilder.build());
             RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(1200).setSocketTimeout(1200).build();
             httpGet.setConfig(requestConfig);
             HttpResponse httpResponse = null;
             httpResponse = httpClient.execute(httpGet);
-            if (httpResponse != null && httpResponse.getStatusLine() != null) {
+            if (httpResponse != null && httpResponse.getStatusLine() != null)
+            {
                 String content = "";
-                if (httpResponse.getEntity() != null) {
+                if (httpResponse.getEntity() != null)
+                {
                     content = EntityUtils.toString(httpResponse.getEntity(), "utf-8");
                     JSONObject json = new JSONObject(content);
-                    open_id=(String) json.get("openid");
-                    return  ServerResponse.createBySuccess(open_id);
+                    open_id = (String) json.get("openid");
+                    return ServerResponse.createBySuccess(open_id);
                 }
             }
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException e)
+        {
             return ServerResponse.createByErrorMessage("发生异常错误");
-        } catch (ClientProtocolException e) {
+        } catch (ClientProtocolException e)
+        {
             return ServerResponse.createByErrorMessage("发生异常错误");
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             return ServerResponse.createByErrorMessage("发生异常错误");
         }
         return ServerResponse.createByErrorMessage("发生异常错误");
+    }
+
+    /**
+     * 根据用户id来查询其全部发布
+     *
+     * @return
+     */
+    @Override
+    public ServerResponse<List<Post>> queryByUserId()
+    {
+        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+        if (userId != null)
+        {
+            return ServerResponse.createBySuccess(userMapper.queryByUserId(userId));
+        }
+        return ServerResponse.createByErrorMessage("网络异常, 请稍后再试");
+
     }
 
 //    /**

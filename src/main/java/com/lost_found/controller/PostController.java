@@ -85,18 +85,7 @@ public class PostController
         return postService.query(queryPostForm);
     }
 
-//    暂定是否需要把查询用户所有帖子放在帖子控制层
-//    /**
-//     * 根据UserId查找发布信息
-//     *
-//     * @return
-//     */
-//      @ApiOperation(value = "获得用户所有帖子")
-////    @GetMapping("/query_posts")
-////    public ServerResponse<List<Post>> queryByUserId(Integer userId)
-////    {
-////        return postService.queryByUserId(userId);
-//    }
+
 
 
 //    /**

@@ -7,6 +7,7 @@ import com.lost_found.dao.PostMapper;
 import com.lost_found.dao.UserMapper;
 import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
+import com.lost_found.pojo.Reply;
 import com.lost_found.pojo.User;
 import com.lost_found.service.IPostService;
 import com.lost_found.utils.FileUtil;
@@ -113,6 +114,18 @@ public class PostService implements IPostService
             }
         }
         return ServerResponse.createBySuccess(allData);
+    }
+
+    /**
+     * 根据帖子id查询该帖子的所有回复
+     * @param postId
+     * @return
+     */
+    @Override
+    public ServerResponse<List<Reply>> getAllReply(Integer postId)
+    {
+        List<Reply> replyList = postMapper.getAllReply(postId);
+        return null;
     }
 
 

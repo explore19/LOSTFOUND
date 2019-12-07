@@ -1,9 +1,11 @@
 package com.lost_found.dao;
 
+import com.lost_found.common.ServerResponse;
 import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
 
 
+import com.lost_found.pojo.Reply;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -27,4 +29,6 @@ public interface PostMapper {
     int updateByPrimaryKey(Post record);
 
     List<Post> queryByForm(QueryPostForm queryPostForm);
+
+    List<Reply> getAllReply(Integer id);
 }

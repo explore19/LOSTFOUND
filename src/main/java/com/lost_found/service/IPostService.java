@@ -3,6 +3,7 @@ package com.lost_found.service;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
+import com.lost_found.pojo.Reply;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -48,5 +49,10 @@ public interface IPostService {
      */
     ServerResponse query(QueryPostForm queryPostForm);
 
-
+    /**
+     * 根据帖子id查询该帖子的所有回复
+     * @param postId
+     * @return
+     */
+    ServerResponse<List<Reply>> getAllReply(Integer postId);
 }

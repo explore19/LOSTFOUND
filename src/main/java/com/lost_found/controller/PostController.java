@@ -3,12 +3,15 @@ package com.lost_found.controller;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
+import com.lost_found.pojo.Reply;
 import com.lost_found.service.IPostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Api(tags="帖子")
@@ -85,7 +88,13 @@ public class PostController
         return postService.query(queryPostForm);
     }
 
-
+    @ApiOperation(value = "根据帖子id查询该帖子的所有回复")
+    @ApiImplicitParam(name = "id", value = "帖子id", required = true, paramType = "query", dataType = "int", example = "1")
+    @GetMapping("query_all_reply")
+    public ServerResponse<List<Reply>> queryAllReplyByPostId(Integer postId)
+    {
+        return postService.getAllReply(postId);
+    }
 
 
 //    /**

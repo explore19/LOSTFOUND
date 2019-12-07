@@ -4,6 +4,7 @@ package com.lost_found.service.Impl;
 import com.lost_found.common.Const;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.PostMapper;
+import com.lost_found.dao.ReplyMapper;
 import com.lost_found.dao.UserMapper;
 import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
@@ -31,6 +32,9 @@ public class PostService implements IPostService
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    ReplyMapper replyMapper;
 
     @Override
     public ServerResponse<String> save(Post post)
@@ -129,7 +133,7 @@ public class PostService implements IPostService
     @Override
     public ServerResponse<List<Reply>> getAllReply(Integer postId)
     {
-        List<Reply> replyList = postMapper.getAllReply(postId);
+        List<Reply> replyList = replyMapper.getAllReply(postId);
         if (replyList != null)
         {
             return ServerResponse.createBySuccessMessage("查询成功", replyList);

@@ -30,5 +30,5 @@ public interface PostMapper {
 
     List<Post> queryByForm(QueryPostForm queryPostForm);
 
-    List<Reply> getAllReply(Integer id);
+
 }

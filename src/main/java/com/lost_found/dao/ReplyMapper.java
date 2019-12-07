@@ -22,4 +22,6 @@ public interface ReplyMapper {
     int updateByPrimaryKey(Reply record);
 
     List<Reply> queryByUserId(Integer userId);
+
+    List<Reply> getAllReply(Integer id);
 }

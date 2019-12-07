@@ -54,9 +54,9 @@ public class PostService implements IPostService
 
 //        if (postUserId == userId)
 //        {
-            return postMapper.deleteByPrimaryKey(id) > 0 ?
-                    ServerResponse.createBySuccessMessage("删除成功") :
-                    ServerResponse.createByErrorMessage("删除失败");
+        return postMapper.deleteByPrimaryKey(id) > 0 ?
+                ServerResponse.createBySuccessMessage("删除成功") :
+                ServerResponse.createByErrorMessage("删除失败");
 //        }
 //        return ServerResponse.createByErrorCodeMessage(403, "没有权限");
     }
@@ -69,10 +69,10 @@ public class PostService implements IPostService
 
 //        if (postUserId == userId)
 //        {
-            post.setUpdateTime(new Date());
-            return postMapper.updateByPrimaryKeySelective(post) > 0 ?
-                    ServerResponse.createBySuccessMessage("更新帖子成功") :
-                    ServerResponse.createByErrorMessage("删除失败");
+        post.setUpdateTime(new Date());
+        return postMapper.updateByPrimaryKeySelective(post) > 0 ?
+                ServerResponse.createBySuccessMessage("更新帖子成功") :
+                ServerResponse.createByErrorMessage("删除失败");
 //        }
 //        return ServerResponse.createByErrorCodeMessage(403, "没有权限");
     }
@@ -88,11 +88,12 @@ public class PostService implements IPostService
     {
         Post post = postMapper.selectByPrimaryKey(id);
         User user = userMapper.selectByPrimaryKey(post.getUserId());
-        if(user != null){
-            Map<String,Object> data =new HashMap<>();
-            data.put("nickName",user.getNickName());
-            data.put("headPortrait",user.getHeadPortrait());
-            data.put("post",post);
+        if (user != null)
+        {
+            Map<String, Object> data = new HashMap<>();
+            data.put("nickName", user.getNickName());
+            data.put("headPortrait", user.getHeadPortrait());
+            data.put("post", post);
             return ServerResponse.createBySuccess(data);
         }
         return ServerResponse.createByErrorMessage("未找到帖子信息");
@@ -100,16 +101,19 @@ public class PostService implements IPostService
 
 
     @Override
-    public ServerResponse query(QueryPostForm queryPostForm) {
-        List<Post> postList =postMapper.queryByForm(queryPostForm);
-        List<Map<String,Object>> allData = new ArrayList<>();
-        for (Post post:postList) {
+    public ServerResponse query(QueryPostForm queryPostForm)
+    {
+        List<Post> postList = postMapper.queryByForm(queryPostForm);
+        List<Map<String, Object>> allData = new ArrayList<>();
+        for (Post post : postList)
+        {
             User user = userMapper.selectByPrimaryKey(post.getUserId());
-            if(user != null){
-                Map<String,Object> data =new HashMap<>();
-                data.put("nickName",user.getNickName());
-                data.put("headPortrait",user.getHeadPortrait());
-                data.put("post",post);
+            if (user != null)
+            {
+                Map<String, Object> data = new HashMap<>();
+                data.put("nickName", user.getNickName());
+                data.put("headPortrait", user.getHeadPortrait());
+                data.put("post", post);
                 allData.add(data);
             }
         }
@@ -118,6 +122,7 @@ public class PostService implements IPostService
 
     /**
      * 根据帖子id查询该帖子的所有回复
+     *
      * @param postId
      * @return
      */
@@ -125,7 +130,11 @@ public class PostService implements IPostService
     public ServerResponse<List<Reply>> getAllReply(Integer postId)
     {
         List<Reply> replyList = postMapper.getAllReply(postId);
-        return null;
+        if (replyList != null)
+        {
+            return ServerResponse.createBySuccessMessage("查询成功", replyList);
+        }
+        return ServerResponse.createByErrorMessage("查询失败");
     }
 
 

@@ -42,7 +42,7 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.lost_found.pojo.User" >
+  <insert id="insert" parameterType="com.lost_found.pojo.User" keyProperty="id" useGeneratedKeys="true">
     insert into user (id, open_id, sno, 
       real_name, nick_name, sex, 
       head_portrait, phone, qq, 
@@ -54,7 +54,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{currentTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.lost_found.pojo.User" >
+  <insert id="insertSelective" parameterType="com.lost_found.pojo.User" keyProperty="id" useGeneratedKeys="true">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

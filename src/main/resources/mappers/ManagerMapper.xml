@@ -23,7 +23,7 @@
     delete from manager
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.lost_found.pojo.Manager" >
+  <insert id="insert" parameterType="com.lost_found.pojo.Manager" keyProperty="id" useGeneratedKeys="true">
     insert into manager (id, username, password, 
       role, create_time, update_time, 
       current_time)
@@ -31,7 +31,7 @@
       #{role,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{currentTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.lost_found.pojo.Manager" >
+  <insert id="insertSelective" parameterType="com.lost_found.pojo.Manager" keyProperty="id" useGeneratedKeys="true">
     insert into manager
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

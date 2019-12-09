@@ -131,12 +131,26 @@ public class PostService implements IPostService
      * @return
      */
     @Override
-    public ServerResponse<List<Reply>> getAllReply(Integer postId)
+    public ServerResponse<List<Map<String, Object>>> getAllReply(Integer postId)
     {
         List<Reply> replyList = replyMapper.getAllReply(postId);
+        List<Map<String, Object>> allData = new ArrayList<>();
+
         if (replyList != null)
         {
-            return ServerResponse.createBySuccessMessage("查询成功", replyList);
+            for (Reply reply : replyList)
+            {
+                User user = userMapper.selectByPrimaryKey(reply.getUserId());
+                if (user != null)
+                {
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("nickName", user.getNickName());
+                    data.put("headPortrait", user.getHeadPortrait());
+                    data.put("reply", reply);
+                    allData.add(data);
+                }
+            }
+            return ServerResponse.createBySuccessMessage("查询成功", allData);
         }
         return ServerResponse.createByErrorMessage("查询失败");
     }

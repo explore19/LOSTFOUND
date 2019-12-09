@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Api(tags="帖子")
@@ -88,10 +89,15 @@ public class PostController
         return postService.query(queryPostForm);
     }
 
+    /**
+     * 根据帖子id查询该帖子的所有回复
+     * @param postId
+     * @return
+     */
     @ApiOperation(value = "根据帖子id查询该帖子的所有回复")
     @ApiImplicitParam(name = "id", value = "帖子id", required = true, paramType = "query", dataType = "int", example = "1")
     @GetMapping("query_all_reply")
-    public ServerResponse<List<Reply>> queryAllReplyByPostId(Integer postId)
+    public ServerResponse<List<Map<String, Object>>> queryAllReplyByPostId(Integer postId)
     {
         return postService.getAllReply(postId);
     }

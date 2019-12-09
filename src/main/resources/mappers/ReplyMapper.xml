@@ -37,7 +37,7 @@
     delete from reply
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.lost_found.pojo.Reply" >
+  <insert id="insert" parameterType="com.lost_found.pojo.Reply" useGeneratedKeys="true">
     insert into reply (id, user_id, post_id, 
       reply_id, `type`, info,
       create_time, update_time)

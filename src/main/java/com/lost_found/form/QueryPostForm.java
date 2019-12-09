@@ -4,24 +4,24 @@ import com.lost_found.common.BasePagination;
 
 public class QueryPostForm extends BasePagination {
     private Integer postType;
-    private String key;
+    private String keyWords;
     private String lostPlace;
     private String type;
-    public String getType()
+    public Integer getPostType()
     {
-        return type;
+        return postType;
     }
-    public void setType(String type)
+    public void setPostType(Integer postType)
     {
-        this.type = type;
+        this.postType = postType;
     }
-    public String getKey()
+    public String getKeyWords()
     {
-        return key;
+        return keyWords;
     }
-    public void setKey(String key)
+    public void setKeyWords(String keyWords)
     {
-        this.key = key;
+        this.keyWords = keyWords;
     }
     public String getLostPlace()
     {
@@ -31,12 +31,12 @@ public class QueryPostForm extends BasePagination {
     {
         this.lostPlace = lostPlace;
     }
-    public Integer getPostType()
+    public String getType()
     {
-        return postType;
+        return type;
     }
-    public void setPostType(Integer postType)
+    public void setType(String type)
     {
-        this.postType = postType;
+        this.type = type;
     }
 }

@@ -38,13 +38,14 @@
                 and post_type=#{postType}
             </if>
             <if test="type != null">
-                and type=#{type}
+                and `type`=#{type}
             </if>
-            <if test="key != null">
-                and key LIKE CONCAT('%','#{key}','%')
+            <if test="keyWords != null">
+                and details LIKE CONCAT('%',#{keyWords},'%')
+                or `name` LIKE CONCAT('%',#{keyWords},'%')
             </if>
             <if test="lostPlace != null">
-                and lost_place LIKE CONCAT('%','#{lostPlace}','%')
+                and lost_place LIKE CONCAT('%',#{lostPlace},'%')
             </if>
         </where>
         order by update_time DESC

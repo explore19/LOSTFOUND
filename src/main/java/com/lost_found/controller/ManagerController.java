@@ -116,7 +116,4 @@ public class ManagerController {
         return this.managerService.setRotationCharPriority(id,priority);
     }
 
-
-
-
 }

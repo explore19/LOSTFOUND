@@ -19,6 +19,7 @@
         *
         from reply
         where post_id = #{postId}
+        ORDER BY create_time ASC
     </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

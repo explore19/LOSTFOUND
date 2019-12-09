@@ -31,7 +31,7 @@ public class UploadController
             if (!flag)
             {
                 //图片大小超限
-                return ServerResponse.createByErrorMessage("图片大小超过限制(2M), 请重新上传");
+                return ServerResponse.createByErrorMessage("图片大小超过限制(5M), 请重新上传");
             }
             if (!file.isEmpty())
             {

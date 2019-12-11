@@ -42,18 +42,26 @@ public class TreeUtil
         return parent;
     }
 
+    /**
+     * 将list转化为树
+     * @param parent
+     * @param replyList
+     * @param list
+     */
     public static void TrasnferToTree(ReplyTree parent, List<Reply> replyList, List<Reply> list)
     {
         if (list.isEmpty())
             return;
 
+        //因为需要边迭代边删除, 所以使用迭代器
         Iterator<Reply> iterator = replyList.iterator();
         while (iterator.hasNext())
         {
             Reply reply = iterator.next();
             User user = treeUtil.userMapper.selectByPrimaryKey(reply.getUserId());
             ReplyVO replyVO = new ReplyVO(reply, user.getHeadPortrait(), user.getNickName(), reply.getType());
-            System.out.println("type:"+reply.getType());
+
+            //是回复帖子的回复, 而且现在的父节点为null, 则说明应该插入该节点
             if (reply.getType() == 0 && parent.getReply().getReply() == null)
             {
                 parent.add(parent, replyVO);
@@ -62,6 +70,7 @@ public class TreeUtil
                     continue;
                 TrasnferToTree(parent.findChild(parent, replyVO), replyList, list);
             }
+            //如果是回复回复的回复且该节点的回复确实是回复父节点的回复, 则插入
             else if (parent.getReply().getReply() != null && reply.getType() == 1 && reply.getReplyId() == parent.getReply().getReply().getId())
             {
                 parent.add(parent, replyVO);
@@ -71,6 +80,12 @@ public class TreeUtil
         }
     }
 
+    /**
+     * 判断是否是叶子节点
+     * @param replyVO
+     * @param replyList
+     * @return
+     */
     public static boolean isLeaf(ReplyVO replyVO, List<Reply> replyList)
     {
         boolean flag = true;
@@ -81,25 +96,4 @@ public class TreeUtil
         }
         return flag;
     }
-
-//        //构建第一层之后的回复节点
-//        while (!list.isEmpty())
-//        {
-//            //遍历一层的节点, 给他们添加子节点
-//            ReplyTree parentNode = parent;
-//            for (ReplyTree child : parentNode.getChildren())
-//            {
-//                for (Reply reply : replyList)
-//                {
-//                    User user = userMapper.selectByPrimaryKey(reply.getUserId());
-//                    ReplyVO replyVO = new ReplyVO(reply, user.getHeadPortrait(), user.getNickName(), reply.getType());
-//
-//                    if (reply.getReplyId() == reply.getId())
-//                    {
-//                        child.add(child, replyVO);
-//                        list.remove(reply);
-//                    }
-//                }
-//            }
-//        }
 }

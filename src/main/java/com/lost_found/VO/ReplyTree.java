@@ -1,6 +1,5 @@
 package com.lost_found.VO;
 
-import com.lost_found.pojo.Reply;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -39,6 +38,12 @@ public class ReplyTree
         this.children = children;
     }
 
+    /**
+     * 向parent代表的节点下插入一个子节点
+     * @param parent
+     * @param reply
+     * @return
+     */
     public ReplyTree add(ReplyTree parent, ReplyVO reply)
     {
         ReplyTree child = new ReplyTree(reply);
@@ -46,6 +51,12 @@ public class ReplyTree
         return child;
     }
 
+    /**
+     * 在parent的子结点中寻找reply是指定的reply的节点
+     * @param parent
+     * @param reply
+     * @return
+     */
     public ReplyTree findChild(ReplyTree parent, ReplyVO reply)
     {
         Integer id = reply.getReply().getId();

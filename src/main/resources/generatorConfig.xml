@@ -10,8 +10,8 @@
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/lose_found?characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC"    userId="root" password="123456" >
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/lost_found?characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC"    userId="root" password="123456" >
 
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
@@ -47,22 +47,24 @@
         </javaClientGenerator>
         <!--mvn mybatis-generator:generate-->
         <!-- 指定数据库表，要生成哪些表，就写哪些表，要和数据库中对应，不能写错！ -->
-        <!--<table tableName="account" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
-        <!--selectByExampleQueryId="false"></table>-->
-        <!--<table tableName="user" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
-               <!--selectByExampleQueryId="false"></table>-->
+        <table tableName="account" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false"></table>
+        <table tableName="user" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
         <table tableName="manager" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
         selectByExampleQueryId="false"></table>
     <table tableName="item_type" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
            selectByExampleQueryId="false"></table>
     <table tableName="post" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
            selectByExampleQueryId="false"></table>
-    <tamble tableName="reply" enableCountByExaple="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-           selectByExampleQueryId="false"></tamble>
+    <table tableName="reply" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+           selectByExampleQueryId="false"></table>
     <table tableName="rotation_chart" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
            selectByExampleQueryId="false"></table>
     <table tableName="place" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
            selectByExampleQueryId="false"></table>
+        <table tableName="praise" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
         <!--&lt;!&ndash;<table tableName="role"></table>&ndash;&gt;-->
         <!--<table tableName="role_permission"></table>-->
         <!--<table tableName="user_base"></table>-->

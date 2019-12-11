@@ -1,5 +1,6 @@
 package com.lost_found.controller;
 
+import com.lost_found.VO.ReplyTree;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
@@ -96,24 +97,10 @@ public class PostController
      */
     @ApiOperation(value = "根据帖子id查询该帖子的所有回复")
     @ApiImplicitParam(name = "id", value = "帖子id", required = true, paramType = "query", dataType = "int", example = "1")
-    @GetMapping("query_all_reply")
-    public ServerResponse<List<Map<String, Object>>> queryAllReplyByPostId(Integer postId)
+    @GetMapping("/query_all_reply")
+    public ServerResponse<ReplyTree> queryAllReplyByPostId(Integer postId)
     {
         return postService.getAllReply(postId);
     }
-
-
-//    /**
-//     * 上传帖子图片
-//     * @param files
-//     * @return
-//     */
-//    @ApiOperation(value = "上传图片")
-//    @PostMapping("/upload_img")
-//    public ServerResponse<String[]> uploadImg(MultipartFile[] files) throws IOException
-//    {
-//        return postService.uploadImg(files);
-//    }
-
 
 }

@@ -6,11 +6,12 @@ import com.lost_found.pojo.User;
 
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@Controller
+@Component
 @Mapper
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);

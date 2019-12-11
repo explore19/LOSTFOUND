@@ -1,6 +1,7 @@
 package com.lost_found.service.Impl;
 
 
+import com.lost_found.VO.ReplyTree;
 import com.lost_found.common.Const;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.PostMapper;
@@ -13,6 +14,7 @@ import com.lost_found.pojo.User;
 import com.lost_found.service.IPostService;
 import com.lost_found.utils.FileUtil;
 import com.lost_found.utils.ServletUtils;
+import com.lost_found.utils.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -131,26 +133,14 @@ public class PostService implements IPostService
      * @return
      */
     @Override
-    public ServerResponse<List<Map<String, Object>>> getAllReply(Integer postId)
+    public ServerResponse<ReplyTree> getAllReply(Integer postId)
     {
         List<Reply> replyList = replyMapper.getAllReply(postId);
-        List<Map<String, Object>> allData = new ArrayList<>();
+        ReplyTree replyTree = TreeUtil.getTree(replyList);
 
-        if (replyList != null)
+        if (replyTree != null)
         {
-            for (Reply reply : replyList)
-            {
-                User user = userMapper.selectByPrimaryKey(reply.getUserId());
-                if (user != null)
-                {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("nickName", user.getNickName());
-                    data.put("headPortrait", user.getHeadPortrait());
-                    data.put("reply", reply);
-                    allData.add(data);
-                }
-            }
-            return ServerResponse.createBySuccessMessage("查询成功", allData);
+            return ServerResponse.createBySuccessMessage("查询成功", replyTree);
         }
         return ServerResponse.createByErrorMessage("查询失败");
     }

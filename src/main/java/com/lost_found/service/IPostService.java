@@ -1,5 +1,6 @@
 package com.lost_found.service;
 
+import com.lost_found.VO.ReplyTree;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
@@ -55,5 +56,5 @@ public interface IPostService {
      * @param postId
      * @return
      */
-    ServerResponse<List<Map<String, Object>>> getAllReply(Integer postId);
+    ServerResponse<ReplyTree> getAllReply(Integer postId);
 }

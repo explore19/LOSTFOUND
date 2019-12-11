@@ -8,20 +8,17 @@ import java.util.List;
 public class ReplyTree
 {
     private ReplyVO reply;
-    private ReplyTree parent;
     private List<ReplyTree> children;
 
     public ReplyTree()
     {
         this.reply = new ReplyVO();
-        this.parent = null;
         this.children = new LinkedList<>();
     }
 
-    public ReplyTree(ReplyVO reply, ReplyTree parent)
+    public ReplyTree(ReplyVO reply)
     {
         this.reply = reply;
-        this.parent = parent;
         this.children = new LinkedList<>();
     }
 
@@ -32,14 +29,6 @@ public class ReplyTree
     public void setReply(ReplyVO reply)
     {
         this.reply = reply;
-    }
-    public ReplyTree getParent()
-    {
-        return parent;
-    }
-    public void setParent(ReplyTree parent)
-    {
-        this.parent = parent;
     }
     public List<ReplyTree> getChildren()
     {
@@ -52,7 +41,7 @@ public class ReplyTree
 
     public ReplyTree add(ReplyTree parent, ReplyVO reply)
     {
-        ReplyTree child = new ReplyTree(reply, parent);
+        ReplyTree child = new ReplyTree(reply);
         parent.children.add(child);
         return child;
     }

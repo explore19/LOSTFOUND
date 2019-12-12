@@ -24,12 +24,4 @@ public class PraiseController
         return praiseService.addPraise(praise);
     }
 
-
-    @ApiOperation(value = "取消点赞")
-    @DeleteMapping("/cancel")
-    public ServerResponse cancelPraise(@RequestBody Praise praise)
-    {
-        return praiseService.deletePraise(praise);
-    }
-
 }

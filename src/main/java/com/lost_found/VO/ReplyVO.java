@@ -9,6 +9,7 @@ public class ReplyVO
     private String headPortrait;
     private String nickName;
     private Integer status;
+    private String replyedUserNickName;
 
     public Reply getReply()
     {
@@ -42,26 +43,24 @@ public class ReplyVO
     {
         this.status = status;
     }
+    public String getReplyedUserNickName()
+    {
+        return replyedUserNickName;
+    }
+    public void setReplyedUserNickName(String replyedUserNickName)
+    {
+        this.replyedUserNickName = replyedUserNickName;
+    }
     public ReplyVO()
     {
     }
 
-    public ReplyVO(Reply reply, String headPortrait, String nickName, Integer status)
+    public ReplyVO(Reply reply, String headPortrait, String nickName, Integer status, String replyedUserNickName)
     {
         this.reply = reply;
         this.headPortrait = headPortrait;
         this.nickName = nickName;
         this.status = status;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "ReplyVO{" +
-                "reply=" + reply +
-                ", headPortrait='" + headPortrait + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", status=" + status +
-                '}';
+        this.replyedUserNickName = replyedUserNickName;
     }
 }

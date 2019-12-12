@@ -22,4 +22,6 @@ public interface PraiseMapper {
     int updateByPrimaryKey(Praise record);
 
     List<Praise> selectByUserId(Integer userId);
+
+    Integer getPraiseNumber(Integer postId);
 }

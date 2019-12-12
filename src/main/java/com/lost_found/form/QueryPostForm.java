@@ -6,7 +6,9 @@ public class QueryPostForm extends BasePagination {
     private Integer postType;
     private String keyWords;
     private String lostPlace;
-    private String type;
+    private Integer itemType;
+    private Integer sortType;
+
     public Integer getPostType()
     {
         return postType;
@@ -31,12 +33,20 @@ public class QueryPostForm extends BasePagination {
     {
         this.lostPlace = lostPlace;
     }
-    public String getType()
+    public Integer getItemType()
     {
-        return type;
+        return itemType;
     }
-    public void setType(String type)
+    public void setItemType(Integer itemType)
     {
-        this.type = type;
+        this.itemType = itemType;
+    }
+    public Integer getSortType()
+    {
+        return sortType;
+    }
+    public void setSortType(Integer sortType)
+    {
+        this.sortType = sortType;
     }
 }

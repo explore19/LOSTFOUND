@@ -3,6 +3,7 @@ package com.lost_found.utils;
 
 import com.lost_found.VO.ReplyTree;
 import com.lost_found.VO.ReplyVO;
+import com.lost_found.dao.ReplyMapper;
 import com.lost_found.dao.UserMapper;
 import com.lost_found.pojo.Reply;
 import com.lost_found.pojo.User;
@@ -19,6 +20,9 @@ public class TreeUtil
 {
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    ReplyMapper replyMapper;
 
     public static TreeUtil treeUtil;
 
@@ -59,7 +63,13 @@ public class TreeUtil
         {
             Reply reply = iterator.next();
             User user = treeUtil.userMapper.selectByPrimaryKey(reply.getUserId());
-            ReplyVO replyVO = new ReplyVO(reply, user.getHeadPortrait(), user.getNickName(), reply.getType());
+            String replyedUserNickName = null;
+            if (reply.getType() == 1)
+            {
+                User repledUser = treeUtil.userMapper.selectByPrimaryKey(treeUtil.replyMapper.selectByPrimaryKey(reply.getReplyId()).getUserId());
+                replyedUserNickName = repledUser.getNickName();
+            }
+            ReplyVO replyVO = new ReplyVO(reply, user.getHeadPortrait(), user.getNickName(), reply.getType(), replyedUserNickName);
 
             //是回复帖子的回复, 而且现在的父节点为null, 则说明应该插入该节点
             if (reply.getType() == 0 && parent.getReply().getReply() == null)

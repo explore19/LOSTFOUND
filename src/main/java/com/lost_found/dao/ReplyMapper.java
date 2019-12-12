@@ -25,4 +25,6 @@ public interface ReplyMapper {
     List<Reply> queryByUserId(Integer userId);
 
     List<Reply> getAllReply(Integer id);
+
+    Integer getReplyNumber(Integer postId);
 }

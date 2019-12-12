@@ -9,8 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@Service
-@Mapper
 public interface IManagerService {
     ServerResponse forbidUser(Integer id);//封禁用户
 

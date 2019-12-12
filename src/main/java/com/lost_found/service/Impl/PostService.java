@@ -5,16 +5,19 @@ import com.lost_found.VO.ReplyTree;
 import com.lost_found.common.Const;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.PostMapper;
+import com.lost_found.dao.PraiseMapper;
 import com.lost_found.dao.ReplyMapper;
 import com.lost_found.dao.UserMapper;
 import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
+import com.lost_found.pojo.Praise;
 import com.lost_found.pojo.Reply;
 import com.lost_found.pojo.User;
 import com.lost_found.service.IPostService;
 import com.lost_found.utils.FileUtil;
 import com.lost_found.utils.ServletUtils;
 import com.lost_found.utils.TreeUtil;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +40,9 @@ public class PostService implements IPostService
 
     @Autowired
     ReplyMapper replyMapper;
+
+    @Autowired
+    PraiseMapper praiseMapper;
 
     @Override
     public ServerResponse<String> save(Post post)
@@ -105,7 +111,11 @@ public class PostService implements IPostService
         return ServerResponse.createByErrorMessage("未找到帖子信息");
     }
 
-
+    /**
+     * 根据条件查询帖子
+     * @param queryPostForm
+     * @return
+     */
     @Override
     public ServerResponse query(QueryPostForm queryPostForm)
     {
@@ -114,12 +124,18 @@ public class PostService implements IPostService
         for (Post post : postList)
         {
             User user = userMapper.selectByPrimaryKey(post.getUserId());
+            Integer replyNumber = Optional.ofNullable(replyMapper.getReplyNumber(post.getId()))
+                    .orElseGet(() -> 0);
+            Integer praiseNumber = Optional.ofNullable(praiseMapper.getPraiseNumber(post.getId()))
+                    .orElseGet(() -> 0);
             if (user != null)
             {
                 Map<String, Object> data = new HashMap<>();
                 data.put("nickName", user.getNickName());
                 data.put("headPortrait", user.getHeadPortrait());
                 data.put("post", post);
+                data.put("replyNumber", replyNumber);
+                data.put("praiseNumber", praiseNumber);
                 allData.add(data);
             }
         }
@@ -144,31 +160,5 @@ public class PostService implements IPostService
         }
         return ServerResponse.createByErrorMessage("查询失败");
     }
-
-
-//    /**
-//     * 上传帖子的图片并将图片的地址存储到数据库
-//     *
-//     * @param files
-//     * @return
-//     */
-//    @Override
-//    public ServerResponse<String[]> uploadImg(MultipartFile[] files) throws IOException
-//    {
-//        String[] data = uploadImgsUtil.uploadImg(files);
-//        if ("-1".equals(data[0]))
-//        {
-//            return ServerResponse.createByErrorMessage("上传图片失败, 图片大侠超过限制(2M)");
-//        }
-//        else if ("0".equals(data[0]))
-//        {
-//            return ServerResponse.createByErrorMessage("上传失败, 请重新上传");
-//        }
-//        else
-//        {
-//            return ServerResponse.createBySuccessMessage("上传成功", data);
-//        }
-//    }
-
 
 }

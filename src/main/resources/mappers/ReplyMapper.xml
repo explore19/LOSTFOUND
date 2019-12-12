@@ -21,6 +21,12 @@
         where post_id = #{postId}
         ORDER BY update_time ASC
     </select>
+  <select id="getReplyNumber" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        COUNT(*)
+        from reply
+        where post_id = #{postId}
+    </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -1,7 +1,9 @@
 package com.lost_found.service.Impl;
 
 import com.lost_found.common.ServerResponse;
+import com.lost_found.dao.PostMapper;
 import com.lost_found.dao.ReplyMapper;
+import com.lost_found.pojo.Post;
 import com.lost_found.pojo.Reply;
 import com.lost_found.service.IReplyService;
 import com.lost_found.utils.ServletUtils;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +20,9 @@ public class ReplyService implements IReplyService
 {
     @Autowired
     ReplyMapper replyMapper;
+
+    @Autowired
+    PostMapper postMapper;
 
     /**
      * 根据帖子Id发表回复
@@ -27,8 +33,11 @@ public class ReplyService implements IReplyService
     @Override
     public ServerResponse insert(Reply reply)
     {
-        /*int type = reply.getType();//回帖的类型
-        String info = reply.getInfo(); //回复的信息*/
+        //查询被回复的帖子
+        Post post = postMapper.selectByPrimaryKey(reply.getPostId());
+        post.setUpdateTime(new Date());
+        postMapper.updateByPrimaryKey(post);
+
         //将reply对象存储到数据库
         return replyMapper.insert(reply) > 0 ?
                 ServerResponse.createBySuccessMessage("发表回复成功!") :
@@ -45,7 +54,7 @@ public class ReplyService implements IReplyService
     {
         Reply reply = replyMapper.selectByPrimaryKey(id);
         Integer replyUserId = reply.getUserId();
-        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+//        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
 //        if (userId == replyUserId)
 //        {
             return replyMapper.deleteByPrimaryKey(id) > 0 ?
@@ -64,7 +73,7 @@ public class ReplyService implements IReplyService
     public ServerResponse update(Reply reply)
     {
         Integer replyUserId = reply.getUserId();
-        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+//        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
 //        if (userId == replyUserId)
 //        {
             return replyMapper.updateByPrimaryKey(reply) > 0 ?

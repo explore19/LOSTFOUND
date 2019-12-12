@@ -3,6 +3,7 @@ package com.lost_found.controller;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.pojo.Reply;
 import com.lost_found.service.IReplyService;
+import com.lost_found.utils.ServletUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +30,8 @@ public class ReplyController
     @PostMapping("/announce_reply")
     public ServerResponse postReply(@RequestBody Reply reply)
     {
+//        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+//        reply.setUserId(userId);
         return replyService.insert(reply);
     }
 

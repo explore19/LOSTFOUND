@@ -5,8 +5,6 @@ import com.lost_found.pojo.ItemType;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
-@Service
-@Mapper
 public interface IItemTypeService {
 
     ServerResponse getType(Integer id);

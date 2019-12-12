@@ -37,7 +37,7 @@
             <if test="postType != null">
                 and post_type=#{postType}
             </if>
-            <if test="type != null">
+            <if test="itemType != null">
                 and `type`=#{type}
             </if>
             <if test="keyWords != null">
@@ -48,8 +48,15 @@
                 and lost_place LIKE CONCAT('%',#{lostPlace},'%')
             </if>
         </where>
-        order by update_time DESC
-        limit #{page},#{pageSize}
+        <if test="sortType == 1">
+            order by update_time DESC
+            limit #{page},#{pageSize}
+        </if>
+        <if test="sortType == 0">
+            order by create_time DESC
+            limit #{page},#{pageSize}
+        </if>
+
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from post

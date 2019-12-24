@@ -34,28 +34,27 @@
         <include refid="Base_Column_List"/>
         from post
         <where>
-            <if test="postType != null">
-                and post_type=#{postType}
+            <if test="postType != null and postType!=-1">
+                post_type=#{postType}
             </if>
-            <if test="itemType != null">
-                and `type`=#{type}
+            <if test="itemType != null and itemType != -1">
+                and `type`=#{itemType}
             </if>
-            <if test="keyWords != null">
-                and details LIKE CONCAT('%',#{keyWords},'%')
-                or `name` LIKE CONCAT('%',#{keyWords},'%')
+            <if test="keyWords != null and keyWords!='' ">
+                and (details LIKE CONCAT('%',#{keyWords},'%')
+                or `name` LIKE CONCAT('%',#{keyWords},'%'))
             </if>
-            <if test="lostPlace != null">
+            <if test="lostPlace != null and lostPlace!='' ">
                 and lost_place LIKE CONCAT('%',#{lostPlace},'%')
             </if>
         </where>
-        <if test="sortType == 1">
-            order by update_time DESC
-            limit #{page},#{pageSize}
-        </if>
         <if test="sortType == 0">
-            order by create_time DESC
-            limit #{page},#{pageSize}
+            order by update_time DESC
         </if>
+        <if test="sortType == 1">
+            order by create_time DESC
+        </if>
+
 
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

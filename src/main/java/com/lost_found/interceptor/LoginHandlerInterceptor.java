@@ -17,27 +17,27 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
         ObjectMapper mapper = new ObjectMapper();
-
         HttpSession session = request.getSession(false);
+        response.setCharacterEncoding("UTF-8");
+        //如果访问登录或者静态资源, 直接放行
+        String uri = request.getRequestURI();
+        if (uri.contains("/login") || uri.contains("/static") || uri.contains("/img")|| uri.contains("/error")) return true;
         if (session == null)
         {
-            response.getWriter().write(mapper.writeValueAsString(ServerResponse.createByErrorCodeMessage(500, "网络错误, 请重试")));
+            response.getWriter().write(mapper.writeValueAsString(ServerResponse.createByErrorCodeMessage(1, "网络错误, 请重试")));
+            response.sendError(403);
             return false;
         }
-        String uri = request.getRequestURI();
-
-        //如果访问登录或者静态资源, 直接放行
-        if (uri.contains("/login") || uri.contains("/static") || uri.contains("/img")) return true;
-
         String role = session.getAttribute("role").toString();
 
         if (Const.USER.equals(role))
         {
-            if (uri.contains("/user") || uri.contains("/post") || uri.contains("/reply") || uri.contains("/upload"))
+            if (uri.contains("/user") || uri.contains("/post") || uri.contains("/reply") || uri.contains("/upload")||uri.contains("/itemType/getAllType"))
             {
                 return true;
             }
-            response.getWriter().write(mapper.writeValueAsString(ServerResponse.createByErrorCodeMessage(403, "没有权限")));
+            response.sendError(403);
+            response.getWriter().write(mapper.writeValueAsString(ServerResponse.createByErrorCodeMessage(1, "没有权限")));
             return false;
         }
         else if (Const.Manager.equals(role))
@@ -47,6 +47,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
         else
         {
             //未登录
+            response.sendError(403);
             response.getWriter().write(mapper.writeValueAsString(ServerResponse.needLogin()));
             return false;
         }

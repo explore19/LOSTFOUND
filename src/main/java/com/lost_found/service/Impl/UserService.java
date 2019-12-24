@@ -41,7 +41,7 @@ public class UserService implements IUserService
     public ServerResponse login(String code) {
 
         HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-        ServerResponse  result = ServerResponse.createBySuccess("123");
+        ServerResponse  result = ServerResponse.createBySuccess("234");
         if(result.isSuccess()){
             String openId=result.getData().toString();
             User user = userMapper.login(openId);
@@ -100,6 +100,8 @@ public class UserService implements IUserService
     @Override
 
     public ServerResponse  updateInfo(User user){     //测试用的方法
+        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+        user.setId(userId);
         int  result = userMapper.updateByPrimaryKeySelective(user);
         if (result > 0){
             return ServerResponse.createBySuccessMessage("修改成功！");

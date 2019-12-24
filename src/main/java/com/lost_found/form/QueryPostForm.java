@@ -3,6 +3,7 @@ package com.lost_found.form;
 import com.lost_found.common.BasePagination;
 
 public class QueryPostForm extends BasePagination {
+
     private Integer postType;
     private String keyWords;
     private String lostPlace;

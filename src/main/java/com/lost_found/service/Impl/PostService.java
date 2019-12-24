@@ -1,6 +1,9 @@
 package com.lost_found.service.Impl;
 
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lost_found.VO.ReplyTree;
 import com.lost_found.common.Const;
 import com.lost_found.common.ServerResponse;
@@ -119,6 +122,7 @@ public class PostService implements IPostService
     @Override
     public ServerResponse query(QueryPostForm queryPostForm)
     {
+        Page page=PageHelper.startPage(queryPostForm.getPage(), queryPostForm.getPageSize());
         List<Post> postList = postMapper.queryByForm(queryPostForm);
         List<Map<String, Object>> allData = new ArrayList<>();
         for (Post post : postList)
@@ -139,7 +143,10 @@ public class PostService implements IPostService
                 allData.add(data);
             }
         }
-        return ServerResponse.createBySuccess(allData);
+        HashMap<String,Object> list = new HashMap<>();
+        list.put("data",allData);
+        list.put("total",page.getTotal());
+        return ServerResponse.createBySuccess(list);
     }
 
     /**

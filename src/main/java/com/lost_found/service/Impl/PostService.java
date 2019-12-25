@@ -102,13 +102,22 @@ public class PostService implements IPostService
     public ServerResponse queryById(Integer id)
     {
         Post post = postMapper.selectByPrimaryKey(id);
+        if(post==null){
+            return ServerResponse.createByErrorMessage("未找到帖子信息");
+        }
         User user = userMapper.selectByPrimaryKey(post.getUserId());
+        Integer replyNumber = Optional.ofNullable(replyMapper.getReplyNumber(post.getId()))
+                .orElseGet(() -> 0);
+        Integer praiseNumber = Optional.ofNullable(praiseMapper.getPraiseNumber(post.getId()))
+                .orElseGet(() -> 0);
         if (user != null)
         {
             Map<String, Object> data = new HashMap<>();
             data.put("nickName", user.getNickName());
             data.put("headPortrait", user.getHeadPortrait());
             data.put("post", post);
+            data.put("praiseNumber", praiseNumber);
+            data.put("replyNumber", replyNumber);
             return ServerResponse.createBySuccess(data);
         }
         return ServerResponse.createByErrorMessage("未找到帖子信息");

@@ -2,6 +2,9 @@ package com.lost_found.service.Impl;
 
 import com.lost_found.common.Const;
 import com.lost_found.common.ServerResponse;
+import com.lost_found.dao.PostMapper;
+import com.lost_found.dao.PraiseMapper;
+import com.lost_found.dao.ReplyMapper;
 import com.lost_found.dao.UserMapper;
 import com.lost_found.pojo.Post;
 import com.lost_found.pojo.User;
@@ -27,8 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -36,12 +38,20 @@ public class UserService implements IUserService
 {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    PostMapper postMapper;
+    @Autowired
+    ReplyMapper replyMapper;
+
+    @Autowired
+    PraiseMapper praiseMapper;
 
     @Override
     public ServerResponse login(String code) {
 
         HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-        ServerResponse  result = ServerResponse.createBySuccess("234");
+//        ServerResponse  result = ServerResponse.createBySuccess("123");
+        ServerResponse  result = getOpenId(code);
         if(result.isSuccess()){
             String openId=result.getData().toString();
             User user = userMapper.login(openId);
@@ -144,8 +154,8 @@ public class UserService implements IUserService
     {
         String open_id = "";
         HttpClient httpClient = HttpClients.createDefault();
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx7ea1bf8afa838fc9&secret" +
-                "=10048938ca183fdad2f72e0d0f586eb2&js_code=" + code + "&grant_type=authorization_code";
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx53c71af01da2cd5a&secret" +
+                "=645b45d63ab0d87e49ae6794eb9b7e92&js_code=" + code + "&grant_type=authorization_code";
         try
         {
             URIBuilder uriBuilder = new URIBuilder(url);
@@ -184,14 +194,30 @@ public class UserService implements IUserService
      * @return
      */
     @Override
-    public ServerResponse<List<Post>> queryByUserId()
+    public ServerResponse queryByUserId()
     {
         Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
-        if (userId != null)
+        List<Map<String, Object>> allData = new ArrayList<>();
+        List<Post> postList =postMapper.queryByUserId(userId);
+        for (Post post : postList)
         {
-            return ServerResponse.createBySuccess(userMapper.queryByUserId(userId));
+            User user = userMapper.selectByPrimaryKey(post.getUserId());
+            Integer replyNumber = Optional.ofNullable(replyMapper.getReplyNumber(post.getId()))
+                    .orElseGet(() -> 0);
+            Integer praiseNumber = Optional.ofNullable(praiseMapper.getPraiseNumber(post.getId()))
+                    .orElseGet(() -> 0);
+            if (user != null)
+            {
+                Map<String, Object> data = new HashMap<>();
+                data.put("nickName", user.getNickName());
+                data.put("headPortrait", user.getHeadPortrait());
+                data.put("post", post);
+                data.put("replyNumber", replyNumber);
+                data.put("praiseNumber", praiseNumber);
+                allData.add(data);
+            }
         }
-        return ServerResponse.createByErrorMessage("网络异常, 请稍后再试");
+        return ServerResponse.createBySuccess(allData);
 
     }
 

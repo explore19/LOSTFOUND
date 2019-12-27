@@ -7,11 +7,13 @@ import com.lost_found.dao.UserMapper;
 import com.lost_found.pojo.Post;
 import com.lost_found.pojo.Praise;
 import com.lost_found.service.IPraiseService;
+import com.lost_found.utils.ServletUtils;
 import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,39 +34,41 @@ public class PraiseService implements IPraiseService
     /**
      * 增加点赞
      *
-     * @param praise
+     * @param postId
      * @return
      */
     @Override
-    public ServerResponse addPraise(Praise praise)
+    public ServerResponse praise(Integer postId)
     {
-        List<Praise> praiseList = praiseMapper.selectByUserId(praise.getUserId());
-        if (praiseList != null)
-        {
-            for (Praise praise1 : praiseList)
-            {
-                if (praise1.getPostId() == praise.getPostId())
-                {
-                    praise.setUpdateTime(new Date());
-                    praise.setStatus(0);
-
-                    return praiseMapper.updateByPrimaryKey(praise) > 0 ?
-                            ServerResponse.createBySuccessMessage("取消点赞成功") :
-                            ServerResponse.createByErrorMessage("取消点赞失败");
-                }
-            }
+        Post post = postMapper.selectByPrimaryKey(postId);
+        if(post==null){
+            return ServerResponse.createByErrorMessage("帖子不存在");
         }
-
-        if (praise.getStatus() == null)
-        {
+        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+        Praise praise = praiseMapper.selectByUserIdAndPostId(userId,postId);
+        if(praise ==null){
+            praise =new Praise();
+            praise.setPostId(postId);
+            praise.setUserId(userId);
             praise.setCreateTime(new Date());
-            praise.setStatus(1);
-        }
-        praise.setUpdateTime(new Date());
+            praise.setUpdateTime(new Date());
+            if(praiseMapper.insert(praise)>0){
+                return ServerResponse.createBySuccessMessage("点赞成功");
+            }
+        }else{
+            if(praiseMapper.deleteByPrimaryKey(praise.getId())>0){
+                return ServerResponse.createBySuccessMessage("取消点赞成功");
+            }
 
-        return praiseMapper.insert(praise) > 0 ?
-                ServerResponse.createBySuccessMessage("点赞成功") :
-                ServerResponse.createByErrorMessage("点赞失败");
+        }
+
+        return ServerResponse.createByErrorMessage("网络错误请稍后再试");
+    }
+
+    @Override
+    public boolean checkPraise(Integer postId) {
+        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+        return praiseMapper.selectByUserIdAndPostId(userId, postId) != null;
     }
 
 }

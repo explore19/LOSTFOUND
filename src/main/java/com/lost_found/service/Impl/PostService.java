@@ -47,6 +47,9 @@ public class PostService implements IPostService
     @Autowired
     PraiseMapper praiseMapper;
 
+    @Autowired
+    PraiseService praiseService;
+
     @Override
     public ServerResponse<String> save(Post post)
     {
@@ -82,14 +85,11 @@ public class PostService implements IPostService
         Integer postUserId = post.getUserId();
         Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
 
-//        if (postUserId == userId)
-//        {
         post.setUpdateTime(new Date());
         return postMapper.updateByPrimaryKeySelective(post) > 0 ?
                 ServerResponse.createBySuccessMessage("更新帖子成功") :
                 ServerResponse.createByErrorMessage("删除失败");
-//        }
-//        return ServerResponse.createByErrorCodeMessage(403, "没有权限");
+
     }
 
     /**
@@ -105,6 +105,8 @@ public class PostService implements IPostService
         if(post==null){
             return ServerResponse.createByErrorMessage("未找到帖子信息");
         }
+        post.setBrowsePoints(post.getBrowsePoints()+1);
+        postMapper.updateByPrimaryKey(post);
         User user = userMapper.selectByPrimaryKey(post.getUserId());
         Integer replyNumber = Optional.ofNullable(replyMapper.getReplyNumber(post.getId()))
                 .orElseGet(() -> 0);
@@ -118,6 +120,7 @@ public class PostService implements IPostService
             data.put("post", post);
             data.put("praiseNumber", praiseNumber);
             data.put("replyNumber", replyNumber);
+            data.put("isPraise", praiseService.checkPraise(post.getId()));
             return ServerResponse.createBySuccess(data);
         }
         return ServerResponse.createByErrorMessage("未找到帖子信息");
@@ -149,6 +152,7 @@ public class PostService implements IPostService
                 data.put("post", post);
                 data.put("replyNumber", replyNumber);
                 data.put("praiseNumber", praiseNumber);
+                data.put("isPraise", praiseService.checkPraise(post.getId()));
                 allData.add(data);
             }
         }
@@ -169,12 +173,7 @@ public class PostService implements IPostService
     {
         List<Reply> replyList = replyMapper.getAllReply(postId);
         ReplyTree replyTree = TreeUtil.getTree(replyList);
-
-        if (replyTree != null)
-        {
-            return ServerResponse.createBySuccessMessage("查询成功", replyTree);
-        }
-        return ServerResponse.createByErrorMessage("查询失败");
+        return ServerResponse.createBySuccessMessage("查询成功", replyTree);
     }
 
 }

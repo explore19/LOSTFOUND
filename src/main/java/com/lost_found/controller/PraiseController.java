@@ -18,10 +18,10 @@ public class PraiseController
     IPraiseService praiseService;
 
     @ApiOperation(value = "点赞")
-    @PostMapping("/praise_post")
-    public ServerResponse praise(@RequestBody Praise praise)
+    @PostMapping
+    public ServerResponse praise(Integer postId )
     {
-        return praiseService.addPraise(praise);
+        return praiseService.praise(postId);
     }
 
 }

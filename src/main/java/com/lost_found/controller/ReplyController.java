@@ -24,14 +24,11 @@ public class ReplyController
      * @return
      */
     @ApiOperation(value = "发表回复")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "postId", value = "帖子Id", required = true, paramType = "query", dataType = "Integer")
-//    })
-    @PostMapping("/announce_reply")
+    @PostMapping
     public ServerResponse postReply(@RequestBody Reply reply)
     {
-//        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
-//        reply.setUserId(userId);
+        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+        reply.setUserId(userId);
         return replyService.insert(reply);
     }
 
@@ -70,6 +67,17 @@ public class ReplyController
     public ServerResponse queryByUserId()
     {
         return replyService.queryByUserId();
+    }
+
+    /**
+     * 根据用户Id查询所有消息
+     * @return
+     */
+    @ApiOperation(value = "根据用户Id查询所有消息")
+    @GetMapping("/user_message")
+    public ServerResponse getUserMessage()
+    {
+        return replyService.getUserMessage();
     }
 
 

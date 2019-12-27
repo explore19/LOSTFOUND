@@ -17,7 +17,7 @@ public class Reply {
     @ApiModelProperty(value = "被回复的帖子的Id")
     private Integer postId;
 
-    @ApiModelProperty(value = "被回复的用户的Id")
+    @ApiModelProperty(value = "被回复帖子的Id")
     private Integer replyId;
 
     @ApiModelProperty(value = "回复的类型, 0-回帖, 1-回复用户")

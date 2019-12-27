@@ -32,7 +32,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
 
         if (Const.USER.equals(role))
         {
-            if (uri.contains("/user") || uri.contains("/post") || uri.contains("/reply") || uri.contains("/upload")||uri.contains("/itemType/getAllType"))
+            if (uri.contains("/user") || uri.contains("/post") || uri.contains("/reply") || uri.contains("/upload") || uri.contains("/praise")||uri.contains("/itemType/getAllType")||uri.contains("/rotation_chart/find_rotation"))
             {
                 return true;
             }

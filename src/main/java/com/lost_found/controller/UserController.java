@@ -60,7 +60,7 @@ public class UserController
      */
     @ApiOperation(value = "获得用户所有帖子")
     @GetMapping("/query_posts")
-    public ServerResponse<List<Post>> queryByUserId()
+    public ServerResponse queryByUserId()
     {
         return userService.queryByUserId();
     }

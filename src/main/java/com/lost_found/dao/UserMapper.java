@@ -28,5 +28,4 @@ public interface UserMapper {
 
     User login(String openId);
 
-    List<Post> queryByUserId(Integer userId);
 }

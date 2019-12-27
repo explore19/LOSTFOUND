@@ -5,5 +5,7 @@ import com.lost_found.pojo.Praise;
 
 public interface IPraiseService
 {
-    ServerResponse addPraise(Praise praise);
+    ServerResponse praise(Integer postId);
+
+    boolean checkPraise(Integer postId);
 }

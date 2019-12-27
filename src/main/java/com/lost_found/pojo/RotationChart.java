@@ -17,13 +17,13 @@ public class RotationChart {
     @ApiModelProperty(value = "轮播的帖子Id")
     private Integer postId;
 
-    @ApiModelProperty(value = "轮播图Id")
+    @ApiModelProperty(value = "轮播图路径")
     private String image;
 
-    @ApiModelProperty(value = "轮播图路径")
+    @ApiModelProperty(value = "轮播图可跳转的url")
     private String url;
 
-    @ApiModelProperty(value = "轮播图Id")
+    @ApiModelProperty(value = "轮播图优先级")
     private Integer priority;
 
     @ApiModelProperty(value = "轮播图上传的时间")

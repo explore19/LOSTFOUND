@@ -27,7 +27,7 @@ public interface IUserService {
      * 根据userId查询用户所有帖子
      * @return
      */
-    ServerResponse<List<Post>> queryByUserId();
+    ServerResponse queryByUserId();
 
 //    ServerResponse uploadUserImg(HttpServletRequest request, MultipartFile file) throws IOException;
 }

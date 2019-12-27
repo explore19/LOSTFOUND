@@ -42,7 +42,6 @@ public class TreeUtil
         ReplyTree parent = new ReplyTree();
         List<Reply> list = new ArrayList<>(replyList);
         TrasnferToTree(parent, replyList, list);
-
         return parent;
     }
 

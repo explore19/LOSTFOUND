@@ -3,7 +3,6 @@ package com.lost_found.dao;
 import com.lost_found.pojo.Reply;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
@@ -27,4 +26,6 @@ public interface ReplyMapper {
     List<Reply> getAllReply(Integer id);
 
     Integer getReplyNumber(Integer postId);
+
+    List<Reply> selectUserMessage(Integer userId);
 }

@@ -73,16 +73,10 @@ public class RotationService implements IRotationService
     @Override
     public ServerResponse<List<RotationChart>> findRotaChart(Integer num)
     {
-        int totalCount = rotationChartMapper.queryTotalCount();
-
-        //如果输入的为空, 则给一个默认值
-        if (num == null) num = totalCount;
-
-        List<RotationChart> charts = rotationChartMapper.queryByPriority(num);
-        for (RotationChart chart : charts)
-        {
-            System.out.println(chart);
+        if (num == null){
+            num =rotationChartMapper.queryTotalCount();
         }
+        List<RotationChart> charts = rotationChartMapper.queryByPriority(num);
         if (charts != null)
         {
             return ServerResponse.createBySuccessMessage("查询成功!", charts);

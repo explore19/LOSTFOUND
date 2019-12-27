@@ -30,7 +30,6 @@
   <select id="queryTotalCount" resultType="Integer" >
     select
     COUNT(*)
-    <include refid="Base_Column_List" />
     from rotation_chart
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

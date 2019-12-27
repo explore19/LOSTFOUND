@@ -2,6 +2,7 @@ package com.lost_found.dao;
 
 import com.lost_found.pojo.Praise;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,7 +22,9 @@ public interface PraiseMapper {
 
     int updateByPrimaryKey(Praise record);
 
-    List<Praise> selectByUserId(Integer userId);
+    Praise selectByUserIdAndPostId(@Param("userId") Integer userId,@Param("postId") Integer postId);
 
     Integer getPraiseNumber(Integer postId);
+
+    Integer checkPraise(@Param("userId") Integer userId,@Param("postId") Integer postId);
 }

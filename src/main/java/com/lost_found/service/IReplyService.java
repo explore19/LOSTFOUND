@@ -31,4 +31,6 @@ public interface IReplyService
      * @return
      */
     ServerResponse queryByUserId();
+
+    ServerResponse getUserMessage();
 }

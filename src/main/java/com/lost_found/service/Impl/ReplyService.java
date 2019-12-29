@@ -63,14 +63,10 @@ public class ReplyService implements IReplyService
     {
         Reply reply = replyMapper.selectByPrimaryKey(id);
         Integer replyUserId = reply.getUserId();
-//        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
-//        if (userId == replyUserId)
-//        {
             return replyMapper.deleteByPrimaryKey(id) > 0 ?
                     ServerResponse.createBySuccessMessage("删除回复成功!") :
                     ServerResponse.createByErrorMessage("删除回复失败");
-//        }
-//        return ServerResponse.createByErrorCodeMessage(403, "没有权限");
+
     }
 
     /**
@@ -81,15 +77,9 @@ public class ReplyService implements IReplyService
     @Override
     public ServerResponse update(Reply reply)
     {
-        Integer replyUserId = reply.getUserId();
-//        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
-//        if (userId == replyUserId)
-//        {
             return replyMapper.updateByPrimaryKey(reply) > 0 ?
                     ServerResponse.createBySuccessMessage("修改回复成功") :
                     ServerResponse.createByErrorMessage("修改回复失败");
-//        }
-//        return ServerResponse.createByErrorCodeMessage(403, "没有权限");
     }
 
     /**
@@ -100,13 +90,36 @@ public class ReplyService implements IReplyService
     public ServerResponse queryByUserId()
     {
         Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
-        List<Reply> replies = replyMapper.queryByUserId(userId);
-        if (replies != null)
-        {
-            return  ServerResponse.createBySuccessMessage("查询所有回复成功", replies);
+        User user =userMapper.selectByPrimaryKey(userId);
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户不存在");
         }
-
-        return ServerResponse.createByErrorMessage("查询所有回复失败");
+        List<Reply> replyList = replyMapper.queryByUserId(userId);
+        List<Map<String,Object>> allData= new ArrayList<>();
+        for(Reply reply:replyList){
+            Map<String,Object> data =new HashMap<>();
+            ReplyVO replyVO =new ReplyVO();
+            replyVO.setReply(reply);
+            replyVO.setNickName(user.getNickName());
+            replyVO.setHeadPortrait(user.getHeadPortrait());
+            data.put("myReply",replyVO);
+            if(reply.getReplyId()==null){
+                Post post=postMapper.selectByPrimaryKey(reply.getPostId());
+                data.put("data",post);
+                data.put("type",0);
+            }else{
+                Reply reply1 =replyMapper.selectByPrimaryKey(reply.getReplyId());
+                User user1=userMapper.selectByPrimaryKey(reply1.getUserId());
+                if(user1==null){
+                  continue;
+                }
+                replyVO.setReplyedUserNickName(user1.getNickName());
+                data.put("data",reply1);
+                data.put("type",1);
+            }
+            allData.add(data);
+        }
+        return ServerResponse.createBySuccess(allData);
     }
 
     @Override
@@ -130,7 +143,7 @@ public class ReplyService implements IReplyService
                 data.put("data",post);
                 data.put("type",0);
             }else{
-                Reply reply1 =replyMapper.selectByPrimaryKey(reply.getId());
+                Reply reply1 =replyMapper.selectByPrimaryKey(reply.getReplyId());
                 data.put("data",reply1);
                 data.put("type",1);
             }

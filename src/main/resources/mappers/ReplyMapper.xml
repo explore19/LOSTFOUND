@@ -46,6 +46,7 @@
     <include refid="Base_Column_List" />
     from reply
     where user_id = #{userId,jdbcType=INTEGER}
+    order by create_time DESC
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from reply

@@ -63,7 +63,7 @@ public class ReplyController
      * @return
      */
     @ApiOperation(value = "查询用户的所有回复")
-    @GetMapping("/select_user_reply")
+    @GetMapping("/my_reply")
     public ServerResponse queryByUserId()
     {
         return replyService.queryByUserId();

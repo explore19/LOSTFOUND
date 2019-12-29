@@ -142,7 +142,7 @@ public class UserService implements IUserService
     {
         User user = new User();
         user.setOpenId(openId);
-        user.setStatus(2);
+        user.setStatus(3);
         user.setCreateTime(new Date());
         user.setUpdateTime(new Date());
         int count = userMapper.insert(user);

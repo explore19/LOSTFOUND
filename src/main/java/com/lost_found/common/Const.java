@@ -15,9 +15,16 @@ public class Const {
         /**
          * 帖子状态
          */
-        NEED_EXAMINE_POST(0,"需要审核帖子"),
-        NORAML_POST(1,"正常帖子"),
-        FAIL_PASS_POST(2,"未通过审核的帖子");
+        NEED_EXAMINE_POST(1,"需要审核帖子"),
+        NORMAL_POST(0,"正常帖子"),
+        FAIL_PASS_POST(2,"未通过审核的帖子"),
+
+        /**
+         * 用户状态
+         */
+        NORMAL(0,"正常"),
+        PROHIBITION(1,"已封禁"),
+        NEED_INFO(2,"未完善信息");
 
 
 

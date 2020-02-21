@@ -1,9 +1,12 @@
 package com.lost_found.service.Impl;
 
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.lost_found.common.Const;
 import com.lost_found.common.ServerResponse;
 import com.lost_found.dao.*;
+import com.lost_found.form.QueryUserForm;
 import com.lost_found.pojo.Manager;
 import com.lost_found.pojo.RotationChart;
 import com.lost_found.pojo.User;
@@ -16,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -48,8 +54,7 @@ public class ManagerService implements IManagerService
     public ServerResponse login(String username, String password)
     {
         Manager manager = queryByUsername(username);
-        String _password = manager.getPassword();
-        if (manager != null && _password.equals(password))
+        if (manager != null &&  manager.getPassword().equals(password))
         {
             HttpSession session = ServletUtils.getSession();
             session.setAttribute("role", Const.Manager);
@@ -60,14 +65,31 @@ public class ManagerService implements IManagerService
     }
 
     @Override
+    public ServerResponse logout() {
+        HttpSession session=ServletUtils.getSession();
+        if(Const.Manager.equals(session.getAttribute("role"))){
+            session.invalidate();
+            return ServerResponse.createBySuccessMessage("注销成功");
+        }
+        return ServerResponse.createByErrorMessage("注销失败");
+    }
+
+    @Override
     public ServerResponse forbidUser(Integer id)
     {
         User user = userMapper.selectByPrimaryKey(id);
-        user.setStatus(1);
+        String msg = "封禁成功!";
+        if(user.getStatus()==1){
+            user.setStatus(0);
+            msg = "解禁成功!";
+        }else {
+            user.setStatus(1);
+        }
+        user.setUpdateTime(new Date());
         int result = userMapper.updateByPrimaryKeySelective(user);
         if (result > 0)
         {
-            return ServerResponse.createBySuccessMessage("封禁成功！");
+            return ServerResponse.createBySuccessMessage(msg);
         }
         return ServerResponse.createBySuccessMessage("封禁失败！");
     }
@@ -114,6 +136,18 @@ public class ManagerService implements IManagerService
         return this.rotationChartMapper.updateByPrimaryKeySelective(rotationChart) > 0 ?
                 ServerResponse.createBySuccessMessage("修改成功") :
                 ServerResponse.createByErrorMessage("修改失败");
+    }
+
+    @Override
+    public ServerResponse queryUser(QueryUserForm queryUserForm) {
+        Page page= PageHelper.startPage(queryUserForm.getPage(), queryUserForm.getPageSize());
+        List<User> postList = userMapper.queryByForm(queryUserForm);
+        Map<String,Object> data=new HashMap<>();
+        data.put("list",postList);
+        data.put("total",(int)page.getTotal());
+        data.put("page",queryUserForm.getPage());
+        data.put("pageSize",queryUserForm.getPageSize());
+        return ServerResponse.createBySuccess(data);
     }
 
     /**

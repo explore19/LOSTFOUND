@@ -1,6 +1,8 @@
 package com.lost_found.service;
 
 import com.lost_found.common.ServerResponse;
+import com.lost_found.form.QueryPostForm;
+import com.lost_found.form.QueryUserForm;
 import com.lost_found.pojo.Manager;
 import com.lost_found.pojo.RotationChart;
 import com.lost_found.pojo.User;
@@ -22,6 +24,8 @@ public interface IManagerService {
 
     ServerResponse setRotationCharPriority(Integer id,Integer priority);//设置轮播图的优先级
 
+    ServerResponse queryUser(QueryUserForm queryUserForm); //查询用户
+
     /**
      * 根据管理员用户名去查询
      * @param username
@@ -36,6 +40,13 @@ public interface IManagerService {
      * @return
      */
     ServerResponse login(String username, String password);
+
+    /**
+     * 管理员登出
+     * @return
+     */
+    ServerResponse logout();
+
 }
 
 

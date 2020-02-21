@@ -35,6 +35,16 @@ public class ServletUtils
     }
 
     /**
+     * 获取用户Id
+     */
+    public static Integer getUserId()
+    {
+        return (Integer) getRequest().getSession().getAttribute("userId");
+    }
+
+
+
+    /**
      * 获取session
      */
     public static HttpSession getSession()

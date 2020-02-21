@@ -39,8 +39,6 @@ public class ItemTypeService implements IItemTypeService {
 
     @Override
     public ServerResponse<String> addType(ItemType type) {
-        type.setId(1);
-        type.setName("hhh");
         type.setCreateTime(new Date());
         type.setUpdateTime(new Date());
         return itemtypeMapper.insert(type) > 0 ?

@@ -54,6 +54,11 @@ public class PostService implements IPostService
     public ServerResponse<String> save(Post post)
     {
         post.setStatus(Const.STATUS.NEED_EXAMINE_POST.getStatus());  //需要审核
+        User user =userMapper.selectByPrimaryKey(ServletUtils.getUserId());
+        if(user==null||user.getStatus()==0){
+            return   ServerResponse.createByErrorMessage("请先完善信息再发布帖子");
+        }
+        post.setUserId(ServletUtils.getUserId());
         post.setCreateTime(new Date());
         post.setUpdateTime(new Date());
         post.setBrowsePoints(0);

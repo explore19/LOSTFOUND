@@ -21,7 +21,10 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
         response.setCharacterEncoding("UTF-8");
         //如果访问登录或者静态资源, 直接放行
         String uri = request.getRequestURI();
-        if (uri.contains("/login") || uri.contains("/static") || uri.contains("/img")|| uri.contains("/error")) return true;
+        if(request.getMethod().equals("OPTIONS")){
+            return  true;     //      不拦截OPTIONS类型的请求
+        }
+        if (uri.contains("/login")|| uri.contains("/manager/login") || uri.contains("/static") || uri.contains("/img")|| uri.contains("/error")) return true;
         if (session == null)
         {
             response.getWriter().write(mapper.writeValueAsString(ServerResponse.createByErrorCodeMessage(1, "网络错误, 请重试")));

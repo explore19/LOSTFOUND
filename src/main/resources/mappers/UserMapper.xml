@@ -26,7 +26,18 @@
   from user
   where  open_id=#{openID}
 </select>
+  <select id="queryByForm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from user
+    <where>
+      <if test="nickName != null and nickName !=''">
+        and nick_name LIKE CONCAT('%',#{nickName},'%')
+      </if>
+    </where>
+      order by create_time DESC
 
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

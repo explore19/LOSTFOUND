@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -49,47 +50,32 @@ public class UserService implements IUserService
     @Override
     public ServerResponse login(String code) {
 
-        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-//        ServerResponse  result = ServerResponse.createBySuccess("123");
         ServerResponse  result = getOpenId(code);
         if(result.isSuccess()){
             String openId=result.getData().toString();
             User user = userMapper.login(openId);
-            if (user != null)
+            if (user == null)
             {
-                //获取要返回的sessionId
-                HttpSession session = request.getSession();
-                session.setAttribute("role", Const.USER);
-                session.setAttribute("userId", user.getId());
-                return ServerResponse.createBySuccessMessage("登陆成功");
-            }
-            if (register(openId))
-            {
-                //获取要返回的sessionId
+                if (!register(openId)){
+                    return ServerResponse.createByErrorMessage("注册失败");
+                }
                 user = userMapper.login(openId);
-                if (user != null)
+            }
+            if (user != null)
                 {
+                    if(user.getStatus().equals(Const.STATUS.PROHIBITION)){
+                        return ServerResponse.createByErrorMessage("账号已封禁");
+                    }
                     //获取要返回的sessionId
-                    HttpSession session = request.getSession();
+                    HttpSession session = ServletUtils.getSession();
                     session.setAttribute("role", Const.USER);
                     session.setAttribute("userId", user.getId());
+                    user.setCurrentTime(new Date());
+                    userMapper.updateByPrimaryKeySelective(user);
                     return ServerResponse.createBySuccessMessage("登陆成功");
                 }
-            }
 
         }
-        //1.发送请求
-        //2.判断微信服务器请求返回是否成功
-        //3.若成功 获取用户的openId
-        //4.登录检测
-//        Integer count = userMapper.login(openId);
-//        if (count>0){
-//            return  ServerResponse.createBySuccessMessage("登录成功");
-//        }
-//        ServerResponse.createByErrorCodeMessage(100,"用户信息不完整");
-        // 构造User对象
-        // userMapper.insert(user)
-//        return ServerResponse.createByErrorMessage("账号或密码错误");
         return ServerResponse.createByErrorMessage("服务繁忙,请稍后再试");
     }
 

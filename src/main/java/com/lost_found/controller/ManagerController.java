@@ -1,6 +1,8 @@
 package com.lost_found.controller;
 
 import com.lost_found.common.ServerResponse;
+import com.lost_found.form.LoginForm;
+import com.lost_found.form.QueryUserForm;
 import com.lost_found.pojo.Manager;
 import com.lost_found.pojo.RotationChart;
 import com.lost_found.service.IManagerService;
@@ -33,18 +35,30 @@ public class ManagerController {
             @ApiImplicitParam(name = "password", value = "管理员密码", required = true, paramType = "query", dataType = "String", example = "1")}
     )
     @PostMapping("/login")
-    public ServerResponse managerLogin(String username, String password)
+    public ServerResponse managerLogin(@RequestBody LoginForm loginForm)
     {
-        return managerService.login(username, password);
+        return managerService.login(loginForm.username, loginForm.password);
     }
 
-    @PutMapping("/forbid_user")
+    @ApiOperation("管理员登出")
+    @GetMapping("/logout")
+    public ServerResponse managerLogin()
+    {
+        return managerService.logout();
+    }
+
+    @ApiOperation("批量查询用户")
+    @GetMapping("/queryUser")
+    public ServerResponse queryUser( QueryUserForm queryUserForm)
+    {
+        return managerService.queryUser(queryUserForm);
+    }
+
+    @PutMapping("/forbid_user/{id}")
     @ApiOperation("冻结用户")
     @ApiImplicitParam(name = "id", value = "用户id", required = true, paramType = "path", dataType = "int", example = "1")
-    public  ServerResponse forbidUser(Integer id){
-
+    public  ServerResponse forbidUser(@PathVariable("id")Integer id){
         return managerService.forbidUser(id);
-
     }
 
     @DeleteMapping("/delete_user_post/{id}")

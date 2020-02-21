@@ -1,6 +1,7 @@
 package com.lost_found.dao;
 
 import com.lost_found.form.LoginForm;
+import com.lost_found.form.QueryUserForm;
 import com.lost_found.pojo.Post;
 import com.lost_found.pojo.User;
 
@@ -27,5 +28,7 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User login(String openId);
+
+    List<User> queryByForm(QueryUserForm queryUserForm);
 
 }

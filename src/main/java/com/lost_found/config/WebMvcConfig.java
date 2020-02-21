@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -30,7 +31,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     private  String uploadPicturePath;
 
     @Override
-
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         //其他静态资源
@@ -38,6 +38,19 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/img/**").addResourceLocations("file:"+uploadPicturePath);
     }
 
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        //设置允许跨域的路径
+        registry.addMapping("/**")
+                //设置允许跨域请求的域名
+                .allowedOrigins("*")
+                //是否允许证书 不再默认开启
+                .allowCredentials(true)
+                //设置允许的方法
+                .allowedMethods("*")
+                //跨域允许时间
+                .maxAge(3600);
+    }
 
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -69,7 +82,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**");
+//        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 

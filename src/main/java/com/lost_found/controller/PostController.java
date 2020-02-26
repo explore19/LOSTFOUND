@@ -59,7 +59,7 @@ public class PostController
      * @return
      */
     @ApiOperation(value = "修改帖子")
-    @PutMapping
+//    @PutMapping
     public ServerResponse<String> updatePost(@RequestBody Post post)
     {
         return postService.update(post);

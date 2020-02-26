@@ -63,7 +63,7 @@ public class UserService implements IUserService
             }
             if (user != null)
                 {
-                    if(user.getStatus().equals(Const.STATUS.PROHIBITION)){
+                    if(user.getStatus().equals(Const.STATUS.PROHIBITION.getStatus())){
                         return ServerResponse.createByErrorMessage("账号已封禁");
                     }
                     //获取要返回的sessionId

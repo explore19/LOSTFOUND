@@ -82,7 +82,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 

@@ -21,19 +21,21 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
         response.setCharacterEncoding("UTF-8");
         //如果访问登录或者静态资源, 直接放行
         String uri = request.getRequestURI();
-        if(request.getMethod().equals("OPTIONS")){
+        if(request.getMethod().contains("OPTIONS")){
             return  true;     //      不拦截OPTIONS类型的请求
         }
-        if (uri.contains("/login")|| uri.contains("/manager/login") || uri.contains("/static") || uri.contains("/img")|| uri.contains("/error")) return true;
+        if (uri.contains("/user/login")|| uri.contains("/manager/login") || uri.contains("/static") || uri.contains("/img")|| uri.contains("/error")) {
+            return true;
+        }
+
         if (session == null)
         {
-            response.getWriter().write(mapper.writeValueAsString(ServerResponse.createByErrorCodeMessage(1, "网络错误, 请重试")));
             response.sendError(403);
             return false;
         }
         String role = session.getAttribute("role").toString();
 
-        if (Const.USER.equals(role))
+        if (Const.USER.contains(role))
         {
             if (uri.contains("/user") || uri.contains("/post") || uri.contains("/reply") || uri.contains("/upload") || uri.contains("/praise")||uri.contains("/itemType/getAllType")||uri.contains("/rotation_chart/find_rotation"))
             {
@@ -43,7 +45,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
             response.getWriter().write(mapper.writeValueAsString(ServerResponse.createByErrorCodeMessage(1, "没有权限")));
             return false;
         }
-        else if (Const.Manager.equals(role))
+        else if (Const.Manager.contains(role))
         {
             return true;
         }

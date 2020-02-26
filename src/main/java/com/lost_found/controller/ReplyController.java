@@ -27,7 +27,7 @@ public class ReplyController
     @PostMapping
     public ServerResponse postReply(@RequestBody Reply reply)
     {
-        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+        Integer userId = ServletUtils.getUserId();
         reply.setUserId(userId);
         return replyService.insert(reply);
     }
@@ -39,7 +39,7 @@ public class ReplyController
      */
     @ApiOperation(value = "删除回复")
     @ApiImplicitParam(name = "replyId", value = "回复Id", required = true, paramType = "path", dataType = "int", example = "1")
-    @DeleteMapping("/{id:\\d+}")
+//    @DeleteMapping("/{id:\\d+}")
     public ServerResponse deleteReply(@PathVariable Integer id)
     {
         return replyService.delete(id);
@@ -52,7 +52,7 @@ public class ReplyController
      * @return
      */
     @ApiOperation(value = "修改回复")
-    @PutMapping("/update_reply")
+//    @PutMapping("/update_reply")
     public ServerResponse updateReply(@RequestBody Reply reply)
     {
         return replyService.update(reply);

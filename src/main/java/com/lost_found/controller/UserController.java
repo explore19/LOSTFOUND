@@ -47,7 +47,7 @@ public class UserController
 
     /*应该写在管理员层?*/
     @ApiOperation(value = "删除用户")
-    @PostMapping("/delete_info")   //删除用户信息的方法
+//    @PostMapping("/delete_info")   //删除用户信息的方法
     public ServerResponse deleteInfo(@RequestBody User user)
     {
         return userService.deleteInfo(user);
@@ -66,20 +66,7 @@ public class UserController
     }
 
 
-//    @GetMapping("/register")
-//    public ServerResponse register(String code){
-//        return  userService.login(code);
-//    }
 
-//    /**
-//     * 上传用户头像
-//     */
-//    @ApiOperation(value = "上传图片")
-//    @PostMapping("/upload_user_img")
-//    public ServerResponse uploadImg(HttpServletRequest request, MultipartFile file) throws IOException
-//    {
-//        return userService.uploadUserImg(request, file);
-//    }
 
 
 }

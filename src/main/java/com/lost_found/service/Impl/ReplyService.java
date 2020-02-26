@@ -89,7 +89,7 @@ public class ReplyService implements IReplyService
     @Override
     public ServerResponse queryByUserId()
     {
-        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+        Integer userId =  ServletUtils.getUserId();
         User user =userMapper.selectByPrimaryKey(userId);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户不存在");
@@ -124,7 +124,7 @@ public class ReplyService implements IReplyService
 
     @Override
     public ServerResponse getUserMessage() {
-        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
+        Integer userId = ServletUtils.getUserId();
         List<Reply> replyList= replyMapper.selectUserMessage(userId);
         List<Map<String,Object>> allData= new ArrayList<>();
         for(Reply reply:replyList){

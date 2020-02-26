@@ -55,7 +55,7 @@ public class PostService implements IPostService
     {
         post.setStatus(Const.STATUS.NEED_EXAMINE_POST.getStatus());  //需要审核
         User user =userMapper.selectByPrimaryKey(ServletUtils.getUserId());
-        if(user==null||user.getStatus()==0){
+        if(user==null||user.getStatus()!=0){
             return   ServerResponse.createByErrorMessage("请先完善信息再发布帖子");
         }
         post.setUserId(ServletUtils.getUserId());
@@ -75,13 +75,13 @@ public class PostService implements IPostService
         Integer postUserId = postMapper.selectByPrimaryKey(id).getUserId();
         Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
 
-//        if (postUserId == userId)
-//        {
+        if (postUserId.equals(userId))
+        {
         return postMapper.deleteByPrimaryKey(id) > 0 ?
                 ServerResponse.createBySuccessMessage("删除成功") :
                 ServerResponse.createByErrorMessage("删除失败");
-//        }
-//        return ServerResponse.createByErrorCodeMessage(403, "没有权限");
+        }
+        return ServerResponse.createByErrorCodeMessage(403, "没有权限");
     }
 
     @Override
@@ -163,7 +163,7 @@ public class PostService implements IPostService
         }
         HashMap<String,Object> list = new HashMap<>();
         list.put("data",allData);
-        list.put("total",page.getTotal());
+        list.put("total",(int)page.getTotal());
         return ServerResponse.createBySuccess(list);
     }
 

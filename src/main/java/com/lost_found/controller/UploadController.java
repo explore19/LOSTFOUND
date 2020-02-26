@@ -20,7 +20,7 @@ public class UploadController
     @Value("${upload.picture.path}")
     private String uploadPicturePath;
 
-    @PostMapping("/img")
+    @PostMapping("/image")
     public ServerResponse uploadImg( @RequestParam("img") MultipartFile file) throws IOException
     {
         String url="";

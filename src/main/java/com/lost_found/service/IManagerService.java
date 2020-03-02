@@ -47,6 +47,8 @@ public interface IManagerService {
      */
     ServerResponse logout();
 
+
+
 }
 
 

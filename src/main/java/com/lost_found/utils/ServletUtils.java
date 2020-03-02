@@ -42,6 +42,14 @@ public class ServletUtils
         return (Integer) getRequest().getSession().getAttribute("userId");
     }
 
+    /**
+     * 获取用户角色
+     */
+    public static String getRole()
+    {
+        return getRequest().getSession().getAttribute("role").toString();
+    }
+
 
 
     /**

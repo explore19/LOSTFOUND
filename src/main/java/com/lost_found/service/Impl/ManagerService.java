@@ -69,10 +69,12 @@ public class ManagerService implements IManagerService
         HttpSession session=ServletUtils.getSession();
         if(Const.Manager.equals(session.getAttribute("role"))){
             session.invalidate();
-            return ServerResponse.createBySuccessMessage("注销成功");
+
         }
-        return ServerResponse.createByErrorMessage("注销失败");
+        return ServerResponse.createBySuccessMessage("注销成功");
     }
+
+
 
     @Override
     public ServerResponse forbidUser(Integer id)
@@ -159,8 +161,7 @@ public class ManagerService implements IManagerService
     @Override
     public Manager queryByUsername(String username)
     {
-        Manager manager = managerMapper.queryByUsername(username);
-        return manager;
+        return managerMapper.queryByUsername(username);
     }
 
 }

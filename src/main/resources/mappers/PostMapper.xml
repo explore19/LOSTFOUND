@@ -56,7 +56,7 @@
         <if test="sortType == 0">
             order by update_time DESC
         </if>
-        <if test="sortType == 1">
+        <if test="sortType != 0">
             order by create_time DESC
         </if>
 

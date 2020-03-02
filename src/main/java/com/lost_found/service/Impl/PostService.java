@@ -72,16 +72,9 @@ public class PostService implements IPostService
     @Override
     public ServerResponse<String> remove(Integer id)
     {
-        Integer postUserId = postMapper.selectByPrimaryKey(id).getUserId();
-        Integer userId = Integer.valueOf(ServletUtils.getSession().getAttribute("userId").toString());
-
-        if (postUserId.equals(userId))
-        {
         return postMapper.deleteByPrimaryKey(id) > 0 ?
                 ServerResponse.createBySuccessMessage("删除成功") :
                 ServerResponse.createByErrorMessage("删除失败");
-        }
-        return ServerResponse.createByErrorCodeMessage(403, "没有权限");
     }
 
     @Override
@@ -157,7 +150,10 @@ public class PostService implements IPostService
                 data.put("post", post);
                 data.put("replyNumber", replyNumber);
                 data.put("praiseNumber", praiseNumber);
-                data.put("isPraise", praiseService.checkPraise(post.getId()));
+                if(Const.USER.equals(ServletUtils.getRole())){
+                    data.put("isPraise", praiseService.checkPraise(post.getId()));
+                }
+
                 allData.add(data);
             }
         }
@@ -179,6 +175,11 @@ public class PostService implements IPostService
         List<Reply> replyList = replyMapper.getAllReply(postId);
         ReplyTree replyTree = TreeUtil.getTree(replyList);
         return ServerResponse.createBySuccessMessage("查询成功", replyTree);
+    }
+
+    @Override
+    public Integer getPostUserId(Integer postId) {
+        return  postMapper.selectByPrimaryKey(postId).getUserId();
     }
 
 }

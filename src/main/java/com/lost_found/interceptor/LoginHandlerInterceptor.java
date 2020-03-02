@@ -24,7 +24,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
         if(request.getMethod().contains("OPTIONS")){
             return  true;     //      不拦截OPTIONS类型的请求
         }
-        if (uri.contains("/user/login")|| uri.contains("/manager/login") || uri.contains("/static") || uri.contains("/img")|| uri.contains("/error")) {
+        if (uri.contains("/user/login")||uri.contains("/logout")|| uri.contains("/manager/login") || uri.contains("/static") || uri.contains("/img")|| uri.contains("/error")) {
             return true;
         }
 

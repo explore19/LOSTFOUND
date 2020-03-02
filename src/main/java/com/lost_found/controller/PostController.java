@@ -6,6 +6,7 @@ import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
 import com.lost_found.pojo.Reply;
 import com.lost_found.service.IPostService;
+import com.lost_found.utils.ServletUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -49,6 +50,9 @@ public class PostController
     @DeleteMapping("/{id:\\d+}")
     public ServerResponse<String> removePost(@PathVariable Integer id)
     {
+        if(!ServletUtils.getUserId().equals(postService.getPostUserId(id))){
+            return ServerResponse.createByErrorMessage("权限不足");
+        }
         return postService.remove(id);
     }
 

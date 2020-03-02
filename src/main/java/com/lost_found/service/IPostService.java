@@ -57,4 +57,6 @@ public interface IPostService {
      * @return
      */
     ServerResponse<ReplyTree> getAllReply(Integer postId);
+
+   Integer getPostUserId(Integer postId);
 }

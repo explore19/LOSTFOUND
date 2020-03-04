@@ -116,7 +116,7 @@ public class ManagerService implements IManagerService
     public ServerResponse uploadRotationChart(@NotNull RotationChart rotationChart){
 
         rotationChart.setUpdateTime(new Date());
-        rotationChart.setCreatTime(new Date());
+        rotationChart.setCreateTime(new Date());
         return this.rotationChartMapper.updateByPrimaryKeySelective(rotationChart) > 0 ?
                 ServerResponse.createBySuccess("上传成功") :
                 ServerResponse.createByErrorMessage("上传失败");

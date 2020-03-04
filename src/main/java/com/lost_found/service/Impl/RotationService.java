@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,9 +33,19 @@ public class RotationService implements IRotationService
     @Override
     public ServerResponse addRotaChart(RotationChart record)
     {
+        record.setCreateTime(new Date());
+        record.setUpdateTime(new Date());
         return rotationChartMapper.insert(record) > 0 ?
                 ServerResponse.createBySuccessMessage("添加成功") :
                 ServerResponse.createByErrorMessage("添加失败, 请重新尝试");
+    }
+
+    @Override
+    public ServerResponse updateRotaChart(RotationChart record) {
+        record.setUpdateTime(new Date());
+        return rotationChartMapper.updateByPrimaryKeySelective(record) > 0 ?
+                ServerResponse.createBySuccessMessage("修改成功") :
+                ServerResponse.createByErrorMessage("修改失败, 请重新尝试");
     }
 
 //    /**
@@ -71,12 +82,12 @@ public class RotationService implements IRotationService
      * @return
      */
     @Override
-    public ServerResponse<List<RotationChart>> findRotaChart(Integer num)
+    public ServerResponse<List<RotationChart>> findRotaChart(Integer num,String name)
     {
         if (num == null){
             num =rotationChartMapper.queryTotalCount();
         }
-        List<RotationChart> charts = rotationChartMapper.queryByPriority(num);
+        List<RotationChart> charts = rotationChartMapper.queryByPriority(num,name);
         if (charts != null)
         {
             return ServerResponse.createBySuccessMessage("查询成功!", charts);

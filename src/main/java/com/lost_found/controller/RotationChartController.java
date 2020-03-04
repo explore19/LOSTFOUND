@@ -29,24 +29,25 @@ public class RotationChartController
      * @return
      */
     @ApiOperation(value = "添加轮播图")
-    @PostMapping("/add_rotation_chart")
+    @PostMapping
     public ServerResponse addRotaChart(@RequestBody RotationChart record)
     {
         return rotationService.addRotaChart(record);
     }
 
-//    /**
-//     * 将轮播图存储到服务器上
-//     * 前端循环上传需要上传的图片
-//     * @param request
-//     * @return
-//     */
-//    @ApiOperation(value = "上传轮播图到服务器")
-//    @PostMapping("/upload_img")
-//    public ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException
-//    {
-//        return rotationService.uploadRotaImg(request);
-//    }
+    /**
+     * 修改首页的轮播图
+     * @param record 轮播图对象
+     * @return
+     */
+    @ApiOperation(value = "修改轮播图")
+    @PutMapping
+    public ServerResponse updateRotaChart(@RequestBody RotationChart record)
+    {
+        return rotationService.updateRotaChart(record);
+    }
+
+
 
     /**
      * 根据id删除轮播图
@@ -55,7 +56,7 @@ public class RotationChartController
      */
     @ApiOperation(value = "删除轮播图")
     @ApiImplicitParam(name = "id", value = "轮播图Id", required = true, paramType = "path", dataType = "int", example = "1")
-    @DeleteMapping("/delete_rotation_chart/{id:\\d+}")
+    @DeleteMapping("/{id:\\d+}")
     public ServerResponse deleteRotaChart(@PathVariable Integer id)
     {
         return rotationService.deleteRotaChart(id);
@@ -69,8 +70,8 @@ public class RotationChartController
     @ApiOperation(value = "按照优先级查询轮播图")
     @ApiImplicitParam(name = "num", value = "要查询的数量", required = false, paramType = "query", dataType = "int", example = "1")
     @GetMapping("/find_rotation")
-    public ServerResponse<List<RotationChart>> changeRotaChart(Integer num)
+    public ServerResponse<List<RotationChart>> changeRotaChart(Integer num,String name)
     {
-        return rotationService.findRotaChart(num);
+        return rotationService.findRotaChart(num,name);
     }
 }

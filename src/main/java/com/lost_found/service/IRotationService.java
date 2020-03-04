@@ -18,11 +18,8 @@ public interface IRotationService
      */
     ServerResponse addRotaChart(RotationChart record);
 
-//    /**
-//     * 将轮播图存储到服务器上
-//     * @return
-//     */
-//    ServerResponse uploadRotaImg(HttpServletRequest request) throws IOException;
+    ServerResponse updateRotaChart(RotationChart record);
+
 
     /**
      * 根据id删除轮播图
@@ -36,5 +33,5 @@ public interface IRotationService
      * @param num
      * @return
      */
-    ServerResponse<List<RotationChart>> findRotaChart(Integer num);
+    ServerResponse<List<RotationChart>> findRotaChart(Integer num,String name);
 }

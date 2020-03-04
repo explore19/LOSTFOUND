@@ -11,7 +11,10 @@ public class RotationChart {
     @ApiModelProperty(value = "轮播图Id")
     private Integer id;
 
-    @ApiModelProperty(value = "轮播图类型 0-帖子轮播图, 1-广告轮播图")
+    @ApiModelProperty(value = "轮播图名称")
+    private String name;
+
+    @ApiModelProperty(value = "轮播图类型 0-广告轮播图, 1-帖子轮播图")
     private Integer type;
 
     @ApiModelProperty(value = "轮播的帖子Id")
@@ -28,7 +31,7 @@ public class RotationChart {
 
     @ApiModelProperty(value = "轮播图上传的时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date creatTime;
+    private Date createTime;
 
     @ApiModelProperty(value = "轮播图更新的时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
@@ -40,6 +43,14 @@ public class RotationChart {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getType() {
@@ -82,12 +93,12 @@ public class RotationChart {
         this.priority = priority;
     }
 
-    public Date getCreatTime() {
-        return creatTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatTime(Date creatTime) {
-        this.creatTime = creatTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getUpdateTime() {
@@ -108,7 +119,7 @@ public class RotationChart {
                 ", image='" + image + '\'' +
                 ", url='" + url + '\'' +
                 ", priority=" + priority +
-                ", creatTime=" + creatTime +
+                ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';
     }

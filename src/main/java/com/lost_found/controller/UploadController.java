@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 @Api(tags = "上传图片接口")
 @RestController
@@ -47,7 +48,7 @@ public class UploadController
                     if ("GIF".equals(type.toUpperCase()) || "PNG".equals(type.toUpperCase()) || "JPG".equals(type.toUpperCase()))
                     {
                         // 新的图片的名称
-                        String trueFileName = System.currentTimeMillis() + originalFilename;
+                        String trueFileName = System.currentTimeMillis() + getRandomString(15);
                         // 设置存放图片文件的路径
                         path = uploadPicturePath + trueFileName;
                         File file1 = new File(uploadPicturePath);
@@ -65,73 +66,17 @@ public class UploadController
             }
             return ServerResponse.createByErrorMessage("上传图片失败, 请重新上传");
     }
+
+    private static String getRandomString(int length){
+        String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random=new Random();
+        StringBuffer sb=new StringBuffer();
+        for(int i=0;i<length;i++){
+            int number=random.nextInt(62);
+            sb.append(str.charAt(number));
+        }
+        return sb.toString();
+    }
 }
 
 
-//@Component
-//public class UploadImgsUtil
-//{
-////    @Value("${upload.picture.path}")
-//    private static String uploadPicturePath = "F:/lostfound/upload/";
-//
-//    public static String[] uploadImg(MultipartFile[] file) throws IOException
-//    {
-//        String data[] = new String[file.length];
-//        //检查图片的大小
-//        for (int i = 0; i < file.length; i++)
-//        {
-//            boolean flag = FileUtil.checkFileSize(file.getSize(), 2, "M");
-//            if (!flag)
-//            {
-//                //图片大小超限
-//                data[0] = "-1";
-//                return data;
-//            }
-//
-//            if (!file.isEmpty())
-//            {
-//                String originalFilename = file.getOriginalFilename();//获取图片文件的名字
-//                String path = null;
-//                String type = null; //图片类型
-//                type = originalFilename.indexOf(".") != -1 ?
-//                        originalFilename.substring(originalFilename.lastIndexOf(".") + 1, originalFilename.length())
-//                        : null;
-//
-//                if (type != null)
-//                {
-//                    if ("GIF".equals(type.toUpperCase()) || "PNG".equals(type.toUpperCase()) || "JPG".equals(type.toUpperCase()))
-//                    {
-//                        // 新的图片的名称
-//                        String trueFileName = System.currentTimeMillis() + originalFilename;
-//                        // 设置存放图片文件的路径
-//                        path = uploadPicturePath + trueFileName;
-//                        File file1 = new File(uploadPicturePath);
-//                        if (!file1.exists())
-//                        {
-//                            file1.mkdirs();
-//                        }
-//                        //把图片存储到服务器中
-//                        file.transferTo(new File(path));
-//                        data = trueFileName;
-//                    }
-//                    else
-//                    {
-//                        data[0] = "0";
-//                        return data;
-//                    }
-//                }
-//                else
-//                {
-//                    data[0] = "0";
-//                    return data;
-//                }
-//            }
-//            else
-//            {
-//                data[0] = "0";
-//                return data;
-//            }
-//        }
-//        return data;
-//    }
-//}

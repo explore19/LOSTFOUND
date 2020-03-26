@@ -48,7 +48,7 @@ public class UploadController
                     if ("GIF".equals(type.toUpperCase()) || "PNG".equals(type.toUpperCase()) || "JPG".equals(type.toUpperCase()))
                     {
                         // 新的图片的名称
-                        String trueFileName = System.currentTimeMillis() + getRandomString(15);
+                        String trueFileName = System.currentTimeMillis() + getRandomString(15)+"."+type;
                         // 设置存放图片文件的路径
                         path = uploadPicturePath + trueFileName;
                         File file1 = new File(uploadPicturePath);

@@ -50,6 +50,7 @@ public class UserService implements IUserService
     @Override
     public ServerResponse login(String code) {
 
+//        ServerResponse  result = getOpenId(code);
         ServerResponse  result = getOpenId(code);
         if(result.isSuccess()){
             String openId=result.getData().toString();

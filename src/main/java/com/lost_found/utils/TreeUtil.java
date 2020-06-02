@@ -80,7 +80,7 @@ public class TreeUtil
                 TrasnferToTree(parent.findChild(parent, replyVO), replyList, list);
             }
             //如果是回复回复的回复且该节点的回复确实是回复父节点的回复, 则插入
-            else if (parent.getReply().getReply() != null && reply.getType() == 1 && reply.getReplyId() == parent.getReply().getReply().getId())
+            else if (parent.getReply().getReply() != null && reply.getType() == 1 && parent.getReply().getReply().getId().equals(reply.getReplyId()))
             {
                 parent.add(parent, replyVO);
                 list.remove(reply);
@@ -100,7 +100,7 @@ public class TreeUtil
         boolean flag = true;
         for (Reply reply : replyList)
         {
-            if (reply.getReplyId() == replyVO.getReply().getId())
+            if (replyVO.getReply().getId().equals(reply.getReplyId()) )
                 flag = false;
         }
         return flag;

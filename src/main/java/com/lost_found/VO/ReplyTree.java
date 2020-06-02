@@ -62,7 +62,7 @@ public class ReplyTree
         Integer id = reply.getReply().getId();
         for (ReplyTree child : parent.getChildren())
         {
-            if (child.getReply().getReply().getId() == id)
+            if (child.getReply().getReply().getId().equals(id))
             {
                 return child;
             }

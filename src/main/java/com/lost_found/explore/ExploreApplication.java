@@ -11,6 +11,7 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.servlet.MultipartConfigElement;
@@ -19,6 +20,7 @@ import javax.servlet.MultipartConfigElement;
 @SpringBootApplication
 @ComponentScan(basePackages = "com.lost_found")
 @MapperScan(basePackages = {"com.lost_found.dao"})
+@EnableAsync
 public class ExploreApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

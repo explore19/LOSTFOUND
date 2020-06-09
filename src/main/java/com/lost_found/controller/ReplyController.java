@@ -39,7 +39,7 @@ public class ReplyController
      */
     @ApiOperation(value = "删除回复")
     @ApiImplicitParam(name = "replyId", value = "回复Id", required = true, paramType = "path", dataType = "int", example = "1")
-//    @DeleteMapping("/{id:\\d+}")
+   @DeleteMapping("/{id:\\d+}")
     public ServerResponse deleteReply(@PathVariable Integer id)
     {
         return replyService.delete(id);

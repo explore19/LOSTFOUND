@@ -22,11 +22,18 @@
     id, user_id, `name`, lose_time, lost_place, contact, image, `type`, details, post_type,
     browse_points, praise_points, status, create_time, update_time
   </sql>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from post
         where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from post
+        where status = #{status,jdbcType=INTEGER}
     </select>
     <select id="queryByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -41,6 +48,9 @@
         <where>
             <if test="postType != null and postType!=-1">
                 post_type=#{postType}
+            </if>
+            <if test="status != null and postType!=-1">
+                and status=#{status}
             </if>
             <if test="itemType != null and itemType != -1">
                 and `type`=#{itemType}
@@ -68,15 +78,15 @@
   </delete>
     <insert id="insert" parameterType="com.lost_found.pojo.Post">
     insert into post (id, user_id, `name`,
-      lose_time, lost_place, contact, 
+      lose_time, lost_place, contact,
       image, `type`, details,
-      post_type, browse_points, praise_points, 
+      post_type, browse_points, praise_points,
       status, create_time, update_time
       )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{loseTime,jdbcType=TIMESTAMP}, #{lostPlace,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
-      #{image,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{details,jdbcType=VARCHAR}, 
-      #{postType,jdbcType=INTEGER}, #{browsePoints,jdbcType=INTEGER}, #{praisePoints,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+      #{loseTime,jdbcType=TIMESTAMP}, #{lostPlace,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR},
+      #{image,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{details,jdbcType=VARCHAR},
+      #{postType,jdbcType=INTEGER}, #{browsePoints,jdbcType=INTEGER}, #{praisePoints,jdbcType=INTEGER},
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>

@@ -6,13 +6,17 @@ import com.lost_found.form.QueryPostForm;
 import com.lost_found.pojo.Post;
 import com.lost_found.pojo.Reply;
 import com.lost_found.service.IPostService;
+import com.lost_found.service.Impl.PostService;
 import com.lost_found.utils.ServletUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Map;
 
@@ -89,7 +93,7 @@ public class PostController
     @ApiOperation(value = "根据QueryPostForm查询获得一定数目帖子")
     @ApiImplicitParam(name="queryPostForm",value="查询表单",required=true,paramType="query")
     @GetMapping("/query")
-    public ServerResponse  query(QueryPostForm queryPostForm)
+    public ServerResponse query(QueryPostForm queryPostForm)
     {
         return postService.query(queryPostForm);
     }
@@ -107,4 +111,19 @@ public class PostController
         return postService.getAllReply(postId);
     }
 
+
+
+
+    /**
+     * @Author: 0045M
+     * @Description:
+     * @Param [id, operation]
+     * @return com.lost_found.common.ServerResponse
+     * @Date: 23:09 2020/6/2
+     */
+    @ApiOperation(value = "根据帖子id查询该帖子根据操作数修改帖子状态")
+    @GetMapping("/Audit")
+    public ServerResponse AuditPost(Integer id,Integer operation){
+        return postService.AuditPost(id,operation);
+}
 }

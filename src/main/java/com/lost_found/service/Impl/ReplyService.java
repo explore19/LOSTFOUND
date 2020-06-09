@@ -29,6 +29,9 @@ public class ReplyService implements IReplyService
     @Autowired
     UserMapper userMapper;
 
+
+
+
     /**
      * 根据帖子Id发表回复
      *
@@ -61,8 +64,8 @@ public class ReplyService implements IReplyService
     @Override
     public ServerResponse delete(Integer id)
     {
-        Reply reply = replyMapper.selectByPrimaryKey(id);
-        Integer replyUserId = reply.getUserId();
+//        Reply reply = replyMapper.selectByPrimaryKey(id);
+//        Integer replyUserId = reply.getUserId();
             return replyMapper.deleteByPrimaryKey(id) > 0 ?
                     ServerResponse.createBySuccessMessage("删除回复成功!") :
                     ServerResponse.createByErrorMessage("删除回复失败");

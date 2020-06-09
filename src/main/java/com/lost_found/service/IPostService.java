@@ -59,4 +59,15 @@ public interface IPostService {
     ServerResponse<ReplyTree> getAllReply(Integer postId);
 
    Integer getPostUserId(Integer postId);
+
+   /**
+        * @Author MRH0045
+        * @Description 根据id审核帖子
+        * @Date 22:30 2020/6/2
+        * @Param [id, operation]
+        * @return com.lost_found.common.ServerResponse
+        **/
+    ServerResponse AuditPost(Integer id,Integer operation);
+
+
 }

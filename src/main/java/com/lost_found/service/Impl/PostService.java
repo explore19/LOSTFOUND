@@ -50,6 +50,12 @@ public class PostService implements IPostService
     @Autowired
     PraiseService praiseService;
 
+    private static int PASS = 0;
+
+    private static  int UNPASS = 2;
+
+
+
     @Override
     public ServerResponse<String> save(Post post)
     {
@@ -181,5 +187,27 @@ public class PostService implements IPostService
     public Integer getPostUserId(Integer postId) {
         return  postMapper.selectByPrimaryKey(postId).getUserId();
     }
+
+    @Override
+    /**
+     * @Author: 0045M
+     * @Description:
+     * @Param [id, operation]
+     * @return com.lost_found.common.ServerResponse
+     * @Date: 13:35 2020/6/7
+     */
+    public ServerResponse AuditPost(Integer id, Integer operation) {
+        Post post = postMapper.selectByPrimaryKey(id);
+        if(operation.equals(PASS)||operation.equals(UNPASS)) {
+            post.setStatus(operation);
+            return postMapper.updateByPrimaryKeySelective(post) > 0 ?
+                    ServerResponse.createBySuccessMessage("操作成功") :
+                    ServerResponse.createByErrorMessage("操作失败");
+        }else{
+            return ServerResponse.createByErrorMessage("操作数错误！");
+        }
+    }
+
+
 
 }

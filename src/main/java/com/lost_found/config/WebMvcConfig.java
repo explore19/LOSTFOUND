@@ -34,8 +34,14 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         //其他静态资源
+//        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/img/**").addResourceLocations("file:"+uploadPicturePath);
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations(
+                "classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations(
+                "classpath:/META-INF/resources/webjars/");
+        super.addResourceHandlers(registry);
     }
 
     @Override
@@ -82,9 +88,15 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**");
-        super.addInterceptors(registry);
+//        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+//                .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**","/csrf")
+//        .excludePathPatterns("doc.html");
+//        super.addInterceptors(registry);
     }
 
 
+
+
 }
+
+

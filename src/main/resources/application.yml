@@ -20,10 +20,10 @@ spring:
 
 server:
   port: 8000
-  ssl:
-    key-store: classpath:3516603_xyzliu.cn.pfx
-    key-store-password: 9SUchh4M
-    key-store-type: PKCS12
+#  ssl:
+#    key-store: classpath:3516603_xyzliu.cn.pfx
+#    key-store-password: 9SUchh4M
+#    key-store-type: PKCS12
 
   thymeleaf:
     cache: false

@@ -6,18 +6,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.servlet.MultipartConfigElement;
-
-@EnableTransactionManagement(proxyTargetClass = true)
 @SpringBootApplication
+@EnableTransactionManagement(proxyTargetClass = true)
+@EnableSwagger2
+@Configuration
 @ComponentScan(basePackages = "com.lost_found")
 @MapperScan(basePackages = {"com.lost_found.dao"})
 @EnableAsync

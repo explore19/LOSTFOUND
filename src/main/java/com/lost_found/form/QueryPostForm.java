@@ -9,6 +9,8 @@ public class QueryPostForm extends BasePagination {
     private String lostPlace;
     private Integer itemType;
     private Integer sortType;
+    private Integer status;
+
 
     public Integer getPostType()
     {
@@ -49,5 +51,13 @@ public class QueryPostForm extends BasePagination {
     public void setSortType(Integer sortType)
     {
         this.sortType = sortType;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

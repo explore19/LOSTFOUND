@@ -7,6 +7,7 @@ import com.lost_found.utils.ServletUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,7 @@ public class ReplyController
      */
     @ApiOperation(value = "删除回复")
     @ApiImplicitParam(name = "replyId", value = "回复Id", required = true, paramType = "path", dataType = "int", example = "1")
-   @DeleteMapping("/{id:\\d+}")
+    @DeleteMapping("/{id:\\d+}")
     public ServerResponse deleteReply(@PathVariable Integer id)
     {
         return replyService.delete(id);
@@ -80,5 +81,15 @@ public class ReplyController
         return replyService.getUserMessage();
     }
 
+    @ApiOperation(value = "根据用户id查询未读信息")
+    @GetMapping("/disread_message")
+    public ServerResponse getDisReadMessageCount(){
+        return replyService.getDisReadMessageCount();
+    }
 
+    @ApiOperation(value = "更新用户未读信息")
+    @PutMapping("/update_disreadMessage")
+    public ServerResponse updateDisreadMessage(){
+        return replyService.updateDisreadMessage();
+    }
 }

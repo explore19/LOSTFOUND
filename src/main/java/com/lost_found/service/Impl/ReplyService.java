@@ -155,5 +155,19 @@ public class ReplyService implements IReplyService
         return ServerResponse.createBySuccess(allData);
     }
 
+    @Override
+    public ServerResponse getDisReadMessageCount() {
+        Integer userId = ServletUtils.getUserId();
+        return ServerResponse.createBySuccess(replyMapper.selectDisReadMessageCount(47));
+    }
+
+    @Override
+    public ServerResponse updateDisreadMessage()
+    {
+        Integer userId = ServletUtils.getUserId();
+
+        return ServerResponse.createBySuccess(replyMapper.updateDisreadMessage(47));
+    }
+
 
 }

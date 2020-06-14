@@ -1,5 +1,6 @@
 package com.lost_found.dao;
 
+import com.lost_found.common.ServerResponse;
 import com.lost_found.pojo.Reply;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -28,4 +29,8 @@ public interface ReplyMapper {
     Integer getReplyNumber(Integer postId);
 
     List<Reply> selectUserMessage(Integer userId);
+
+    Integer selectDisReadMessageCount(Integer userId);
+
+    Integer updateDisreadMessage(Integer userId);
 }

@@ -34,6 +34,9 @@ public class Reply {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
+    @ApiModelProperty(value = "该用户是否已读")
+    private Integer isRead;
+
     public Integer getId() {
         return id;
     }
@@ -96,5 +99,14 @@ public class Reply {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getIsRead()
+    {
+        return isRead;
+    }
+    public void setIsRead(Integer isRead)
+    {
+        this.isRead = isRead;
     }
 }

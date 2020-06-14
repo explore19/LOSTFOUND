@@ -33,4 +33,8 @@ public interface IReplyService
     ServerResponse queryByUserId();
 
     ServerResponse getUserMessage();
+
+    ServerResponse getDisReadMessageCount();
+
+    ServerResponse updateDisreadMessage();
 }

@@ -40,6 +40,7 @@
         <include refid="Base_Column_List"/>
         from post
         where user_id = #{userId,jdbcType=INTEGER}
+        order by create_time DESC
     </select>
     <select id="queryByForm" resultMap="BaseResultMap">
         select

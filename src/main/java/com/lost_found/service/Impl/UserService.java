@@ -141,8 +141,8 @@ public class UserService implements IUserService
     {
         String open_id = "";
         HttpClient httpClient = HttpClients.createDefault();
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx53c71af01da2cd5a&secret" +
-                "=645b45d63ab0d87e49ae6794eb9b7e92&js_code=" + code + "&grant_type=authorization_code";
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wxf24110f2ea791989&secret" +
+                "=c951680bb740f50168b072d3263d669d&js_code=" + code + "&grant_type=authorization_code";
         try
         {
             URIBuilder uriBuilder = new URIBuilder(url);

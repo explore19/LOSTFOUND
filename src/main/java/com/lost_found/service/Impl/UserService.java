@@ -71,11 +71,11 @@ public class UserService implements IUserService
                     HttpSession session = ServletUtils.getSession();
                     session.setAttribute("role", Const.USER);
                     session.setAttribute("userId", user.getId());
+                    String sessionId = session.getId();
                     user.setCurrentTime(new Date());
                     userMapper.updateByPrimaryKeySelective(user);
-                    return ServerResponse.createBySuccessMessage("登陆成功");
+                    return ServerResponse.createBySuccessMessage("登陆成功", sessionId);
                 }
-
         }
         return ServerResponse.createByErrorMessage("服务繁忙,请稍后再试");
     }

@@ -88,14 +88,11 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-//                .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**","/csrf")
-//        .excludePathPatterns("doc.html");
-//        super.addInterceptors(registry);
+        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**","/csrf", "/feedback/**")
+        .excludePathPatterns("doc.html");
+        super.addInterceptors(registry);
     }
-
-
-
 
 }
 

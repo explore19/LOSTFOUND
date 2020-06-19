@@ -8,6 +8,7 @@
         <result column="lose_time" property="loseTime" jdbcType="TIMESTAMP"/>
         <result column="lost_place" property="lostPlace" jdbcType="VARCHAR"/>
         <result column="contact" property="contact" jdbcType="VARCHAR"/>
+        <result column="qq" property="qq" jdbcType="VARCHAR"/>
         <result column="image" property="image" jdbcType="VARCHAR"/>
         <result column="type" property="type" jdbcType="INTEGER"/>
         <result column="details" property="details" jdbcType="VARCHAR"/>
@@ -19,7 +20,7 @@
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, user_id, `name`, lose_time, lost_place, contact, image, `type`, details, post_type,
+    id, user_id, `name`, lose_time, lost_place, contact, qq, image, `type`, details, post_type,
     browse_points, praise_points, status, create_time, update_time
   </sql>
 
@@ -79,13 +80,13 @@
   </delete>
     <insert id="insert" parameterType="com.lost_found.pojo.Post">
     insert into post (id, user_id, `name`,
-      lose_time, lost_place, contact,
+      lose_time, lost_place, contact, qq,
       image, `type`, details,
       post_type, browse_points, praise_points,
       status, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
-      #{loseTime,jdbcType=TIMESTAMP}, #{lostPlace,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR},
+      #{loseTime,jdbcType=TIMESTAMP}, #{lostPlace,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{qq, jdbcType=VARCHAR},
       #{image,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{details,jdbcType=VARCHAR},
       #{postType,jdbcType=INTEGER}, #{browsePoints,jdbcType=INTEGER}, #{praisePoints,jdbcType=INTEGER},
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
@@ -111,6 +112,9 @@
             </if>
             <if test="contact != null">
                 contact,
+            </if>
+            <if test="qq != null">
+                qq,
             </if>
             <if test="image != null">
                 image,
@@ -159,6 +163,9 @@
             <if test="contact != null">
                 #{contact,jdbcType=VARCHAR},
             </if>
+            <if test="qq != null">
+                #{qq,jdbcType=VARCHAR},
+            </if>
             <if test="image != null">
                 #{image,jdbcType=VARCHAR},
             </if>
@@ -206,6 +213,9 @@
             <if test="contact != null">
                 contact = #{contact,jdbcType=VARCHAR},
             </if>
+            <if test="qq != null">
+                contact = #{qq,jdbcType=VARCHAR},
+            </if>
             <if test="image != null">
                 image = #{image,jdbcType=VARCHAR},
             </if>
@@ -243,6 +253,7 @@
       lose_time = #{loseTime,jdbcType=TIMESTAMP},
       lost_place = #{lostPlace,jdbcType=VARCHAR},
       contact = #{contact,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
       image = #{image,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=INTEGER},
       details = #{details,jdbcType=VARCHAR},

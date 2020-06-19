@@ -21,6 +21,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
         response.setCharacterEncoding("UTF-8");
         //如果访问登录或者静态资源, 直接放行
         String uri = request.getRequestURI();
+        System.out.println(uri);
         if(request.getMethod().contains("OPTIONS")){
             return  true;     //      不拦截OPTIONS类型的请求
         }
@@ -28,9 +29,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
             return true;
         }
 
+        //说明session过期了
         if (session == null)
         {
-            response.sendError(403);
+            System.out.println(request.getHeader("JSESSIONID"));
+            response.sendError(Const.STATUS.OUTSESSION.getStatus());
             return false;
         }
         String role = session.getAttribute("role").toString();
@@ -41,7 +44,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
             {
                 return true;
             }
-            response.sendError(403);
+            response.sendError(Const.STATUS.NOPERMISSION.getStatus());
             response.getWriter().write(mapper.writeValueAsString(ServerResponse.createByErrorCodeMessage(1, "没有权限")));
             return false;
         }
@@ -52,7 +55,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor
         else
         {
             //未登录
-            response.sendError(403);
+            response.sendError(Const.STATUS.NEEDLOGIN.getStatus());
             response.getWriter().write(mapper.writeValueAsString(ServerResponse.needLogin()));
             return false;
         }

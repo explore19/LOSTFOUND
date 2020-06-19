@@ -20,7 +20,7 @@ spring:
 
 server:
   port: 8000
-#  ssl:
+  #  ssl:
 #    key-store: classpath:3516603_xyzliu.cn.pfx
 #    key-store-password: 9SUchh4M
 #    key-store-type: PKCS12

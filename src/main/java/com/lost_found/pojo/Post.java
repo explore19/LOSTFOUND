@@ -30,6 +30,9 @@ public class Post {
     @ApiModelProperty(value = "发布者联系方式")
     private String contact;
 
+    @ApiModelProperty(value = "发布者qq")
+    private String qq;
+
     @ApiModelProperty(value = "帖子所携带图片")
     private String image;
 
@@ -109,6 +112,14 @@ public class Post {
         this.contact = contact == null ? null : contact.trim();
     }
 
+    public String getQq()
+    {
+        return qq;
+    }
+    public void setQq(String qq)
+    {
+        this.qq = qq;
+    }
     public String getImage() {
         return image;
     }

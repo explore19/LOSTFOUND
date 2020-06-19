@@ -24,7 +24,14 @@ public class Const {
          */
         NORMAL(0,"正常"),
         PROHIBITION(1,"已封禁"),
-        NEED_INFO(2,"未完善信息");
+        NEED_INFO(2,"未完善信息"),
+
+        /**
+         * 错误码
+         */
+        OUTSESSION(423, "过期的session"),
+        NOPERMISSION(424, "没有权限访问"),
+        NEEDLOGIN(425, "需要登陆");
 
 
 

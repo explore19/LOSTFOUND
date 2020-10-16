@@ -116,7 +116,7 @@ public class ManagerController {
 
 
 
-    @RequestMapping("/set_rotation_chart_priority")
+    @PutMapping("/set_rotation_chart_priority")
     @ApiOperation("设置轮播图的优先级")
     @ApiImplicitParam(
             name = "priority",

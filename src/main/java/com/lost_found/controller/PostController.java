@@ -82,7 +82,6 @@ public class PostController
     @GetMapping
     public ServerResponse getPost( Integer id)
     {
-        System.out.print(id);
         return postService.queryById(id);
     }
 

@@ -105,6 +105,7 @@ public class PostService implements IPostService
     @Override
     public ServerResponse queryById(Integer id)
     {
+        System.out.print(id);
         Post post = postMapper.selectByPrimaryKey(id);
         if(post==null){
             return ServerResponse.createByErrorMessage("未找到帖子信息");
